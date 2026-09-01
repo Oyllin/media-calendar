@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>自媒体发布规划 · Q4 内容排期看板</title>
+<style>
+  :root{
+    --bg:#F6F7F9;
+    --card:#FFFFFF;
+    --ink:#1F2430;
+    --ink-2:#5A6473;
+    --ink-3:#8C96A5;
+    --line:#E7EAEF;
+    --brand:#373C43;
+    --shadow:0 1px 2px rgba(31,36,48,.05), 0 8px 24px rgba(31,36,48,.06);
+    --shadow-sm:0 1px 2px rgba(31,36,48,.06);
+    --r:16px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    font-size:14px;line-height:1.6;padding:0 0 64px;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1400px;margin:0 auto;padding:0 24px}
+
+  /* ---------- header ---------- */
+  .topbar{background:var(--brand);color:#fff;padding:32px 0 28px;margin-bottom:22px}
+  .topbar .wrap{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+  .t-title{font-size:28px;font-weight:700;letter-spacing:.5px;display:flex;align-items:center;gap:12px}
+  .t-title .dot{width:10px;height:10px;border-radius:50%;background:#FF3B5C;box-shadow:0 0 0 4px rgba(255,59,92,.22)}
+  .t-sub{color:rgba(255,255,255,.66);font-size:13px;margin-top:6px}
+  .btn{border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.08);color:#fff;padding:8px 16px;
+    border-radius:10px;font-size:13px;cursor:pointer;font-family:inherit;transition:.15s}
+  .btn:hover{background:rgba(255,255,255,.18)}
+
+  /* ---------- stats ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow-sm)}
+  .stat .k{font-size:12px;color:var(--ink-3);letter-spacing:.3px}
+  .stat .v{font-size:28px;font-weight:700;line-height:1.2;margin-top:4px;font-variant-numeric:tabular-nums}
+  .stat .v small{font-size:14px;font-weight:600;color:var(--ink-3);margin-left:2px}
+  .stat .d{font-size:12px;color:var(--ink-2);margin-top:2px}
+
+  /* ---------- charts ---------- */
+  .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin-bottom:14px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:18px 20px;box-shadow:var(--shadow-sm)}
+  .panel h3{font-size:13px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+  .panel h3::before{content:"";width:3px;height:13px;border-radius:2px;background:var(--brand)}
+  .panel h3 .hint{font-size:11px;font-weight:600;color:var(--ink-3);margin-left:auto;font-weight:600}
+  .bars{display:flex;align-items:flex-end;gap:10px;height:112px}
+  .bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;min-width:0}
+  .bar{width:100%;max-width:46px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#5B7CFA,#3B5BDB);min-height:4px;transition:.25s}
+  .bar.g{background:linear-gradient(180deg,#FF7A8A,#FF3B5C)}
+  .bar-lb{font-size:11px;color:var(--ink-3);text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .bar-vl{font-size:12px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .bar-col.click{cursor:pointer;border-radius:10px;padding:2px;transition:.15s}
+  .bar-col.click:hover{background:#F2F4F8}
+  .bar-col.click.on{background:#EEF1F7;box-shadow:inset 0 0 0 1px #D8DFEA}
+  .bar-col.click.on .bar-lb{color:var(--ink);font-weight:700}
+  .hbars{display:flex;flex-direction:column;gap:7px;height:auto;justify-content:flex-start}
+  .hbar-row{display:grid;grid-template-columns:92px 1fr 24px;align-items:center;gap:9px;font-size:12px}
+  .hbar-row .nm{color:var(--ink-2);text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:600}
+  .hbar-row .bar-h{height:11px;border-radius:4px;min-width:4px;transition:.25s}
+  .hbar-row .nv{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+  .hbar-row.zero .nm{color:var(--ink-3)}
+  .hbar-row.zero .bar-h{background:#EBEEF3 !important}
+
+  /* ---------- toolbar ---------- */
+  .toolbar{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px 20px;
+    box-shadow:var(--shadow-sm);margin-bottom:18px}
+  .frow{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .frow + .frow{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+  .flabel{font-size:12px;color:var(--ink-3);width:44px;flex:none;font-weight:600}
+  .chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:#fff;color:var(--ink-2);
+    padding:6px 13px;border-radius:999px;font-size:13px;cursor:pointer;font-family:inherit;transition:.15s;user-select:none}
+  .chip:hover{border-color:#C9D0DB;background:#FBFCFD}
+  .chip .sw{width:8px;height:8px;border-radius:50%;background:currentColor;flex:none}
+  .chip .ct{font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+  .chip.on{color:#fff;border-color:transparent;font-weight:600}
+  .chip.on .ct{color:rgba(255,255,255,.82)}
+  .chip.on .sw{background:#fff !important}
+  .chip.ghost{background:transparent;border-style:dashed}
+  .chip.ghost.on{background:var(--brand);border-style:solid}
+  .mtab{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:#fff;color:var(--ink-2);
+    padding:7px 16px;border-radius:10px;font-size:13.5px;cursor:pointer;font-family:inherit;transition:.15s;font-weight:600}
+  .mtab:hover{border-color:#C9D0DB;background:#FBFCFD}
+  .mtab.on{background:var(--brand);border-color:var(--brand);color:#fff}
+  .mtab .n{background:#F0F2F6;color:var(--ink-2);border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700}
+  .mtab.on .n{background:rgba(255,255,255,.22);color:#fff}
+  .q4sum{margin-left:auto;font-size:12px;color:var(--ink-3)}
+  .q4sum b{color:var(--ink);font-size:14px;font-variant-numeric:tabular-nums}
+
+  .tabs{display:inline-flex;background:#EDEFF3;border-radius:12px;padding:4px;gap:2px}
+  .tab{border:0;background:transparent;padding:7px 18px;border-radius:9px;font-size:13px;cursor:pointer;
+    color:var(--ink-2);font-family:inherit;font-weight:600;transition:.15s}
+  .tab.on{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
+
+  /* ---------- calendar ---------- */
+  .cal-head{display:grid;grid-template-columns:repeat(7,1fr);gap:9px;margin-bottom:9px}
+  .cal-head div{text-align:center;font-size:12px;font-weight:700;color:var(--ink-2);padding:5px 0}
+  .week{margin-bottom:14px}
+  .week-tag{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--ink-2);
+    background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px;margin-bottom:8px;box-shadow:var(--shadow-sm)}
+  .week-tag .n{width:18px;height:18px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:11px}
+  .week-tag .r{font-weight:600;color:var(--ink-3)}
+  .days{display:grid;grid-template-columns:repeat(7,1fr);gap:9px}
+  .day{background:var(--card);border:1px solid var(--line);border-radius:14px;min-height:118px;padding:9px;
+    display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow-sm);transition:.15s}
+  .day:hover{border-color:#CBD3DF;box-shadow:var(--shadow)}
+  .day.dim{background:#FAFBFC}
+  .day.today{border-color:#FF3B5C;box-shadow:0 0 0 3px rgba(255,59,92,.10)}
+  .dnum{display:flex;align-items:baseline;justify-content:space-between;gap:6px}
+  .dnum b{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums}
+  .dnum .tbadge{font-size:10px;font-weight:700;color:#fff;background:#FF3B5C;border-radius:999px;padding:1px 7px}
+  .dnum .wdoff{font-size:10px;color:var(--ink-3)}
+
+  .item{border-radius:10px;padding:7px 9px;cursor:pointer;border:1px solid transparent;transition:.15s;position:relative}
+  .item:hover{transform:translateY(-1px);filter:brightness(.985)}
+  .item.draft{border-style:dashed !important;border-width:1.5px !important;background:#fff !important}
+  .item .t{font-size:12.5px;font-weight:600;line-height:1.4;word-break:break-word;padding-right:30px}
+  .item .meta{font-size:10.5px;opacity:.72;margin-top:2px}
+  .item .plats{display:flex;gap:3px;margin-top:5px;flex-wrap:wrap}
+  .ptag{font-size:10px;font-weight:700;line-height:1;border-radius:5px;padding:3px 5px;color:#fff;letter-spacing:.5px}
+  .draft-dot{position:absolute;top:6px;right:7px;font-size:9px;font-weight:700;color:#9A7B2E;
+    background:#FFF4D6;border:1px solid #EEDCAA;border-radius:4px;padding:1px 4px;line-height:1.35}
+  .span-badge{display:inline-block;font-size:10px;font-weight:600;color:#8A6A1F;background:#FFF6DF;
+    border:1px solid #F0E0AE;border-radius:5px;padding:1px 5px;margin-left:4px}
+  .cont{opacity:.62;font-style:italic}
+  .empty-day{flex:1;display:grid;place-items:center;color:#D6DBE3;font-size:11px}
+
+  /* ---------- platform view ---------- */
+  .plats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+  .pcol{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;
+    box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+  .pcol-h{padding:14px 16px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .pcol-h .nm{font-size:14px;font-weight:700}
+  .pcol-h .ab{font-size:11px;opacity:.8;margin-top:1px}
+  .pcol-h .ct{font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;opacity:.95}
+  .pcol-b{padding:12px;display:flex;flex-direction:column;gap:10px;flex:1}
+  .pitem{border:1px solid var(--line);border-radius:12px;padding:10px 11px;cursor:pointer;transition:.15s;background:#fff;position:relative}
+  .pitem:hover{border-color:#CBD3DF;box-shadow:var(--shadow);transform:translateY(-1px)}
+  .pitem.draft{border-style:dashed;border-width:1.5px}
+  .pitem .d{font-size:11px;color:var(--ink-3);display:flex;align-items:center;gap:6px;margin-bottom:4px}
+  .pitem .d .wk{background:#F0F2F6;border-radius:5px;padding:1px 6px;font-weight:600;color:var(--ink-2)}
+  .pitem .d b{color:var(--ink);font-size:12px}
+  .pitem .tt{font-size:13px;font-weight:600;line-height:1.45;padding-right:34px}
+  .pitem .cs{font-size:11px;color:var(--ink-2);margin-top:5px;display:flex;gap:5px;flex-wrap:wrap}
+  .cs span{background:#F4F6F9;border-radius:5px;padding:2px 7px}
+  .pitem .pl{margin-top:7px;display:flex;gap:4px}
+  .pempty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#B9C1CD;
+    gap:6px;padding:26px 10px;text-align:center}
+  .pempty .ic{font-size:26px;opacity:.5}
+  .pempty .tx{font-size:12px}
+
+  /* ---------- list view ---------- */
+  .tbl-wrap{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{background:#F4F6F9;text-align:left;padding:12px 16px;font-size:12px;color:var(--ink-2);font-weight:700;
+    white-space:nowrap;border-bottom:1px solid var(--line)}
+  tbody td{padding:12px 16px;border-bottom:1px solid #F0F2F6;vertical-align:middle}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:#FAFBFD}
+  tbody tr{cursor:pointer}
+  .gpill{display:inline-block;border-radius:6px;padding:2px 9px;font-size:11.5px;font-weight:700}
+  .st{font-size:11px;font-weight:700;border-radius:5px;padding:2px 8px;white-space:nowrap}
+  .st.ok{background:#E9F5EE;color:#2E7D51}
+  .st.df{background:#FFF4D6;color:#9A7B2E}
+
+  /* ---------- misc ---------- */
+  .nobar{font-size:12px;color:var(--ink-3);margin-bottom:12px}
+  .empty-tip{background:#fff;border:1.5px dashed #D8DEE8;border-radius:14px;padding:22px;text-align:center;margin-bottom:16px}
+  .empty-tip .t{font-size:15px;font-weight:700;color:var(--ink)}
+  .empty-tip .s{font-size:12.5px;color:var(--ink-2);margin-top:5px}
+  .empty-tip .hint{font-size:12px;color:var(--ink-3);margin-top:12px;background:#F7F9FC;border-radius:9px;
+    padding:10px 14px;display:inline-block;text-align:left;line-height:1.85}
+  .empty-tip .hint b{color:var(--ink-2)}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:16px;padding-top:14px;border-top:1px dashed var(--line)}
+  .lg{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-2)}
+  .lg i{width:10px;height:10px;border-radius:3px;display:inline-block}
+  .hidden{display:none !important}
+
+  /* ---------- modal ---------- */
+  .mask{position:fixed;inset:0;background:rgba(31,36,48,.42);backdrop-filter:blur(2px);display:grid;place-items:center;z-index:90;padding:20px}
+  .modal{background:#fff;border-radius:18px;width:min(460px,100%);overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+  .m-h{padding:20px 22px;color:#fff}
+  .m-h .tt{font-size:18px;font-weight:700;line-height:1.4}
+  .m-h .sb{font-size:12px;opacity:.85;margin-top:4px}
+  .m-b{padding:20px 22px;display:flex;flex-direction:column;gap:14px}
+  .kv{display:flex;gap:12px}
+  .kv .k{width:66px;flex:none;font-size:12px;color:var(--ink-3);padding-top:1px}
+  .kv .v{font-size:13.5px;color:var(--ink);font-weight:600}
+  .pf{display:flex;gap:6px;flex-wrap:wrap}
+  .pf .b{border-radius:8px;padding:5px 11px;font-size:12px;font-weight:700;color:#fff}
+  .m-f{padding:14px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;background:#FAFBFC}
+  .m-f .btn{background:#fff;color:var(--ink-2);border:1px solid var(--line)}
+  .m-f .btn:hover{background:#F2F4F7;color:var(--ink)}
+
+  .foot{margin-top:22px;font-size:12px;color:var(--ink-3);text-align:center;line-height:1.9}
+  .foot .note{display:inline-block;background:#fff;border:1px dashed #DDE2EA;border-radius:8px;padding:6px 14px;margin-bottom:8px}
+
+  @media (max-width:1180px){
+    .plats-grid{grid-template-columns:repeat(3,1fr)}
+    .charts{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:820px){
+    .wrap{padding:0 14px}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .charts{grid-template-columns:1fr}
+    .plats-grid{grid-template-columns:repeat(2,1fr)}
+    .cal-head{display:none}
+    .days{grid-template-columns:1fr;gap:8px}
+    .day{min-height:0;flex-direction:row;align-items:flex-start;gap:12px}
+    .dnum{flex-direction:column;align-items:flex-start;width:56px;flex:none}
+    .day .items{display:flex;flex-direction:column;gap:6px;flex:1}
+    .empty-day{display:none}
+  }
+  @media print{
+    body{background:#fff;padding:0}
+    .toolbar,.btn,.tabs{display:none !important}
+    .topbar{background:#373C43 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div>
+      <div class="t-title"><span class="dot"></span>自媒体发布规划</div>
+      <div class="t-sub">Q4 内容排期可视化看板 · 2026.08.31 — 2027.01.03 · 4 个月 / 18 周</div>
+    </div>
+    <button class="btn" onclick="window.print()">打印 / 导出 PDF</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="stats" id="stats"></div>
+
+  <div class="charts">
+    <div class="panel">
+      <h3>本月每周发布量<span class="hint" id="wkHint"></span></h3>
+      <div class="bars" id="weekBars"></div>
+    </div>
+    <div class="panel">
+      <h3>Q4 月度节奏<span class="hint">点击切换月份</span></h3>
+      <div class="bars" id="monBars"></div>
+    </div>
+    <div class="panel">
+      <h3>平台分布<span class="hint" id="plHint"></span></h3>
+      <div class="bars" id="platBars"></div>
+    </div>
+    <div class="panel">
+      <h3>9 栏目分布<span class="hint" id="colHint">当前月 · 颜色按板块</span></h3>
+      <div class="hbars" id="colBars"></div>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <div class="frow">
+      <span class="flabel">月份</span>
+      <div id="monTabs" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+      <span class="q4sum" id="q4sum"></span>
+    </div>
+    <div class="frow">
+      <span class="flabel">平台</span>
+      <div id="platChips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+      <button class="chip ghost" id="confBtn">仅看已确认</button>
+      <button class="chip ghost" id="resetBtn" style="margin-left:auto">重置筛选</button>
+    </div>
+    <div class="frow">
+      <span class="flabel">板块</span>
+      <div id="groupChips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+      <div class="tabs" id="tabs" style="margin-left:auto"></div>
+    </div>
+  </div>
+
+  <div class="nobar" id="nobar"></div>
+  <div id="emptyTip"></div>
+
+  <div id="viewCal"></div>
+  <div id="viewPlat" class="hidden"></div>
+  <div id="viewList" class="hidden"></div>
+
+  <div class="legend" id="legend"></div>
+
+  <div class="foot">
+    <span class="note" id="footNote"></span><br>
+    平台缩写对照：红 = 小红书 · 微 = 微博 · 视 = 视频号 · 绿 = 微信公众号 · 抖 = 抖音<br>
+    数据来源：自媒体发布日历.xlsx（9月已确认）· 10—12月留空待补充
+  </div>
+</div>
+
+<div id="modalRoot"></div>
+
+<script>
+/* ==================== 基础配置 ==================== */
+const PLATFORMS = [
+  {key:'xhs', abbr:'红', name:'小红书',     color:'#FF3B5C', soft:'#FFEDF0'},
+  {key:'wb',  abbr:'微', name:'微博',       color:'#F5900C', soft:'#FFF4E5'},
+  {key:'sph', abbr:'视', name:'视频号',     color:'#6C5CE7', soft:'#EFEDFF'},
+  {key:'gzh', abbr:'绿', name:'微信公众号', color:'#0AA86A', soft:'#E7F7F1'},
+  {key:'dy',  abbr:'抖', name:'抖音',       color:'#2A2F3A', soft:'#EDEFF3'}
+];
+const GROUPS = [
+  {key:'pro',   name:'专业向', color:'#2C5AA0', soft:'#E1EAFF'},
+  {key:'sun',   name:'阳光向', color:'#8A6A1F', soft:'#FAF1D1'},
+  {key:'other', name:'其他',   color:'#2F7A4F', soft:'#D9F5D6'}
+];
+const WEEKDAYS = ['周一','周二','周三','周四','周五','周六','周日'];
+const WK_CN = ['一','二','三','四','五'];
+const TODAY = '2026-09-01';
+
+/* 月份：起点均为周一，终点均为周日，四个月首尾相接 */
+const MONTHS = [
+  {key:'sep', name:'9月',  start:'2026-08-31', days:35, theme:'双11蓄水 · 常规节奏'},
+  {key:'oct', name:'10月', start:'2026-10-05', days:28, theme:'国庆后 · 双11预售'},
+  {key:'nov', name:'11月', start:'2026-11-02', days:28, theme:'双11爆发 · 返场'},
+  {key:'dec', name:'12月', start:'2026-11-30', days:35, theme:'双12 · 圣诞 · 年终'}
+];
+
+/* ==================== 日历主表（8.31 — 2027.01.03，126 天 / 18 周） ==================== */
+const MASTER = (function(){
+  const out = [];
+  MONTHS.forEach(m=>{
+    const st = new Date(m.start.replace(/-/g,'/'));
+    const arr = [];
+    for(let i=0;i<m.days;i++){
+      const d = new Date(st.getTime() + i*86400000);
+      arr.push({date:fmt(d), label:(d.getMonth()+1)+'.'+d.getDate(), wd:d.getDay()===0?7:d.getDay(),
+                wk:Math.floor(i/7)+1, mon:m.key, idx:i});
+    }
+    m.grid = arr;
+    out.push(...arr);
+  });
+  return out;
+})();
+
+function fmt(d){const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
+
+/* date -> {wd, wk, mon} 反查表：星期与周次由日历自动推导，杜绝手写错 */
+const DAY_MAP = {};
+MASTER.forEach(d=>{ DAY_MAP[d.date] = d; });
+
+const MONTH_MAP = Object.fromEntries(MONTHS.map(m=>[m.key,m]));
+const PLAT_MAP  = Object.fromEntries(PLATFORMS.map(p=>[p.key,p]));
+const GROUP_MAP = Object.fromEntries(GROUPS.map(g=>[g.key,g]));
+
+/* ==================== 排期数据 ====================
+   字段：date 日期 / group 板块 / col 栏目 / title 选题 / plats 平台
+         draft:true 表示建议排期待确认（当前无此类条目）
+         span 跨天（>1 时配合 endLabel）
+   ！！新增内容只需往这个数组里加一条，其余全部自动推导 ！！
+=================================================== */
+const ITEMS = [
+  /* ---------- 9月（已确认，来自原始 Excel） ---------- */
+  {date:'2026-08-31', group:'other', col:'线下需求',     title:'悟空花絮',            plats:['xhs','sph']},
+  {date:'2026-09-01', group:'other', col:'代言人',       title:'金婧代言转发',        plats:['wb']},
+  {date:'2026-09-04', group:'other', col:'产品营销',     title:'蓝胖子产品视频',      plats:['xhs','wb']},
+  {date:'2026-09-05', group:'sun',   col:'1.2m的好奇心', title:'KELME Cup 足球赛同步', plats:['xhs','gzh','wb']},
+  {date:'2026-09-08', group:'other', col:'产品营销',     title:'蓝胖子-退红可视化',   plats:['xhs','wb'], span:2, endLabel:'9.9'},
+  {date:'2026-09-15', group:'other', col:'产品营销',     title:'蓝胖子保湿可视化',    plats:['xhs','wb']},
+  {date:'2026-09-15', group:'other', col:'品牌联动',     title:'酒店公众号推文',      plats:['gzh'], span:2, endLabel:'9.16'},
+  {date:'2026-09-20', group:'other', col:'产品营销',     title:'蓝胖子体验2.0收官',   plats:['xhs']},
+  {date:'2026-09-24', group:'other', col:'产品营销',     title:'蓝胖子视频二创',      plats:['xhs','wb']}
+
+  /* ---------- 10 / 11 / 12 月：留空待定 ----------
+     [!] 未经用户明确提供内容，禁止往 10-12 月填充任何排期（含"建议"/"示例"性质的占位内容）。
+         用户提供内容后按下列格式追加即可：
+           {date:'2026-10-06', group:'other', col:'产品营销', title:'示例选题', plats:['xhs','wb']},
+     - date  ：10月 10.5-11.1 / 11月 11.2-11.29 / 12月 11.30-2027.1.3
+     - group ：pro 专业向 / sun 阳光向 / other 其他
+     - col   ：科学答案 / 科研前线 / 高光时刻 / 品牌共创官 / 1.2m的好奇心 / 线下需求 / 产品营销 / 代言人 / 品牌联动
+     - plats ：xhs 小红书 / wb 微博 / sph 视频号 / gzh 微信公众号 / dy 抖音
+     - 可选  ：draft:true 标为建议待确认（虚线显示）；span:2 + endLabel:'10.7' 表示跨天
+  */
+];
+
+/* 补齐派生字段 */
+ITEMS.forEach((it,i)=>{
+  const d = DAY_MAP[it.date];
+  if(!d) throw new Error('排期日期不在 Q4 日历范围内：' + it.date);
+  it.id = i+1;
+  it.wd = d.wd; it.wk = d.wk; it.mon = d.mon; it.label = d.label;
+  it.span = it.span || 1;
+});
+
+/* ==================== 状态 ==================== */
+const state = {
+  month:'sep',
+  plats:new Set(PLATFORMS.map(p=>p.key)),
+  groups:new Set(GROUPS.map(g=>g.key)),
+  confirmedOnly:false,
+  view:'cal'
+};
+
+/* 平台取交集、板块取包含、状态过滤、月份过滤 */
+function scopeOf(list, mon){
+  return list.filter(it=>{
+    if(mon && it.mon !== mon) return false;
+    if(!state.groups.has(it.group)) return false;
+    if(state.confirmedOnly && it.draft) return false;
+    return it.plats.some(k=>state.plats.has(k));
+  });
+}
+const curItems = () => scopeOf(ITEMS, state.month);
+const visPlats = it => it.plats.filter(k=>state.plats.has(k));
+/* 是否存在「建议待确认」条目 —— 决定相关 UI 是否出现，避免空机制变成噪音 */
+const hasDraft = () => ITEMS.some(it=>it.draft);
+/* 当前月是否整月空白 */
+const monthEmpty = () => ITEMS.filter(it=>it.mon===state.month).length === 0;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function shade(hex, amt){
+  let c = hex.replace('#','');
+  if(c.length===3) c = c.split('').map(x=>x+x).join('');
+  const n = parseInt(c,16);
+  const cl = v => Math.max(0,Math.min(255,v+amt)).toString(16).padStart(2,'0');
+  return '#'+cl(n>>16)+cl((n>>8)&255)+cl(n&255);
+}
+const itemStyle = it => {
+  const g = GROUP_MAP[it.group];
+  return it.draft
+    ? `color:${g.color};border-color:${g.color};background:#fff`
+    : `background:${g.soft};color:${g.color};border-color:${shade(g.soft,-12)}`;
+};
+
+/* ==================== 统计 ==================== */
+function renderStats(){
+  const list = curItems();
+  const posts = list.reduce((s,it)=>s+visPlats(it).length,0);
+  const days = new Set(list.map(i=>i.date)).size;
+  const usedP = PLATFORMS.filter(p=>state.plats.has(p.key) && list.some(it=>visPlats(it).includes(p.key)));
+  const counts = PLATFORMS.map(p=>({p, n:list.filter(it=>visPlats(it).includes(p.key)).length}));
+  const top = counts.slice().sort((a,b)=>b.n-a.n)[0];
+  const m = MONTH_MAP[state.month];
+  const draftN = list.filter(i=>i.draft).length;
+
+  const cards = [
+    {k:'内容选题', v:list.length, u:' 条', d:list.length?`覆盖 ${days} 个发布日`:'本月尚未排期'},
+    {k:'平台发布总数', v:posts, u:' 条', d:posts?'一条选题多平台分发':'待补充'},
+    {k:'已启用平台', v:usedP.length + ' / ' + PLATFORMS.length, d:usedP.length?usedP.map(p=>p.name).join(' · '):'待补充'},
+    {k:'主力平台', v:(top&&top.n)?top.p.name:'—', d:(top&&top.n)?`共 ${top.n} 条选题`:'待补充'}
+  ];
+  document.getElementById('stats').innerHTML = cards.map(c=>`
+    <div class="stat">
+      <div class="k">${c.k}</div>
+      <div class="v">${esc(c.v)}<small>${esc(c.u||'')}</small></div>
+      <div class="d">${esc(c.d)}</div>
+    </div>`).join('');
+
+  document.getElementById('wkHint').textContent = `${m.name} · ${m.theme}`;
+  document.getElementById('plHint').textContent = draftN ? `含 ${draftN} 条建议排期` : '全部已确认';
+}
+
+/* ==================== 图表 ==================== */
+function renderCharts(){
+  const m = MONTH_MAP[state.month];
+  const list = curItems();
+
+  // 本月每周
+  const weeks = Math.round(m.days/7);
+  const wk = [];
+  for(let w=1; w<=weeks; w++){
+    const its = list.filter(it=>it.wk===w);
+    wk.push({lb:'第'+WK_CN[w-1]+'周', n:its.reduce((s,it)=>s+visPlats(it).length,0)});
+  }
+  const maxW = Math.max(1, ...wk.map(x=>x.n));
+  document.getElementById('weekBars').innerHTML = wk.map(x=>`
+    <div class="bar-col">
+      <span class="bar-vl">${x.n}</span>
+      <div class="bar" style="height:${(x.n/maxW*68).toFixed(1)}px"></div>
+      <span class="bar-lb">${x.lb}</span>
+    </div>`).join('');
+
+  // Q4 月度节奏（跟随筛选，可点击切月）
+  const mon = MONTHS.map(mm=>{
+    const its = scopeOf(ITEMS, mm.key);
+    return {key:mm.key, lb:mm.name, n:its.reduce((s,it)=>s+visPlats(it).length,0)};
+  });
+  const maxM = Math.max(1, ...mon.map(x=>x.n));
+  document.getElementById('monBars').innerHTML = mon.map(x=>`
+    <div class="bar-col click ${x.key===state.month?'on':''}" data-mon="${x.key}">
+      <span class="bar-vl">${x.n}</span>
+      <div class="bar" style="height:${(x.n/maxM*68).toFixed(1)}px;background:${
+        x.key===state.month?'linear-gradient(180deg,#6C86F5,#3B5BDB)':'linear-gradient(180deg,#C6D0E4,#AAB7CE)'}"></div>
+      <span class="bar-lb">${x.lb}</span>
+    </div>`).join('');
+  document.querySelectorAll('[data-mon]').forEach(b=>b.onclick=()=>{state.month=b.dataset.mon;renderAll();});
+
+  // 平台分布
+  const pc = PLATFORMS.map(p=>({lb:p.name, n:list.filter(it=>visPlats(it).includes(p.key)).length, color:p.color}));
+  const maxP = Math.max(1, ...pc.map(x=>x.n));
+  document.getElementById('platBars').innerHTML = pc.map(x=>`
+    <div class="bar-col">
+      <span class="bar-vl">${x.n}</span>
+      <div class="bar g" style="height:${(x.n/maxP*68).toFixed(1)}px;background:${x.color}"></div>
+      <span class="bar-lb">${x.lb}</span>
+    </div>`).join('');
+}
+
+/* 9 栏目分布（按栏目归属板块上色） */
+const COL_ORDER = ['科学答案','科研前线','高光时刻','品牌共创官','1.2m的好奇心','线下需求','产品营销','代言人','品牌联动'];
+
+function renderColBars(){
+  const list = curItems();
+  const data = COL_ORDER.map(c=>{
+    const its = list.filter(it=>it.col===c);
+    const sample = its[0] || ITEMS.find(it=>it.col===c) || {group:'other'};
+    return {nm:c, n:its.length, color:GROUP_MAP[sample.group].color};
+  });
+  const max = Math.max(1, ...data.map(x=>x.n));
+  document.getElementById('colBars').innerHTML = data.map(x=>`
+    <div class="hbar-row ${x.n===0?'zero':''}">
+      <span class="nm" title="${esc(x.nm)}">${esc(x.nm)}</span>
+      <div class="bar-h" style="width:${(x.n/max*100).toFixed(1)}%;background:${x.color}"></div>
+      <span class="nv">${x.n}</span>
+    </div>`).join('');
+  const empty = COL_ORDER.every(c => !list.some(it=>it.col===c));
+  document.getElementById('colHint').textContent = empty
+    ? '本月暂无内容 · 9 栏目均可落条'
+    : `当前月 · 颜色按板块`;
+}
+
+/* ==================== 控件 ==================== */
+function renderMonthTabs(){
+  document.getElementById('monTabs').innerHTML = MONTHS.map(m=>{
+    const n = scopeOf(ITEMS, m.key).length;
+    return `<button class="mtab ${state.month===m.key?'on':''}" data-mtab="${m.key}" title="${esc(m.theme)}">
+      ${m.name}<span class="n">${n}</span></button>`;
+  }).join('');
+  document.querySelectorAll('[data-mtab]').forEach(b=>b.onclick=()=>{state.month=b.dataset.mtab;renderAll();});
+
+  const all = scopeOf(ITEMS, null);
+  document.getElementById('q4sum').innerHTML =
+    `Q4 合计 <b>${all.length}</b> 条选题 / <b>${all.reduce((s,i)=>s+visPlats(i).length,0)}</b> 条平台发布`;
+}
+
+function renderChips(){
+  document.getElementById('platChips').innerHTML = PLATFORMS.map(p=>{
+    const n = scopeOf(ITEMS,null).filter(it=>it.plats.includes(p.key)).length;
+    const on = state.plats.has(p.key);
+    return `<button class="chip ${on?'on':''}" data-plat="${p.key}" style="${on?`background:${p.color}`:`color:${p.color}`}">
+      <span class="sw" style="background:${p.color}"></span>${p.name}<span class="ct">${n}</span></button>`;
+  }).join('');
+
+  document.getElementById('groupChips').innerHTML = GROUPS.map(g=>{
+    const n = scopeOf(ITEMS,null).filter(it=>it.group===g.key).length;
+    const on = state.groups.has(g.key);
+    return `<button class="chip ${on?'on':''}" data-group="${g.key}" style="${on?`background:${shade(g.color,10)}`:`color:${g.color}`}">
+      ${g.name}<span class="ct">${n}</span></button>`;
+  }).join('');
+
+  document.querySelectorAll('[data-plat]').forEach(b=>b.onclick=()=>{
+    const k=b.dataset.plat; state.plats.has(k)?state.plats.delete(k):state.plats.add(k); renderAll();});
+  document.querySelectorAll('[data-group]').forEach(b=>b.onclick=()=>{
+    const k=b.dataset.group; state.groups.has(k)?state.groups.delete(k):state.groups.add(k); renderAll();});
+
+  // 「仅看已确认」只在存在建议条目时才有意义
+  const cb = document.getElementById('confBtn');
+  cb.classList.toggle('hidden', !hasDraft());
+  cb.classList.toggle('on', state.confirmedOnly);
+  cb.onclick = ()=>{ state.confirmedOnly=!state.confirmedOnly; renderAll(); };
+}
+
+const VIEW_TABS = [{k:'cal',t:'月历视图'},{k:'plat',t:'平台视图'},{k:'list',t:'内容清单'}];
+function renderTabs(){
+  document.getElementById('tabs').innerHTML = VIEW_TABS.map(v=>
+    `<button class="tab ${state.view===v.k?'on':''}" data-view="${v.k}">${v.t}</button>`).join('');
+  document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{state.view=b.dataset.view;renderAll();});
+}
+document.getElementById('resetBtn').onclick = ()=>{
+  state.plats = new Set(PLATFORMS.map(p=>p.key));
+  state.groups = new Set(GROUPS.map(g=>g.key));
+  state.confirmedOnly = false;
+  renderAll();
+};
+
+/* ==================== 月历视图 ==================== */
+function renderCal(){
+  const list = curItems();
+  const grid = MONTH_MAP[state.month].grid;
+  const occ = {};
+  list.forEach(it=>{
+    (occ[it.date] = occ[it.date] || []).push({it, cont:false});
+    if(it.span>1){
+      const i0 = MASTER.findIndex(d=>d.date===it.date);
+      for(let s=1;s<it.span;s++){
+        const d = MASTER[i0+s];
+        if(d) (occ[d.date] = occ[d.date]||[]).push({it, cont:true});
+      }
+    }
+  });
+
+  let html = `<div class="cal-head">` +
+    WEEKDAYS.map((w,i)=>`<div>${w}</div>`).join('') + `</div>`;
+
+  const weeks = Math.round(grid.length/7);
+  for(let w=1; w<=weeks; w++){
+    const wd = grid.filter(d=>d.wk===w);
+    const n = list.filter(it=>it.wk===w).length;
+    html += `<div class="week">
+      <div class="week-tag"><span class="n">${w}</span>第${WK_CN[w-1]}周
+        <span class="r">${esc(wd[0].label)} — ${esc(wd[wd.length-1].label)} · ${n} 条选题</span></div>
+      <div class="days">`;
+    wd.forEach(d=>{
+      const has = (occ[d.date]||[]).length>0;
+      const isToday = d.date===TODAY;
+      html += `<div class="day ${has?'':'dim'} ${isToday?'today':''}">
+        <div class="dnum"><b>${esc(d.label)}</b>
+          ${isToday?'<span class="tbadge">今天</span>':'<span class="wdoff">'+WEEKDAYS[d.wd-1]+'</span>'}</div>
+        <div class="items">`;
+      if(has){
+        occ[d.date].forEach(o=>{
+          const it=o.it, ps=visPlats(it);
+          html += `<div class="item ${it.draft?'draft':''} ${o.cont?'cont':''}" style="${itemStyle(it)}" data-id="${it.id}">
+            ${it.draft?'<span class="draft-dot">建议</span>':''}
+            <div class="t">${esc(it.title)}${it.span>1?`<span class="span-badge">${o.cont?'接 '+it.endLabel:'跨 '+it.span+' 天'}</span>`:''}</div>
+            <div class="meta">${esc(GROUP_MAP[it.group].name)} · ${esc(it.col)}</div>
+            <div class="plats">${ps.map(k=>`<span class="ptag" style="background:${PLAT_MAP[k].color}">${PLAT_MAP[k].abbr}</span>`).join('')}</div>
+          </div>`;
+        });
+      }else html += `<div class="empty-day">—</div>`;
+      html += `</div></div>`;
+    });
+    html += `</div></div>`;
+  }
+  document.getElementById('viewCal').innerHTML = html;
+  bindItems();
+}
+
+/* ==================== 平台视图 ==================== */
+function renderPlat(){
+  const list = curItems();
+  document.getElementById('viewPlat').innerHTML = `<div class="plats-grid">` +
+    PLATFORMS.filter(p=>state.plats.has(p.key)).map(p=>{
+      const its = list.filter(it=>visPlats(it).includes(p.key));
+      return `<div class="pcol">
+        <div class="pcol-h" style="background:${p.color}">
+          <div><div class="nm">${p.name}</div><div class="ab">缩写「${p.abbr}」· ${its.length} 条</div></div>
+          <div class="ct">${its.length}</div>
+        </div>
+        <div class="pcol-b">` +
+        (its.length ? its.map(it=>{
+          const g=GROUP_MAP[it.group];
+          return `<div class="pitem ${it.draft?'draft':''}" data-id="${it.id}">
+            ${it.draft?'<span class="draft-dot">建议</span>':''}
+            <div class="d"><span class="wk">第${WK_CN[it.wk-1]}周</span><b>${esc(it.label)}</b>
+              ${WEEKDAYS[it.wd-1]}${it.span>1?` → ${esc(it.endLabel)}`:''}</div>
+            <div class="tt">${esc(it.title)}</div>
+            <div class="cs"><span style="background:${g.soft};color:${g.color};font-weight:700">${esc(g.name)}</span>
+              <span>${esc(it.col)}</span></div>
+            <div class="pl">${it.plats.map(k=>`<span class="ptag" style="background:${PLAT_MAP[k].color};opacity:${state.plats.has(k)?1:.3}">${PLAT_MAP[k].abbr}</span>`).join('')}</div>
+          </div>`;
+        }).join('') : `<div class="pempty"><div class="ic">◻</div><div class="tx">本月暂无排期</div></div>`)
+        + `</div></div>`;
+    }).join('') + `</div>`;
+  bindItems();
+}
+
+/* ==================== 清单视图 ==================== */
+function renderList(){
+  const list = curItems();
+  const showSt = hasDraft();               // 无建议条目时隐藏状态列
+  const cols = 7 + (showSt?1:0);
+  document.getElementById('viewList').innerHTML = `<div class="tbl-wrap"><table>
+    <thead><tr>
+      <th style="width:96px">日期</th><th style="width:58px">星期</th><th style="width:78px">板块</th>
+      <th style="width:118px">栏目</th><th>内容选题</th><th style="width:236px">发布平台</th>
+      <th style="width:56px">条数</th>${showSt?'<th style="width:76px">状态</th>':''}
+    </tr></thead><tbody>` +
+    (list.length ? list.map(it=>{
+      const g=GROUP_MAP[it.group], ps=visPlats(it);
+      return `<tr data-id="${it.id}">
+        <td><b>${esc(it.label)}</b>${it.span>1?` → ${esc(it.endLabel)}`:''}</td>
+        <td>${WEEKDAYS[it.wd-1]}</td>
+        <td><span class="gpill" style="background:${g.soft};color:${g.color}">${esc(g.name)}</span></td>
+        <td>${esc(it.col)}</td>
+        <td><b>${esc(it.title)}</b></td>
+        <td>${ps.map(k=>`<span class="ptag" style="background:${PLAT_MAP[k].color};font-size:11px;padding:4px 8px">${PLAT_MAP[k].name}</span>`).join(' ')}</td>
+        <td>${ps.length}</td>${showSt?`<td><span class="st ${it.draft?'df':'ok'}">${it.draft?'建议':'已确认'}</span></td>`:''}
+      </tr>`;
+    }).join('') : `<tr><td colspan="${cols}" style="text-align:center;color:#8C96A5;padding:36px">${
+      monthEmpty()?`${MONTH_MAP[state.month].name}尚未排期 · 等待补充`:'当前筛选条件下没有排期'}</td></tr>`)
+    + `</tbody></table></div>`;
+  bindItems();
+}
+
+/* ==================== 详情弹窗 ==================== */
+function bindItems(){
+  document.querySelectorAll('[data-id]').forEach(el=>el.onclick=()=>openModal(+el.dataset.id));
+}
+function openModal(id){
+  const it = ITEMS.find(x=>x.id===id);
+  if(!it) return;
+  const g = GROUP_MAP[it.group];
+  const ps = it.plats.map(k=>PLAT_MAP[k]);
+  const d = new Date(it.date.replace(/-/g,'/'));
+  document.getElementById('modalRoot').innerHTML = `
+    <div class="mask" id="mask"><div class="modal">
+      <div class="m-h" style="background:${g.color}">
+        <div class="tt">${esc(it.title)}</div>
+        <div class="sb">${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日 ${WEEKDAYS[it.wd-1]}${
+          it.span>1?` — ${esc(it.endLabel)}（跨${it.span}天）`:''} · ${it.draft?'建议排期（待确认）':'已确认排期'}</div>
+      </div>
+      <div class="m-b">
+        <div class="kv"><span class="k">内容板块</span><span class="v" style="color:${g.color}">${esc(g.name)}</span></div>
+        <div class="kv"><span class="k">所属栏目</span><span class="v">${esc(it.col)}</span></div>
+        <div class="kv"><span class="k">所属月份</span><span class="v">${esc(MONTH_MAP[it.mon].name)} · 第${WK_CN[it.wk-1]}周</span></div>
+        <div class="kv"><span class="k">发布平台</span><span class="v"><span class="pf">${
+          ps.map(p=>`<span class="b" style="background:${p.color}">${p.name}（${p.abbr}）</span>`).join('')}</span></span></div>
+        <div class="kv"><span class="k">分发条数</span><span class="v">${ps.length} 条</span></div>
+      </div>
+      <div class="m-f"><button class="btn" id="closeBtn">关闭</button></div>
+    </div></div>`;
+  document.getElementById('closeBtn').onclick = closeModal;
+  document.getElementById('mask').onclick = e=>{ if(e.target.id==='mask') closeModal(); };
+}
+function closeModal(){ document.getElementById('modalRoot').innerHTML=''; }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+/* ==================== 图例 ==================== */
+function renderLegend(){
+  document.getElementById('legend').innerHTML =
+    PLATFORMS.map(p=>`<span class="lg"><i style="background:${p.color}"></i>${p.name}（${p.abbr}）</span>`).join('') +
+    `<span style="width:1px;height:14px;background:var(--line);margin:0 4px"></span>` +
+    GROUPS.map(g=>`<span class="lg"><i style="background:${g.soft};border:1px solid ${shade(g.color,55)}"></i>${g.name}</span>`).join('') +
+    (hasDraft()
+      ? `<span style="width:1px;height:14px;background:var(--line);margin:0 4px"></span>` +
+        `<span class="lg"><i style="background:${GROUPS[2].soft};border:1px solid ${shade(GROUPS[2].color,20)}"></i>已确认</span>` +
+        `<span class="lg"><i style="background:#fff;border:1.5px dashed #B9A05A"></i>建议待确认</span>`
+      : '');
+}
+
+/* ==================== 空月份提示 ==================== */
+function renderEmptyTip(){
+  const el = document.getElementById('emptyTip');
+  // 清单视图自带空态行，不重复提示
+  if(state.view==='list' || !monthEmpty()){ el.innerHTML = ''; return; }
+  const m = MONTH_MAP[state.month];
+  el.innerHTML = `<div class="empty-tip">
+    <div class="t">${esc(m.name)}尚未排期</div>
+    <div class="s">${esc(m.grid[0].label)} — ${esc(m.grid[m.grid.length-1].label)} · ${
+      Math.round(m.days/7)} 周 · ${esc(m.theme)}</div>
+    <div class="hint">日历骨架已就位，等你的内容。例如发我一句：<br>
+      <b>10月8号 小红书+微博 蓝胖子双11预售</b></div>
+  </div>`;
+}
+
+/* ==================== 总渲染 ==================== */
+function renderAll(){
+  renderStats(); renderCharts(); renderColBars(); renderMonthTabs(); renderChips(); renderTabs();
+  const list = curItems();
+  const posts = list.reduce((s,it)=>s+visPlats(it).length,0);
+  const m = MONTH_MAP[state.month];
+  document.getElementById('nobar').textContent =
+    `${m.name}（${m.grid[0].label} — ${m.grid[m.grid.length-1].label}）· 当前显示 ${list.length} 条选题 / ${posts} 条平台发布` +
+    (list.length ? ' · 点击任意卡片查看详情' : ' · 本月待补充');
+
+  ['cal','plat','list'].forEach(v=>{
+    document.getElementById('view'+v.charAt(0).toUpperCase()+v.slice(1)).classList.toggle('hidden', state.view!==v);
+  });
+  if(state.view==='cal') renderCal();
+  if(state.view==='plat') renderPlat();
+  if(state.view==='list') renderList();
+  renderEmptyTip();
+  renderLegend();
+  const fn = document.getElementById('footNote');
+  fn.textContent = hasDraft()
+    ? '实线 = 已确认排期 · 虚线 +「建议」角标 = 待确认的建议排期'
+    : '9 月为已确认排期 · 10—12 月留空待补充';
+}
+
+renderAll();
+</script>
+</body>
+</html>
