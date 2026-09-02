@@ -182,6 +182,29 @@
   .lg i{width:10px;height:10px;border-radius:3px;display:inline-block}
   .hidden{display:none !important}
 
+  /* ---------- 账号数据 ---------- */
+  .subnav{display:flex;gap:8px;justify-content:center;padding:4px 0 18px}
+  .seg{border:1px solid var(--line);background:#fff;color:var(--ink-2);padding:9px 24px;border-radius:999px;
+    font-size:13.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:.15s}
+  .seg:hover{border-color:#C9D0DB;background:#FBFCFD}
+  .seg.on{background:var(--brand);border-color:var(--brand);color:#fff}
+  .acards{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px;margin-top:18px}
+  .acard{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
+  .acard.skeleton{opacity:.92}
+  .acard-h{padding:14px 16px;color:#fff;display:flex;align-items:center;justify-content:space-between;gap:8px}
+  .acard-h .an{font-size:15px;font-weight:700}
+  .acard-h .ah{font-size:11px;opacity:.85;margin-top:2px}
+  .acard-h .abadge{font-size:12px;font-weight:700;background:rgba(255,255,255,.22);border-radius:6px;padding:2px 9px}
+  .ametrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}
+  .ametric{background:#fff;padding:12px 8px;text-align:center}
+  .ametric .mv{font-size:18px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.2;word-break:break-all}
+  .ametric .ml{font-size:11px;color:var(--ink-3);margin-top:3px}
+  .aspark{padding:12px 16px;background:#fff}
+  .aspark.empty{color:var(--ink-3);font-size:12px;text-align:center;padding:18px}
+  .dtip{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:14px 18px;margin-top:14px;font-size:12.5px;color:var(--ink-2);line-height:1.9}
+  .dtip b{color:var(--ink)}
+  @media (max-width:560px){ .ametrics{grid-template-columns:repeat(2,1fr)} }
+
   /* ---------- modal ---------- */
   .mask{position:fixed;inset:0;background:rgba(31,36,48,.42);backdrop-filter:blur(2px);display:grid;place-items:center;z-index:90;padding:20px}
   .modal{background:#fff;border-radius:18px;width:min(460px,100%);overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.22)}
@@ -219,7 +242,7 @@
   }
   @media print{
     body{background:#fff;padding:0}
-    .toolbar,.btn,.tabs{display:none !important}
+    .toolbar,.btn,.tabs,.subnav{display:none !important}
     .topbar{background:#373C43 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
     *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   }
@@ -231,13 +254,20 @@
   <div class="wrap">
     <div>
       <div class="t-title"><span class="dot"></span>自媒体发布规划</div>
-      <div class="t-sub">Q4 内容排期可视化看板 · 2026.08.31 — 2027.01.03 · 4 个月 / 18 周</div>
+      <div class="t-sub">内容排期 + 账号数据运营看板 · 2026.08.31 — 2027.01.03 · 4 个月 / 18 周</div>
     </div>
     <button class="btn" onclick="window.print()">打印 / 导出 PDF</button>
   </div>
 </div>
 
 <div class="wrap">
+
+  <div class="subnav" id="subnav">
+    <button class="seg on" data-mode="plan">发布规划</button>
+    <button class="seg" data-mode="data">账号数据</button>
+  </div>
+
+  <div id="planView">
 
   <div class="stats" id="stats"></div>
 
@@ -293,6 +323,9 @@
     平台缩写对照：红 = 小红书 · 微 = 微博 · 视 = 视频号 · 绿 = 微信公众号 · 抖 = 抖音<br>
     数据来源：自媒体发布日历.xlsx（9月已确认）· 10—12月留空待补充
   </div>
+  </div><!-- /planView -->
+
+  <div id="dataView" class="hidden"></div>
 </div>
 
 <div id="modalRoot"></div>
@@ -378,6 +411,25 @@ const ITEMS = [
   {date:'2026-09-10', group:'sun', col:'品牌共创官', title:'第一期回顾长视频（发布）', plats:['sph','xhs','wb','dy']},
   {date:'2026-09-14', group:'sun', col:'品牌共创官', title:'第二期回顾长视频',    plats:['sph','xhs','wb','dy']},
   {date:'2026-09-16', group:'sun', col:'品牌共创官', title:'1.2米对话视频',       plats:['sph','xhs','wb','dy']}
+];
+
+  /* ==================== 账号数据（框架，待填入真实数据） ====================
+     key 对应 PLATFORMS 的 key（xhs/wb/sph/gzh/dy），用于取平台色；
+     name 账号名称；handle 账号ID（可选）；m 指标对象（缺省显示 —）；
+     trend 按月趋势 [{m:'26年8月', fans:12345}] ≥2 期才会画涨粉曲线。
+     当前 ACCOUNTS 为空 —— 把各平台后台的粉丝数/浏览量等发我（或导出 CSV 报表），
+     我录入后自动生成指标卡 + 涨粉趋势图。严禁编造数字。 */
+  const METRICS = [
+    {k:'fans',       t:'粉丝数'},
+    {k:'growth30',   t:'近30天涨粉'},
+    {k:'totalViews', t:'累计浏览'},
+    {k:'m30Views',   t:'近30天浏览'},
+    {k:'avgViews',   t:'单篇平均浏览'},
+    {k:'likes',      t:'赞藏'},
+    {k:'comments',   t:'评论'},
+    {k:'collects',   t:'收藏'}
+  ];
+  const ACCOUNTS = [];   // 例：{key:'xhs', name:'小红书主号', handle:'@xxx', m:{fans:128000, ...}, trend:[{m:'26年8月',fans:120000},{m:'26年9月',fans:128000}]}
 
   /* ---------- 10 / 11 / 12 月：留空待定 ----------
      [!] 未经用户明确提供内容，禁止往 10-12 月填充任何排期（含"建议"/"示例"性质的占位内容）。
@@ -389,7 +441,6 @@ const ITEMS = [
      - plats ：xhs 小红书 / wb 微博 / sph 视频号 / gzh 微信公众号 / dy 抖音
      - 可选  ：draft:true 标为建议待确认（虚线显示）；span:2 + endLabel:'10.7' 表示跨天
   */
-];
 
 /* 补齐派生字段 */
 ITEMS.forEach((it,i)=>{
@@ -406,7 +457,8 @@ const state = {
   plats:new Set(PLATFORMS.map(p=>p.key)),
   groups:new Set(GROUPS.map(g=>g.key)),
   confirmedOnly:false,
-  view:'cal'
+  view:'cal',
+  mode:'plan'
 };
 
 /* 平台取交集、板块取包含、状态过滤、月份过滤 */
@@ -590,6 +642,7 @@ document.getElementById('resetBtn').onclick = ()=>{
   state.confirmedOnly = false;
   renderAll();
 };
+document.querySelectorAll('#subnav .seg').forEach(b=>b.onclick=()=>{state.mode=b.dataset.mode;renderAll();});
 
 /* ==================== 月历视图 ==================== */
 function renderCal(){
@@ -762,8 +815,113 @@ function renderEmptyTip(){
   </div>`;
 }
 
+/* ==================== 账号数据 ==================== */
+function fmtNum(n){
+  if(n==null || isNaN(n)) return '—';
+  const a = Math.abs(n);
+  if(a >= 1e8) return (n/1e8).toFixed(2)+'亿';
+  if(a >= 1e4) return (n/1e4).toFixed(1)+'万';
+  return n.toLocaleString('en-US');
+}
+function sparkline(trend, color){
+  if(!trend || trend.length<2) return `<div class="aspark empty">趋势需 ≥2 期数据后显示曲线</div>`;
+  const w=240,h=52,pad=6;
+  const vals = trend.map(t=>t.fans);
+  const mn=Math.min(...vals), mx=Math.max(...vals), rng=(mx-mn)||1;
+  const pts = trend.map((t,i)=>{
+    const x = pad + (trend.length===1?0:i*(w-2*pad)/(trend.length-1));
+    const y = h-pad - (t.fans-mn)/rng*(h-2*pad);
+    return [x,y];
+  });
+  const d = pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+  const last = pts[pts.length-1];
+  return `<svg class="aspark" viewBox="0 0 ${w} ${h}" width="100%" height="${h}" preserveAspectRatio="none">
+    <path d="${d}" fill="none" stroke="${color}" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="3" fill="${color}"/></svg>`;
+}
+function acard(a){
+  const p = PLAT_MAP[a.key] || {name:a.key,color:'#888',abbr:''};
+  const m = a.m || {};
+  const cells = METRICS.map(mt=>`<div class="ametric"><div class="mv">${m[mt.k]==null?'—':fmtNum(m[mt.k])}</div><div class="ml">${mt.t}</div></div>`).join('');
+  return `<div class="acard">
+    <div class="acard-h" style="background:${p.color}">
+      <div><div class="an">${esc(a.name||p.name)}</div>${a.handle?`<div class="ah">${esc(a.handle)}</div>`:''}</div>
+      <div class="abadge">${p.abbr}</div>
+    </div>
+    <div class="ametrics">${cells}</div>
+    ${sparkline(a.trend, p.color)}
+  </div>`;
+}
+function acardSkeleton(k){
+  const p = PLAT_MAP[k];
+  const cells = METRICS.map(mt=>`<div class="ametric"><div class="mv">—</div><div class="ml">${mt.t}</div></div>`).join('');
+  return `<div class="acard skeleton">
+    <div class="acard-h" style="background:${p.color}">
+      <div><div class="an">${p.name}（待填入）</div></div>
+      <div class="abadge">${p.abbr}</div>
+    </div>
+    <div class="ametrics">${cells}</div>
+    <div class="aspark empty">填入数据后显示涨粉趋势</div>
+  </div>`;
+}
+function trendPanel(){
+  const withT = ACCOUNTS.filter(a=>a.trend && a.trend.length>=2);
+  if(withT.length===0) return '';
+  const months = [];
+  withT.forEach(a=>a.trend.forEach(t=>{ if(!months.includes(t.m)) months.push(t.m); }));
+  const w=680,h=230,padL=46,padR=16,padT=16,padB=30;
+  const n=months.length;
+  const xAt = i => padL + (n===1?0:i*(w-padL-padR)/(n-1));
+  let allv=[]; withT.forEach(a=>a.trend.forEach(t=>allv.push(t.fans)));
+  const mx=Math.max(...allv), mn=Math.min(...allv,0), rng=(mx-mn)||1;
+  const yAt = v => padT + (1-(v-mn)/rng)*(h-padT-padB);
+  let grid='';
+  months.forEach((m,i)=>{ grid += `<text x="${xAt(i).toFixed(1)}" y="${h-9}" font-size="10" fill="#8C96A5" text-anchor="middle">${esc(m)}</text>`; });
+  grid += `<text x="${padL-7}" y="${(yAt(mx)+3).toFixed(1)}" font-size="9" fill="#8C96A5" text-anchor="end">${fmtNum(mx)}</text>`;
+  grid += `<text x="${padL-7}" y="${(yAt(0)+3).toFixed(1)}" font-size="9" fill="#8C96A5" text-anchor="end">0</text>`;
+  let lines='';
+  withT.forEach(a=>{
+    const color = (PLAT_MAP[a.key]||{}).color || '#888';
+    const pts = months.map((m,i)=>{ const t=a.trend.find(x=>x.m===m); return t?[xAt(i),yAt(t.fans)]:null; }).filter(Boolean);
+    if(pts.length<2) return;
+    const d = pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
+    lines += `<path d="${d}" fill="none" stroke="${color}" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>`;
+    pts.forEach(p=> lines += `<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="3" fill="${color}"/>`);
+  });
+  const legend = withT.map(a=>`<span class="lg"><i style="background:${(PLAT_MAP[a.key]||{}).color}"></i>${esc(a.name||(PLAT_MAP[a.key]||{}).name||'')}</span>`).join('');
+  return `<div class="panel" style="margin-top:14px">
+    <h3>粉丝数趋势<span class="hint">按月份 · 峰值 ${fmtNum(mx)}</span></h3>
+    <svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}">${grid}${lines}</svg>
+    <div class="legend" style="margin-top:8px;padding-top:8px;justify-content:flex-start">${legend}</div>
+  </div>`;
+}
+function renderData(){
+  const root = document.getElementById('dataView');
+  if(ACCOUNTS.length === 0){
+    const prev = ['xhs','gzh','wb']; // 用户提到的三个平台
+    root.innerHTML = `
+      <div class="empty-tip">
+        <div class="t">账号数据待填入</div>
+        <div class="s">把各平台后台的粉丝数 / 浏览量等发我（或导出 CSV 报表），我来录入并生成趋势图</div>
+        <div class="hint">支持指标：粉丝数 · 近30天涨粉 · 累计/近30天浏览 · 单篇平均 · 赞藏 · 评论 · 收藏<br>
+          数据来源：小红书 / 公众号 / 微博 后台，或数据报表导出</div>
+      </div>
+      <div class="acards">${prev.map(acardSkeleton).join('')}</div>
+      <div class="dtip">📌 框架说明：每个平台一张指标卡（8 项指标 + 涨粉趋势曲线），下方汇总「粉丝数趋势」多平台对比图。
+        你给数字我填，<b>绝不编造</b>。后续若想用「开后台扫码 → 我截图读数」的方式自动采集，也可作为按需流程再加。</div>`;
+    return;
+  }
+  root.innerHTML = `<div class="acards">${ACCOUNTS.map(acard).join('')}</div>${trendPanel()}`;
+}
+
 /* ==================== 总渲染 ==================== */
 function renderAll(){
+  // 顶部模式切换：发布规划 / 账号数据
+  document.getElementById('planView').classList.toggle('hidden', state.mode!=='plan');
+  document.getElementById('dataView').classList.toggle('hidden', state.mode!=='data');
+  document.querySelectorAll('#subnav .seg').forEach(b=>b.classList.toggle('on', b.dataset.mode===state.mode));
+  if(state.mode==='data'){ renderData(); return; }
+
   renderStats(); renderCharts(); renderColBars(); renderMonthTabs(); renderChips(); renderTabs();
   const list = curItems();
   const posts = list.reduce((s,it)=>s+visPlats(it).length,0);
