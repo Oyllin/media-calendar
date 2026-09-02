@@ -205,6 +205,35 @@
   .dtip b{color:var(--ink)}
   @media (max-width:560px){ .ametrics{grid-template-columns:repeat(2,1fr)} }
 
+  /* ---------- 全平台原始数据 ---------- */
+  .raw-head{text-align:center;padding:4px 0 16px}
+  .raw-title{font-size:21px;font-weight:700;letter-spacing:.4px}
+  .raw-meta{font-size:12.5px;color:var(--ink-2);margin-top:5px}
+  .raw-meta b{color:var(--ink);font-weight:600}
+  .raw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(440px,1fr));gap:16px;margin-top:6px}
+  .raw-card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm)}
+  .raw-card-h{padding:11px 16px;color:#fff;display:flex;align-items:center;gap:10px}
+  .raw-card-h .pbadge{font-size:12px;font-weight:700;background:rgba(255,255,255,.22);border-radius:6px;padding:2px 11px}
+  .raw-card-h .pname{font-size:14px;font-weight:600}
+  .raw-card-b{padding:14px 16px}
+  .raw-tbl{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+  .raw-tbl th{background:#F2F5F9;color:var(--ink-2);font-weight:600;text-align:left;padding:8px 10px;font-size:12px;border-bottom:1px solid var(--line);white-space:nowrap}
+  .raw-tbl td{padding:8px 10px;border-bottom:1px solid var(--line);color:var(--ink);vertical-align:middle}
+  .raw-tbl td.num{font-variant-numeric:tabular-nums;font-weight:600;text-align:right;white-space:nowrap}
+  .raw-tbl td.rk{text-align:center;font-weight:700;width:36px;color:var(--ink-2)}
+  .raw-tbl td.mom{text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+  .raw-tbl td.mom.up{color:#D7303A}
+  .raw-tbl td.mom.down{color:#1E9E5A}
+  .raw-tbl td.mom.na{color:var(--ink-3)}
+  .raw-tbl td.ph{color:var(--ink-3);text-align:center}
+  .raw-tbl td.tt{font-weight:600;color:var(--ink)}
+  .raw-top-title{font-size:13px;font-weight:700;color:var(--ink);margin:14px 0 4px}
+  .raw-note{font-size:11.5px;color:var(--ink-3);margin-top:6px;line-height:1.6}
+  .raw-foot{margin-top:20px;text-align:center;font-size:12px;color:var(--ink-3);line-height:1.9;border-top:1px solid var(--line);padding-top:16px}
+  .raw-foot .rf-brand{font-weight:700;color:var(--ink-2);margin-bottom:4px}
+  .raw-foot .rf-line b{color:var(--ink-2);font-weight:600}
+  @media (max-width:520px){ .raw-grid{grid-template-columns:1fr} }
+
   /* ---------- modal ---------- */
   .mask{position:fixed;inset:0;background:rgba(31,36,48,.42);backdrop-filter:blur(2px);display:grid;place-items:center;z-index:90;padding:20px}
   .modal{background:#fff;border-radius:18px;width:min(460px,100%);overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.22)}
@@ -254,7 +283,7 @@
   <div class="wrap">
     <div>
       <div class="t-title"><span class="dot"></span>自媒体发布规划</div>
-      <div class="t-sub">内容排期 + 账号数据运营看板 · 2026.08.31 — 2027.01.03 · 4 个月 / 18 周</div>
+      <div class="t-sub">内容排期 · 账号数据 · 全平台原始数据 运营看板 · 2026.08.31 — 2027.01.03 · 4 个月 / 18 周</div>
     </div>
     <button class="btn" onclick="window.print()">打印 / 导出 PDF</button>
   </div>
@@ -265,6 +294,7 @@
   <div class="subnav" id="subnav">
     <button class="seg on" data-mode="plan">发布规划</button>
     <button class="seg" data-mode="data">账号数据</button>
+    <button class="seg" data-mode="raw">全平台原始数据</button>
   </div>
 
   <div id="planView">
@@ -326,6 +356,7 @@
   </div><!-- /planView -->
 
   <div id="dataView" class="hidden"></div>
+  <div id="rawView" class="hidden"></div>
 </div>
 
 <div id="modalRoot"></div>
@@ -346,7 +377,8 @@ const GROUPS = [
 ];
 const WEEKDAYS = ['周一','周二','周三','周四','周五','周六','周日'];
 const WK_CN = ['一','二','三','四','五'];
-const TODAY = '2026-09-01';
+/* 今天：实时跟随打开页面的真实日期（浏览器本地时区） */
+const TODAY = fmt(new Date());
 
 /* 月份：起点均为周一，终点均为周日，四个月首尾相接 */
 const MONTHS = [
@@ -430,6 +462,65 @@ const ITEMS = [
     {k:'collects',   t:'收藏'}
   ];
   const ACCOUNTS = [];   // 例：{key:'xhs', name:'小红书主号', handle:'@xxx', m:{fans:128000, ...}, trend:[{m:'26年8月',fans:120000},{m:'26年9月',fans:128000}]}
+
+  /* ==================== 全平台原始数据（框架，仅结构、不填数据） ====================
+     结构参考用户提供的「全平台原始数据」报表：每个平台一张卡，内含
+     · metrics：指标表（指标 | 数值 | 环比）value/mom 留 null → 渲染显示 —
+     · topContent：可选 Top5 内容表（各平台列不同），rows 留空 → 渲染 5 行占位
+     严禁编造任何数字；收到真实报表后按此结构填入 value / mom / rows 即可。 */
+  const RAW_META = {
+    brand: '',                  // 例 'Hi! Papa 海龟爸爸'
+    dataDate: '',               // 数据日期，例 '2026-07-12'
+    collectTime: '',            // 采集时间，例 '2026-07-13 18:30'
+    sources: '微信公众号后台 / 小红书创作服务平台 / 视频号助手 / 微博管理中心',
+    period: '',                 // 数据周期
+    updatedAt: '',              // 更新于
+    method: ''                  // 采集方式
+  };
+  const RAW_PLATFORMS = [
+    { key:'gzh', badge:'微信', name:'公众号数据', metrics:[
+        {label:'总用户数',  value:null, mom:null},
+        {label:'昨日阅读',  value:null, mom:null},
+        {label:'昨日分享',  value:null, mom:null},
+        {label:'新增关注',  value:null, mom:null},
+        {label:'原创内容',  value:null, mom:null, unit:'篇'},
+        {label:'直播观看',  value:null, mom:null, unit:'人次'},
+        {label:'成交金额',  value:null, mom:null, prefix:'¥'}
+      ], topContent:null, note:null },
+    { key:'xhs', badge:'小红书', name:'小红书主号', metrics:[
+        {label:'女性占比',    value:null, mom:null, unit:'%'},
+        {label:'男性占比',    value:null, mom:null, unit:'%'},
+        {label:'主要年龄段',  value:null, mom:null}
+      ], topContent:{ title:'小红书最新笔记Top 5', cols:[
+        {k:'rank',t:'排名'},{k:'title',t:'标题'},{k:'date',t:'发布'},
+        {k:'read',t:'阅读'},{k:'like',t:'点赞'},{k:'collect',t:'收藏'},
+        {k:'comment',t:'评论'},{k:'share',t:'分享'}
+      ], rows:[] }, note:null },
+    { key:'sph', badge:'视频号', name:'视频号主号', metrics:[
+        {label:'关注者',    value:null, mom:null},
+        {label:'视频总数',  value:null, mom:null},
+        {label:'昨日播放',  value:null, mom:null, unit:'万'},
+        {label:'新增点赞',  value:null, mom:null},
+        {label:'新增评论',  value:null, mom:null}
+      ], topContent:{ title:'视频号最新内容Top 5（近7日播放）', cols:[
+        {k:'rank',t:'排名'},{k:'title',t:'标题'},{k:'date',t:'发布'},
+        {k:'play',t:'播放'},{k:'like',t:'点赞'},{k:'comment',t:'评论'},{k:'forward',t:'转发'}
+      ], rows:[] }, note:'新发布内容播放量持续累积中；历史内容转发数据更优' },
+    { key:'wb', badge:'微博', name:'微博官微', metrics:[
+        {label:'总订阅',    value:null, mom:null},
+        {label:'昨日新增',  value:null, mom:null},
+        {label:'昨日阅读',  value:null, mom:null},
+        {label:'昨日互动',  value:null, mom:null},
+        {label:'蓝V有效期', value:null, mom:null}
+      ], topContent:null, note:null },
+    { key:'dy', badge:'抖音', name:'抖音主号', metrics:[
+        {label:'粉丝数',        value:null, mom:null},
+        {label:'作品数',        value:null, mom:null},
+        {label:'昨日播放',      value:null, mom:null},
+        {label:'获赞总数',      value:null, mom:null},
+        {label:'昨日新增粉丝',  value:null, mom:null}
+      ], topContent:null, note:null }
+  ];
 
   /* ---------- 10 / 11 / 12 月：留空待定 ----------
      [!] 未经用户明确提供内容，禁止往 10-12 月填充任何排期（含"建议"/"示例"性质的占位内容）。
@@ -914,13 +1005,84 @@ function renderData(){
   root.innerHTML = `<div class="acards">${ACCOUNTS.map(acard).join('')}</div>${trendPanel()}`;
 }
 
+/* ==================== 全平台原始数据 ==================== */
+function rawVal(v, prefix, unit){
+  if(v==null || v==='') return '—';
+  let s = typeof v==='number' ? (prefix||'')+fmtNum(v) : (prefix||'')+String(v);
+  if(unit) s += unit;
+  return s;
+}
+function rawMom(mom){
+  if(mom==null || mom==='') return '<span class="mom na">—</span>';
+  const down=/↓/.test(mom), up=/↑|\+/.test(mom);
+  return `<span class="mom ${down?'down':up?'up':''}">${esc(mom)}</span>`;
+}
+function renderRaw(){
+  const root = document.getElementById('rawView');
+  if(RAW_PLATFORMS.length === 0){
+    root.innerHTML = `<div class="empty-tip"><div class="t">全平台原始数据框架</div>
+      <div class="s">把各平台后台导出的原始数据报表发我，我按结构填入</div></div>`;
+    return;
+  }
+  const meta = RAW_META;
+  let html = `<div class="raw-head">
+      <div class="raw-title">全平台原始数据</div>
+      <div class="raw-meta">数据日期：<b>${esc(meta.dataDate||'—')}</b> · 采集时间：<b>${esc(meta.collectTime||'—')}</b></div>
+    </div><div class="raw-grid">`;
+
+  html += RAW_PLATFORMS.map(plat=>{
+    const p = PLAT_MAP[plat.key] || {name:plat.badge, color:'#888'};
+    let card = `<div class="raw-card">
+      <div class="raw-card-h" style="background:${p.color}">
+        <span class="pbadge">${esc(plat.badge||p.name)}</span>
+        <span class="pname">${esc(plat.name||'')}</span>
+      </div><div class="raw-card-b">`;
+
+    if(plat.metrics && plat.metrics.length){
+      card += `<table class="raw-tbl"><thead><tr><th>指标</th><th style="text-align:right">数值</th><th style="text-align:center">环比</th></tr></thead><tbody>` +
+        plat.metrics.map(mt=>`<tr><td>${esc(mt.label)}</td>
+          <td class="num">${rawVal(mt.value, mt.prefix, mt.unit)}</td>
+          <td class="mom">${rawMom(mt.mom)}</td></tr>`).join('') + `</tbody></table>`;
+    }
+
+    if(plat.topContent){
+      const tc = plat.topContent;
+      card += `<div class="raw-top-title">${esc(tc.title)}</div>`;
+      card += `<table class="raw-tbl"><thead><tr>${tc.cols.map(c=>`<th>${esc(c.t)}</th>`).join('')}</tr></thead><tbody>`;
+      if(tc.rows && tc.rows.length){
+        card += tc.rows.map(r=>`<tr>${tc.cols.map(c=>{
+          const v = r[c.k];
+          if(c.k==='rank') return `<td class="rk">${esc(v)}</td>`;
+          return `<td class="${c.k==='title'?'tt':''}">${v==null||v===''?'—':esc(v)}</td>`;
+        }).join('')}</tr>`).join('');
+      }else{
+        card += Array.from({length:5}).map(()=>`<tr>${tc.cols.map(()=>`<td class="ph">—</td>`).join('')}</tr>`).join('');
+      }
+      card += `</tbody></table>`;
+      if(plat.note) card += `<div class="raw-note">*注：${esc(plat.note)}</div>`;
+    }
+
+    card += `</div></div>`;
+    return card;
+  }).join('');
+
+  html += `</div><div class="raw-foot">` +
+    (meta.brand?`<div class="rf-brand">${esc(meta.brand)}</div>`:'') +
+    `<div class="rf-line">数据来源：<b>${esc(meta.sources||'—')}</b></div>` +
+    `<div class="rf-line">数据周期：<b>${esc(meta.period||'—')}</b> | 更新于：<b>${esc(meta.updatedAt||'—')}</b> | 采集方式：<b>${esc(meta.method||'—')}</b></div>` +
+    `</div>`;
+  root.innerHTML = html;
+}
+
 /* ==================== 总渲染 ==================== */
 function renderAll(){
-  // 顶部模式切换：发布规划 / 账号数据
+  // 顶部模式切换：发布规划 / 账号数据 / 全平台原始数据
   document.getElementById('planView').classList.toggle('hidden', state.mode!=='plan');
   document.getElementById('dataView').classList.toggle('hidden', state.mode!=='data');
+  document.getElementById('rawView').classList.toggle('hidden', state.mode!=='raw');
   document.querySelectorAll('#subnav .seg').forEach(b=>b.classList.toggle('on', b.dataset.mode===state.mode));
   if(state.mode==='data'){ renderData(); return; }
+  if(state.mode==='raw'){ renderRaw(); return; }
 
   renderStats(); renderCharts(); renderColBars(); renderMonthTabs(); renderChips(); renderTabs();
   const list = curItems();
