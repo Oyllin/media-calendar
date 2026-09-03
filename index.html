@@ -469,7 +469,11 @@ const ITEMS = [
   const ACCOUNTS = [
     {key:'xhs', name:'小红书主号', handle:'Hipapa海龟爸爸 · 小红书号 4932135493',
      m:{fans:58057, growth30:1320, totalViews:null, m30Views:113000, avgViews:null, likes:139000, comments:1735, collects:1303},
-     trend:[{m:'26年9月', fans:58057}]}
+     trend:[{m:'26年9月', fans:58057}]},
+    // 公众号：fans=总用户数（9月2日快照）；其余指标口径与小红书不同，平台未直接提供，留空
+    {key:'gzh', name:'微信公众号', handle:'Hipapa海龟爸爸',
+     m:{fans:222232, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
+     trend:[{m:'26年9月', fans:222232}]}
   ];
 
   /* ==================== 全平台原始数据（框架，仅结构、不填数据） ====================
@@ -481,21 +485,22 @@ const ITEMS = [
     brand: 'Hi!papa 海龟爸爸',
     dataDate: '2026-09-02',      // 数据日期
     collectTime: '2026-09-03 10:00',  // 采集时间
-    sources: '小红书创作服务平台（已采集）/ 微信公众号后台 / 视频号助手 / 微博管理中心（待采集）',
+    sources: '小红书创作服务平台（已采集）/ 微信公众号后台（已采集）/ 视频号 / 微博 / 抖音（待采集）',
     period: '近7日 08-27 至 09-02 · 近30日 08-04 至 09-02',
     updatedAt: '2026-09-03',
     method: '浏览器登录平台后台实时采集'
   };
   const RAW_PLATFORMS = [
-    { key:'gzh', badge:'微信', name:'公众号数据', metrics:[
-        {label:'总用户数',  value:null, mom:null},
-        {label:'昨日阅读',  value:null, mom:null},
-        {label:'昨日分享',  value:null, mom:null},
-        {label:'新增关注',  value:null, mom:null},
-        {label:'原创内容',  value:null, mom:null, unit:'篇'},
-        {label:'直播观看',  value:null, mom:null, unit:'人次'},
-        {label:'成交金额',  value:null, mom:null, prefix:'¥'}
-      ], topContent:null, note:null },
+    { key:'gzh', badge:'微信', name:'公众号数据 · Hipapa海龟爸爸', metrics:[
+        {label:'总用户数',  value:222232, mom:null},
+        {label:'昨日阅读',  value:28, mom:null},
+        {label:'昨日分享',  value:4, mom:null},
+        {label:'新增关注',  value:23, mom:null},
+        {label:'原创内容',  value:40, mom:null, unit:'篇'},
+        {label:'直播观看',  value:333, mom:null, unit:'人次'},
+        {label:'成交金额',  value:497, mom:null, prefix:'¥'}
+      ], topContent:null,
+      note:'数据统计时间 9月2日 00:00-24:00；用户分析实时值：新关注23 / 取消关注20 / 净增3 / 累计关注222,239' },
     { key:'xhs', badge:'小红书', name:'小红书主号 · Hipapa海龟爸爸', metrics:[
         {label:'女性占比',    value:91, mom:null, unit:'%'},
         {label:'男性占比',    value:9, mom:null, unit:'%'},
