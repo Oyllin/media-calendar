@@ -461,7 +461,16 @@ const ITEMS = [
     {k:'comments',   t:'评论'},
     {k:'collects',   t:'收藏'}
   ];
-  const ACCOUNTS = [];   // 例：{key:'xhs', name:'小红书主号', handle:'@xxx', m:{fans:128000, ...}, trend:[{m:'26年8月',fans:120000},{m:'26年9月',fans:128000}]}
+  /* 数据来源：2026-09-03 浏览器登录小红书创作服务平台实时采集
+     统计周期：近7日 08-27~09-02 · 近30日 08-04~09-02
+     fans=总粉丝数(粉丝数据页) growth30=近30日新增关注(数据看板·涨粉数据)
+     m30Views=近30日观看数 likes=获赞与收藏(主页累计) comments/collects=近30日
+     totalViews/avgViews 平台无累计口径，留空显示 — */
+  const ACCOUNTS = [
+    {key:'xhs', name:'小红书主号', handle:'Hipapa海龟爸爸 · 小红书号 4932135493',
+     m:{fans:58057, growth30:1320, totalViews:null, m30Views:113000, avgViews:null, likes:139000, comments:1735, collects:1303},
+     trend:[{m:'26年9月', fans:58057}]}
+  ];
 
   /* ==================== 全平台原始数据（框架，仅结构、不填数据） ====================
      结构参考用户提供的「全平台原始数据」报表：每个平台一张卡，内含
@@ -469,13 +478,13 @@ const ITEMS = [
      · topContent：可选 Top5 内容表（各平台列不同），rows 留空 → 渲染 5 行占位
      严禁编造任何数字；收到真实报表后按此结构填入 value / mom / rows 即可。 */
   const RAW_META = {
-    brand: '',                  // 例 'Hi! Papa 海龟爸爸'
-    dataDate: '',               // 数据日期，例 '2026-07-12'
-    collectTime: '',            // 采集时间，例 '2026-07-13 18:30'
-    sources: '微信公众号后台 / 小红书创作服务平台 / 视频号助手 / 微博管理中心',
-    period: '',                 // 数据周期
-    updatedAt: '',              // 更新于
-    method: ''                  // 采集方式
+    brand: 'Hi!papa 海龟爸爸',
+    dataDate: '2026-09-02',      // 数据日期
+    collectTime: '2026-09-03 10:00',  // 采集时间
+    sources: '小红书创作服务平台（已采集）/ 微信公众号后台 / 视频号助手 / 微博管理中心（待采集）',
+    period: '近7日 08-27 至 09-02 · 近30日 08-04 至 09-02',
+    updatedAt: '2026-09-03',
+    method: '浏览器登录平台后台实时采集'
   };
   const RAW_PLATFORMS = [
     { key:'gzh', badge:'微信', name:'公众号数据', metrics:[
@@ -487,15 +496,21 @@ const ITEMS = [
         {label:'直播观看',  value:null, mom:null, unit:'人次'},
         {label:'成交金额',  value:null, mom:null, prefix:'¥'}
       ], topContent:null, note:null },
-    { key:'xhs', badge:'小红书', name:'小红书主号', metrics:[
-        {label:'女性占比',    value:null, mom:null, unit:'%'},
-        {label:'男性占比',    value:null, mom:null, unit:'%'},
-        {label:'主要年龄段',  value:null, mom:null}
-      ], topContent:{ title:'小红书最新笔记Top 5', cols:[
+    { key:'xhs', badge:'小红书', name:'小红书主号 · Hipapa海龟爸爸', metrics:[
+        {label:'女性占比',    value:91, mom:null, unit:'%'},
+        {label:'男性占比',    value:9, mom:null, unit:'%'},
+        {label:'主要年龄段',  value:'18-24岁（27%）', mom:null}
+      ], topContent:{ title:'小红书笔记 Top 5（按观看数，08-27 至 09-02 发布）', cols:[
         {k:'rank',t:'排名'},{k:'title',t:'标题'},{k:'date',t:'发布'},
-        {k:'read',t:'阅读'},{k:'like',t:'点赞'},{k:'collect',t:'收藏'},
+        {k:'read',t:'观看'},{k:'like',t:'点赞'},{k:'collect',t:'收藏'},
         {k:'comment',t:'评论'},{k:'share',t:'分享'}
-      ], rows:[] }, note:null },
+      ], rows:[
+        {rank:1, title:'🔥在下悟空是也一日店长1V1互动‼️', date:'08-29', read:1555, like:21,  collect:4,   comment:18,  share:10},
+        {rank:2, title:'🔥海龟爸爸 × 悟空痛楼营业中',     date:'08-29', read:962,  like:37,  collect:1,   comment:8,   share:2},
+        {rank:3, title:'限时招募2.0 全网征集"换季小红脸"', date:'08-30', read:744,  like:113, collect:92,  comment:175, share:27},
+        {rank:4, title:'💕在下悟空是也一日店长倒计时2天',  date:'08-28', read:717,  like:24,  collect:1,   comment:12,  share:4},
+        {rank:5, title:'品牌联动 开学季已到，装备要跟上🎁', date:'08-29', read:642,  like:192, collect:178, comment:227, share:29}
+      ] }, note:'总粉丝数 58,057 · 粉丝来源：搜索36.7%/首页推荐29.6%/视频推荐17.4%' },
     { key:'sph', badge:'视频号', name:'视频号主号', metrics:[
         {label:'关注者',    value:null, mom:null},
         {label:'视频总数',  value:null, mom:null},
