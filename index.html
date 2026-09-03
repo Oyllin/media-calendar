@@ -477,7 +477,11 @@ const ITEMS = [
     // 视频号：fans=关注者（9月2日快照）
     {key:'sph', name:'视频号', handle:'Hipapa海龟爸爸 · sph1QgdMvOWC9tv',
      m:{fans:16807, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
-     trend:[{m:'26年9月', fans:16807}]}
+     trend:[{m:'26年9月', fans:16807}]},
+    // 微博：fans=总订阅人数（9月2日快照）
+    {key:'wb', name:'微博官微', handle:'Hipapa海龟爸爸官微',
+     m:{fans:1979, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
+     trend:[{m:'26年9月', fans:1979}]}
   ];
 
   /* ==================== 全平台原始数据（框架，仅结构、不填数据） ====================
@@ -488,9 +492,9 @@ const ITEMS = [
   const RAW_META = {
     brand: 'Hi!papa 海龟爸爸',
     dataDate: '2026-09-02',      // 数据日期
-    collectTime: '2026-09-03 10:51',  // 采集时间
-    sources: '小红书创作服务平台（已采集）/ 微信公众号后台（已采集）/ 视频号助手（已采集）/ 微博 / 抖音（待采集）',
-    period: '小红书：近7日 08-27 至 09-02 · 近30日 08-04 至 09-02；公众号：9月2日 00:00-24:00；视频号：9月2日 00:00-24:00',
+    collectTime: '2026-09-03 14:06',  // 采集时间
+    sources: '小红书创作服务平台（已采集）/ 微信公众号后台（已采集）/ 视频号助手（已采集）/ 微博企业管理中心（已采集）/ 抖音（待采集）',
+    period: '小红书：近7日 08-27 至 09-02 · 近30日 08-04 至 09-02；公众号：9月2日 00:00-24:00；视频号：9月2日 00:00-24:00；微博：2026-09-02',
     updatedAt: '2026-09-03',
     method: '浏览器登录平台后台实时采集'
   };
@@ -535,13 +539,14 @@ const ITEMS = [
         {rank:3, title:'告别满脸痘痘带来的容貌焦虑，坚持科学护肤，重拾少年清爽自信的状态。', date:'2026-09-02 09:52', play:163, like:0, comment:0, forward:0},
         {rank:4, title:'兼顾控油、祛痘、保湿、修护四重功效，青春期油痘肌刚需护肤面霜首选。#面霜', date:'2026-09-02 09:52', play:135, like:0, comment:0, forward:0}
       ] }, note:'昨日数据 09-02：净增关注2 / 新增播放2.3万 / 新增点赞2 / 新增评论0' },
-    { key:'wb', badge:'微博', name:'微博官微', metrics:[
-        {label:'总订阅',    value:null, mom:null},
-        {label:'昨日新增',  value:null, mom:null},
-        {label:'昨日阅读',  value:null, mom:null},
-        {label:'昨日互动',  value:null, mom:null},
-        {label:'蓝V有效期', value:null, mom:null}
-      ], topContent:null, note:null },
+    { key:'wb', badge:'微博', name:'微博官微 · Hipapa海龟爸爸', metrics:[
+        {label:'总订阅',    value:1979, mom:null},
+        {label:'昨日新增',  value:0, mom:null},
+        {label:'昨日阅读',  value:3325, mom:'↓17%'},
+        {label:'昨日互动',  value:0, mom:'↓100%'},
+        {label:'蓝V有效期', value:'2027.07.15', mom:null}
+      ], topContent:null,
+      note:'数据日期 2026-09-02 · 认证主体 广州好肌肤科技有限公司；页面访问数23（↓38%）、本日可群发1' },
     { key:'dy', badge:'抖音', name:'抖音主号', metrics:[
         {label:'粉丝数',        value:null, mom:null},
         {label:'作品数',        value:null, mom:null},
