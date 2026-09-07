@@ -106,15 +106,6 @@
     background:#fff;border:1px solid var(--line);border-radius:999px;padding:3px 12px;margin-bottom:8px;box-shadow:var(--shadow-sm)}
   .week-tag .n{width:18px;height:18px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:11px}
   .week-tag .r{font-weight:600;color:var(--ink-3)}
-  .wstats{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin-top:9px;
-    background:#fff;border:1px dashed #C9D2DE;border-radius:10px;padding:6px 12px;font-size:12px}
-  .ws-title{font-weight:800;color:var(--ink-2);letter-spacing:.5px}
-  .ws-chip{display:inline-flex;align-items:center;gap:5px;background:#F5F7FA;border-radius:999px;
-    padding:2px 10px;font-weight:600;color:var(--ink-2)}
-  .ws-chip i{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
-  .ws-chip b{font-weight:800}
-  .ws-total{margin-left:auto;color:var(--ink-3);font-weight:600}
-  .ws-none{color:var(--ink-3)}
   .days{display:grid;grid-template-columns:repeat(7,1fr);gap:9px}
   .day{background:var(--card);border:1px solid var(--line);border-radius:14px;min-height:118px;padding:9px;
     display:flex;flex-direction:column;gap:6px;box-shadow:var(--shadow-sm);transition:.15s}
@@ -245,7 +236,7 @@
 
   /* ---------- modal ---------- */
   .mask{position:fixed;inset:0;background:rgba(31,36,48,.42);backdrop-filter:blur(2px);display:grid;place-items:center;z-index:90;padding:20px}
-  .modal{background:#fff;border-radius:18px;width:min(460px,100%);overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.22)}
+  .modal{background:#fff;border-radius:18px;width:min(540px,100%);overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.22)}
   .m-h{padding:20px 22px;color:#fff}
   .m-h .tt{font-size:18px;font-weight:700;line-height:1.4}
   .m-h .sb{font-size:12px;opacity:.85;margin-top:4px}
@@ -255,6 +246,15 @@
   .kv .v{font-size:13.5px;color:var(--ink);font-weight:600}
   .pf{display:flex;gap:6px;flex-wrap:wrap}
   .pf .b{border-radius:8px;padding:5px 11px;font-size:12px;font-weight:700;color:#fff}
+  .ps-title{font-size:12px;color:var(--ink-3);font-weight:700;margin-bottom:2px}
+  .pstats{display:flex;flex-direction:column;gap:9px}
+  .pstat-card{border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-sm)}
+  .pstat-h{display:flex;align-items:center;gap:8px;padding:7px 12px;font-size:12.5px;font-weight:700;color:#fff}
+  .pstat-b{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}
+  .pstat-b .cell{background:#fff;padding:7px 10px}
+  .pstat-b .cl{font-size:11px;color:var(--ink-3)}
+  .pstat-b .cv{font-size:14px;font-weight:800;margin-top:1px}
+  .pstat-empty{padding:10px 12px;font-size:12px;color:var(--ink-3)}
   .m-f{padding:14px 22px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;background:#FAFBFC}
   .m-f .btn{background:#fff;color:var(--ink-2);border:1px solid var(--line)}
   .m-f .btn:hover{background:#F2F4F7;color:var(--ink)}
@@ -379,6 +379,15 @@ const PLATFORMS = [
   {key:'gzh', abbr:'绿', name:'微信公众号', color:'#0AA86A', soft:'#E7F7F1'},
   {key:'dy',  abbr:'抖', name:'抖音',       color:'#2A2F3A', soft:'#EDEFF3'}
 ];
+/* 各平台「单篇发布数据」指标（弹窗里展示）：key → [字段名, 显示标签]
+   数据来源：进各平台后台（内容分析/笔记数据页）截图录入，绝不编造；无数据一律 null */
+const PLAT_STATS = {
+  xhs:[['impr','曝光量'],['read','阅读量'],['like','点赞'],['collect','收藏'],['comment','评论'],['share','分享']],
+  wb: [['read','阅读量'],['like','点赞'],['comment','评论'],['share','转发']],
+  sph:[['play','播放量'],['like','点赞'],['comment','评论'],['share','转发']],
+  gzh:[['read','阅读量'],['look','在看'],['like','点赞'],['share','分享']],
+  dy: [['play','播放量'],['like','点赞'],['comment','评论'],['share','转发']]
+};
 const GROUPS = [
   {key:'pro',   name:'专业向', color:'#2C5AA0', soft:'#E1EAFF'},
   {key:'sun',   name:'阳光向', color:'#8A6A1F', soft:'#FAF1D1'},
@@ -453,6 +462,16 @@ const ITEMS = [
   {date:'2026-09-14', group:'sun', col:'品牌共创官', title:'第二期回顾长视频',    plats:['sph','xhs','wb','dy']},
   {date:'2026-09-16', group:'sun', col:'品牌共创官', title:'1.2米对话视频',       plats:['sph','xhs','wb','dy']}
 ];
+
+  /* ---------- 单篇「平台发布数据」（stats）录入说明 ----------
+     每条排期可挂 stats 字段，按平台记录发布后的数据（进各平台后台截图/读数录入，严禁编造）。
+     指标 key 见上方 PLAT_STATS；没有的平台不用写，未录入的指标一律 null（弹窗显示「待采集」/「—」）。
+     示例：
+       {date:'2026-09-07', group:'sun', col:'品牌共创官', title:'草原篝火', plats:['xhs','wb','dy','gzh'],
+        stats:{ xhs:{impr:12000, read:8000, like:230, collect:45, comment:18, share:12},
+                wb:{read:5600, like:30, comment:5, share:8},
+                sph:{play:9000, like:66, comment:3, share:9},
+                gzh:{read:1200, look:15, like:22, share:10} }} */
 
   /* ==================== 账号数据（框架，待填入真实数据） ====================
      key 对应 PLATFORMS 的 key（xhs/wb/sph/gzh/dy），用于取平台色；
@@ -818,22 +837,6 @@ function renderCal(){
       }else html += `<div class="empty-day">—</div>`;
       html += `</div></div>`;
     });
-    /* ---- 周平台数据汇总框：统计本周各平台发布量，按数量降序排列 ---- */
-    const wkItems = list.filter(it=>it.wk===w);
-    const wsCnt = {};
-    wkItems.forEach(it=>{
-      if(state.confirmedOnly && it.draft) return;
-      visPlats(it).forEach(k=>{ wsCnt[k]=(wsCnt[k]||0)+1; });
-    });
-    const wsN = wkItems.filter(it=>!(state.confirmedOnly&&it.draft)).length;
-    const wsDraft = wkItems.filter(it=>it.draft && !state.confirmedOnly).length;
-    const wsOrder = PLATFORMS.filter(p=>wsCnt[p.key])
-      .sort((a,b)=>(wsCnt[b.key]-wsCnt[a.key]) || (PLATFORMS.indexOf(a)-PLATFORMS.indexOf(b)));
-    html += `<div class="wstats"><span class="ws-title">本周平台数据</span>` +
-      (wsOrder.length
-        ? wsOrder.map(p=>`<span class="ws-chip"><i style="background:${p.color}"></i>${esc(p.name)}<b>×${wsCnt[p.key]}</b></span>`).join('')
-        : `<span class="ws-none">本周无排期</span>`) +
-      `<span class="ws-total">${wsN} 条选题${wsDraft?` · 含建议 ${wsDraft} 条`:''}</span></div>`;
     html += `</div></div>`;
   }
   document.getElementById('viewCal').innerHTML = html;
@@ -921,6 +924,20 @@ function openModal(id){
         <div class="kv"><span class="k">发布平台</span><span class="v"><span class="pf">${
           ps.map(p=>`<span class="b" style="background:${p.color}">${p.name}（${p.abbr}）</span>`).join('')}</span></span></div>
         <div class="kv"><span class="k">分发条数</span><span class="v">${ps.length} 条</span></div>
+        <div><div class="ps-title">平台发布数据（曝光 / 阅读 / 互动等）</div>
+          <div class="pstats">${it.plats.map(k=>{
+            const p = PLAT_MAP[k];
+            const st = it.stats && it.stats[k];
+            const cols = PLAT_STATS[k] || [];
+            const hasAny = st && cols.some(([key])=>st[key]!=null);
+            if(!hasAny){
+              return `<div class="pstat-card"><div class="pstat-h" style="background:${p.color}">${p.name}（${p.abbr}）</div>
+                <div class="pstat-empty">待采集 — 后续进该平台后台截图录入</div></div>`;
+            }
+            return `<div class="pstat-card"><div class="pstat-h" style="background:${p.color}">${p.name}（${p.abbr}）</div>
+              <div class="pstat-b">${cols.map(([key,lab])=>
+                `<div class="cell"><div class="cl">${lab}</div><div class="cv">${st[key]==null?'—':fmtNum(st[key])}</div></div>`).join('')}</div></div>`;
+          }).join('')}</div></div>
       </div>
       <div class="m-f"><button class="btn" id="closeBtn">关闭</button></div>
     </div></div>`;
