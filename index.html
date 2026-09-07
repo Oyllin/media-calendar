@@ -441,10 +441,12 @@ const GROUP_MAP = Object.fromEntries(GROUPS.map(g=>[g.key,g]));
 =================================================== */
 const ITEMS = [
   /* ---------- 9月（已确认，来自原始 Excel） ---------- */
-  {date:'2026-08-31', group:'other', col:'线下需求',     title:'悟空花絮',            plats:['xhs','sph']},
+  {date:'2026-08-31', group:'other', col:'线下需求',     title:'悟空花絮',            plats:['xhs','sph'],
+   stats:{xhs:{impr:3178, read:728, like:43, comment:7, collect:6, share:5}}},
   {date:'2026-09-01', group:'other', col:'代言人',       title:'金婧代言转发',        plats:['wb']},
   {date:'2026-09-04', group:'other', col:'产品营销',     title:'蓝胖子产品视频',      plats:['xhs','wb']},
-  {date:'2026-09-05', group:'sun',   col:'1.2m的好奇心', title:'KELME Cup 足球赛同步', plats:['xhs','gzh','wb']},
+  {date:'2026-09-05', group:'sun',   col:'1.2m的好奇心', title:'KELME Cup 足球赛同步', plats:['xhs','gzh','wb'],
+   stats:{xhs:{impr:621, read:62, like:4, comment:2, collect:1, share:0}}},
   {date:'2026-09-08', group:'other', col:'产品营销',     title:'蓝胖子-退红可视化',   plats:['xhs','wb'], span:2, endLabel:'9.9'},
   {date:'2026-09-15', group:'other', col:'产品营销',     title:'蓝胖子保湿可视化',    plats:['xhs','wb']},
   {date:'2026-09-15', group:'other', col:'品牌联动',     title:'酒店公众号推文',      plats:['gzh'], span:2, endLabel:'9.16'},
@@ -452,9 +454,12 @@ const ITEMS = [
   {date:'2026-09-24', group:'other', col:'产品营销',     title:'蓝胖子视频二创',      plats:['xhs','wb']},
 
   /* ---------- 9月 · 品牌共创官（用户补充，阳光向） ---------- */
-  {date:'2026-09-04', group:'sun', col:'品牌共创官', title:'户外光学实验',        plats:['xhs','wb','dy','gzh']},
-  {date:'2026-09-05', group:'sun', col:'品牌共创官', title:'好朋友一起追光',      plats:['xhs','wb','dy','gzh']},
-  {date:'2026-09-06', group:'sun', col:'品牌共创官', title:'非遗风采',            plats:['xhs','wb','dy','gzh']},
+  {date:'2026-09-04', group:'sun', col:'品牌共创官', title:'户外光学实验',        plats:['xhs','wb','dy','gzh'],
+   stats:{xhs:{impr:3889, read:546, like:72, comment:46, collect:39, share:13}}},
+  {date:'2026-09-05', group:'sun', col:'品牌共创官', title:'好朋友一起追光',      plats:['xhs','wb','dy','gzh'],
+   stats:{xhs:{impr:1608, read:240, like:29, comment:18, collect:17, share:8}}},
+  {date:'2026-09-06', group:'sun', col:'品牌共创官', title:'非遗风采',            plats:['xhs','wb','dy','gzh'],
+   stats:{xhs:{impr:394, read:51, like:9, comment:4, collect:3, share:1}}},
   {date:'2026-09-07', group:'sun', col:'品牌共创官', title:'草原篝火',            plats:['xhs','wb','dy','gzh']},
   {date:'2026-09-08', group:'sun', col:'品牌共创官', title:'第二期公益课堂',      plats:['xhs','wb','dy','gzh']},
   {date:'2026-09-09', group:'sun', col:'品牌共创官', title:'1.2米小小摄影师',     plats:['xhs','wb','dy','gzh']},
