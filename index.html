@@ -520,15 +520,17 @@ const ITEMS = [
     {k:'comments',   t:'评论'},
     {k:'collects',   t:'收藏'}
   ];
-  /* 数据来源：2026-09-03 浏览器登录小红书创作服务平台实时采集
-     统计周期：近7日 08-27~09-02 · 近30日 08-04~09-02
+  /* 数据来源：2026-09-03 首次采集；2026-09-08 刷新粉丝数/粉丝画像
+     统计周期：粉丝数=09-08 实时（总粉丝数 58,099）；粉丝画像=09-08 实时
+     近30日汇总指标（growth30/m30Views/likes/comments/collects）仍为 09-02 采集值，
+     因小红书后台本次会话翻页/近30日切换失效，未能重采；待提供导出CSV或换路子再补
      fans=总粉丝数(粉丝数据页) growth30=近30日新增关注(数据看板·涨粉数据)
      m30Views=近30日观看数 likes=获赞与收藏(主页累计) comments/collects=近30日
      totalViews/avgViews 平台无累计口径，留空显示 — */
   const ACCOUNTS = [
     {key:'xhs', name:'小红书主号', handle:'Hipapa海龟爸爸 · 小红书号 4932135493',
-     m:{fans:58057, growth30:1320, totalViews:null, m30Views:113000, avgViews:null, likes:139000, comments:1735, collects:1303},
-     trend:[{m:'26年9月', fans:58057}]},
+     m:{fans:58099, growth30:1320, totalViews:null, m30Views:113000, avgViews:null, likes:139000, comments:1735, collects:1303},
+     trend:[{m:'26年9月', fans:58099}]},
     // 公众号：fans=总用户数（9月2日快照）；其余指标口径与小红书不同，平台未直接提供，留空
     {key:'gzh', name:'微信公众号', handle:'Hipapa海龟爸爸',
      m:{fans:222232, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
@@ -550,11 +552,11 @@ const ITEMS = [
      严禁编造任何数字；收到真实报表后按此结构填入 value / mom / rows 即可。 */
   const RAW_META = {
     brand: 'Hi!papa 海龟爸爸',
-    dataDate: '2026-09-02',      // 数据日期
-    collectTime: '2026-09-03 14:06',  // 采集时间
-    sources: '小红书创作服务平台（已采集）/ 微信公众号后台（已采集）/ 视频号助手（已采集）/ 微博企业管理中心（已采集）',
-    period: '小红书：近7日 08-27 至 09-02 · 近30日 08-04 至 09-02；公众号：9月2日 00:00-24:00；视频号：9月2日 00:00-24:00；微博：2026-09-02',
-    updatedAt: '2026-09-03',
+    dataDate: '2026-09-08',      // 数据日期（小红书粉丝数/画像已刷新）
+    collectTime: '2026-09-08 10:30',  // 采集时间
+    sources: '小红书创作服务平台（粉丝数/画像 09-08 刷新 · 笔记明细 09-02）/ 微信公众号后台（09-02）/ 视频号助手（09-02）/ 微博企业管理中心（09-02）',
+    period: '小红书：近7日 09-01 至 09-07（本次刷新）；近30日汇总待重采；公众号：9月2日 00:00-24:00；视频号：9月2日 00:00-24:00；微博：2026-09-02',
+    updatedAt: '2026-09-08',
     method: '浏览器登录平台后台实时采集'
   };
   const RAW_PLATFORMS = [
@@ -582,7 +584,7 @@ const ITEMS = [
         {rank:3, title:'限时招募2.0 全网征集"换季小红脸"', date:'08-30', read:744,  like:113, collect:92,  comment:175, share:27},
         {rank:4, title:'💕在下悟空是也一日店长倒计时2天',  date:'08-28', read:717,  like:24,  collect:1,   comment:12,  share:4},
         {rank:5, title:'品牌联动 开学季已到，装备要跟上🎁', date:'08-29', read:642,  like:192, collect:178, comment:227, share:29}
-      ] }, note:'总粉丝数 58,057 · 粉丝来源：搜索36.7%/首页推荐29.6%/视频推荐17.4%' },
+      ] }, note:'总粉丝数 58,099（09-08）· 粉丝来源：搜索37.11% / 首页推荐28.87% / 视频推荐16.49% / 个人主页11.34% / 其他6.19%；近7日(09-01~09-07)：观看5,374 · 涨粉120 · 互动577 · 曝光6.5万' },
     { key:'sph', badge:'视频号', name:'视频号 · Hipapa海龟爸爸', metrics:[
         {label:'关注者',    value:16807, mom:null},
         {label:'视频总数',  value:254, mom:null},
