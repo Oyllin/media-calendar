@@ -531,10 +531,10 @@ const ITEMS = [
     {key:'xhs', name:'小红书主号', handle:'Hipapa海龟爸爸 · 小红书号 4932135493',
      m:{fans:58099, growth30:1320, totalViews:null, m30Views:113000, avgViews:null, likes:139000, comments:1735, collects:1303},
      trend:[{m:'26年9月', fans:58099}]},
-    // 公众号：fans=总用户数（9月2日快照）；其余指标口径与小红书不同，平台未直接提供，留空
+    // 公众号：fans=总用户数（09-08 刷新，后台9月7日日报）；其余指标口径与小红书不同，平台未直接提供，留空
     {key:'gzh', name:'微信公众号', handle:'Hipapa海龟爸爸',
-     m:{fans:222232, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
-     trend:[{m:'26年9月', fans:222232}]},
+     m:{fans:222307, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
+     trend:[{m:'26年9月', fans:222307}]},
     // 视频号：fans=关注者（9月2日快照）
     {key:'sph', name:'视频号', handle:'Hipapa海龟爸爸 · sph1QgdMvOWC9tv',
      m:{fans:16807, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
@@ -553,23 +553,23 @@ const ITEMS = [
   const RAW_META = {
     brand: 'Hi!papa 海龟爸爸',
     dataDate: '2026-09-08',      // 数据日期（小红书粉丝数/画像已刷新）
-    collectTime: '2026-09-08 10:30',  // 采集时间
-    sources: '小红书创作服务平台（粉丝数/画像 09-08 刷新 · 笔记明细 09-02）/ 微信公众号后台（09-02）/ 视频号助手（09-02）/ 微博企业管理中心（数据概览 2026-09-07 刷新）',
-    period: '小红书：近7日 09-01 至 09-07（本次刷新）；近30日汇总待重采；公众号：9月2日 00:00-24:00；视频号：9月2日 00:00-24:00；微博：数据概览 2026-09-07（总订阅1978 / 昨日阅读2154 / 互动0 / 页面访问32 / 新增粉丝1）',
+    collectTime: '2026-09-08 11:10',  // 采集时间
+    sources: '小红书创作服务平台（粉丝数/画像 09-08 刷新 · 笔记明细 09-02）/ 微信公众号后台（09-08 刷新）/ 视频号助手（09-02）/ 微博企业管理中心（数据概览 2026-09-07 刷新）',
+    period: '小红书：近7日 09-01 至 09-07（本次刷新）；近30日汇总待重采；公众号：9月7日 00:00-24:00（总用户数222,307 / 昨日阅读155 / 分享11 / 新增关注44）/ 近期直播 09-08 观看732人次·成交¥3,763；视频号：9月2日 00:00-24:00；微博：数据概览 2026-09-07（总订阅1978 / 昨日阅读2154 / 互动0 / 页面访问32 / 新增粉丝1）',
     updatedAt: '2026-09-08',
     method: '浏览器登录平台后台实时采集'
   };
   const RAW_PLATFORMS = [
     { key:'gzh', badge:'微信', name:'公众号数据 · Hipapa海龟爸爸', metrics:[
-        {label:'总用户数',  value:222232, mom:null},
-        {label:'昨日阅读',  value:28, mom:null},
-        {label:'昨日分享',  value:4, mom:null},
-        {label:'新增关注',  value:23, mom:null},
+        {label:'总用户数',  value:222307, mom:null},
+        {label:'昨日阅读',  value:155, mom:null},
+        {label:'昨日分享',  value:11, mom:null},
+        {label:'新增关注',  value:44, mom:null},
         {label:'原创内容',  value:40, mom:null, unit:'篇'},
-        {label:'直播观看',  value:333, mom:null, unit:'人次'},
-        {label:'成交金额',  value:497, mom:null, prefix:'¥'}
+        {label:'直播观看',  value:732, mom:null, unit:'人次'},
+        {label:'成交金额',  value:3763, mom:null, prefix:'¥'}
       ], topContent:null,
-      note:'数据统计时间 9月2日 00:00-24:00；用户分析实时值：新关注23 / 取消关注20 / 净增3 / 累计关注222,239' },
+      note:'数据统计时间 9月7日 00:00-24:00（总用户数222,307 / 昨日阅读155 / 分享11 / 新增关注44 / 原创40）；近期直播 09-08 06:07 开播：观看732人次·成交¥3,763；用户分析(性别/年龄/地域)后台SPA子页采集环境不渲染，未抓取' },
     { key:'xhs', badge:'小红书', name:'小红书主号 · Hipapa海龟爸爸', metrics:[
         {label:'女性占比',    value:91, mom:null, unit:'%'},
         {label:'男性占比',    value:9, mom:null, unit:'%'},
