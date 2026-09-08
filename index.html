@@ -535,10 +535,10 @@ const ITEMS = [
     {key:'gzh', name:'微信公众号', handle:'Hipapa海龟爸爸',
      m:{fans:222307, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
      trend:[{m:'26年9月', fans:222307}]},
-    // 视频号：fans=关注者（9月2日快照）
+    // 视频号：fans=关注者（09-08 刷新，后台9月7日日报）；其余指标口径平台未直接提供，留空
     {key:'sph', name:'视频号', handle:'Hipapa海龟爸爸 · sph1QgdMvOWC9tv',
-     m:{fans:16807, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
-     trend:[{m:'26年9月', fans:16807}]},
+     m:{fans:16812, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
+     trend:[{m:'26年9月', fans:16812}]},
     // 微博：fans=总订阅人数（企业管理中心 2026-09-07 数据概览刷新；企业号后台无近30日/粉丝画像模块，其余字段留空 —）
     {key:'wb', name:'微博官微', handle:'Hipapa海龟爸爸官微',
      m:{fans:1978, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
@@ -553,9 +553,9 @@ const ITEMS = [
   const RAW_META = {
     brand: 'Hi!papa 海龟爸爸',
     dataDate: '2026-09-08',      // 数据日期（小红书粉丝数/画像已刷新）
-    collectTime: '2026-09-08 11:10',  // 采集时间
-    sources: '小红书创作服务平台（粉丝数/画像 09-08 刷新 · 笔记明细 09-02）/ 微信公众号后台（09-08 刷新）/ 视频号助手（09-02）/ 微博企业管理中心（数据概览 2026-09-07 刷新）',
-    period: '小红书：近7日 09-01 至 09-07（本次刷新）；近30日汇总待重采；公众号：9月7日 00:00-24:00（总用户数222,307 / 昨日阅读155 / 分享11 / 新增关注44）/ 近期直播 09-08 观看732人次·成交¥3,763；视频号：9月2日 00:00-24:00；微博：数据概览 2026-09-07（总订阅1978 / 昨日阅读2154 / 互动0 / 页面访问32 / 新增粉丝1）',
+    collectTime: '2026-09-08 12:05',  // 采集时间
+    sources: '小红书创作服务平台（粉丝数/画像 09-08 刷新 · 笔记明细 09-02）/ 微信公众号后台（09-08 刷新）/ 视频号助手（09-08 刷新）/ 微博企业管理中心（数据概览 2026-09-07 刷新）',
+    period: '小红书：近7日 09-01 至 09-07（本次刷新）；近30日汇总待重采；公众号：9月7日 00:00-24:00（总用户数222,307 / 昨日阅读155 / 分享11 / 新增关注44）/ 近期直播 09-08 观看732人次·成交¥3,763；视频号：9月7日 00:00-24:00（关注者16,812 / 昨日播放2.6万 / 新增点赞3 / 新增评论0）；微博：数据概览 2026-09-07（总订阅1978 / 昨日阅读2154 / 互动0 / 页面访问32 / 新增粉丝1）',
     updatedAt: '2026-09-08',
     method: '浏览器登录平台后台实时采集'
   };
@@ -586,10 +586,10 @@ const ITEMS = [
         {rank:5, title:'品牌联动 开学季已到，装备要跟上🎁', date:'08-29', read:642,  like:192, collect:178, comment:227, share:29}
       ] }, note:'总粉丝数 58,099（09-08）· 粉丝来源：搜索37.11% / 首页推荐28.87% / 视频推荐16.49% / 个人主页11.34% / 其他6.19%；近7日(09-01~09-07)：观看5,374 · 涨粉120 · 互动577 · 曝光6.5万' },
     { key:'sph', badge:'视频号', name:'视频号 · Hipapa海龟爸爸', metrics:[
-        {label:'关注者',    value:16807, mom:null},
-        {label:'视频总数',  value:254, mom:null},
-        {label:'昨日播放',  value:23000, mom:null, unit:null},
-        {label:'新增点赞',  value:2, mom:null},
+        {label:'关注者',    value:16812, mom:null},
+        {label:'视频总数',  value:260, mom:null},
+        {label:'昨日播放',  value:26000, mom:null, unit:null},
+        {label:'新增点赞',  value:3, mom:null},
         {label:'新增评论',  value:0, mom:null}
       ], topContent:{ title:'视频号最新内容 Top 5（按播放量，08-27 至 09-02 发布）', cols:[
         {k:'rank',t:'排名'},{k:'title',t:'标题'},{k:'date',t:'发布'},
@@ -599,7 +599,7 @@ const ITEMS = [
         {rank:2, title:'精简护肤适配学生党日常，无需叠加多层护肤品，上学护肤简单又省事。#面霜', date:'2026-09-02 09:51', play:301, like:0, comment:0, forward:0},
         {rank:3, title:'告别满脸痘痘带来的容貌焦虑，坚持科学护肤，重拾少年清爽自信的状态。', date:'2026-09-02 09:52', play:163, like:0, comment:0, forward:0},
         {rank:4, title:'兼顾控油、祛痘、保湿、修护四重功效，青春期油痘肌刚需护肤面霜首选。#面霜', date:'2026-09-02 09:52', play:135, like:0, comment:0, forward:0}
-      ] }, note:'昨日数据 09-02：净增关注2 / 新增播放2.3万 / 新增点赞2 / 新增评论0' },
+      ] }, note:'昨日数据 09-07：净增关注1 / 新增播放2.6万 / 新增点赞3 / 新增评论0；关注者16,812 · 视频总数260；Top5为09-02采集（数据中心子页SPA不渲染，未刷新）' },
     { key:'wb', badge:'微博', name:'微博官微 · Hipapa海龟爸爸', metrics:[
         {label:'总订阅',    value:1978, mom:'较09-02 ↓1'},
         {label:'昨日新增',  value:1, mom:'↑100%'},
