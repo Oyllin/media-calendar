@@ -539,10 +539,10 @@ const ITEMS = [
     {key:'sph', name:'视频号', handle:'Hipapa海龟爸爸 · sph1QgdMvOWC9tv',
      m:{fans:16807, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
      trend:[{m:'26年9月', fans:16807}]},
-    // 微博：fans=总订阅人数（9月2日快照）
+    // 微博：fans=总订阅人数（企业管理中心 2026-09-07 数据概览刷新；企业号后台无近30日/粉丝画像模块，其余字段留空 —）
     {key:'wb', name:'微博官微', handle:'Hipapa海龟爸爸官微',
-     m:{fans:1979, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
-     trend:[{m:'26年9月', fans:1979}]}
+     m:{fans:1978, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
+     trend:[{m:'26年9月', fans:1978}]}
   ];
 
   /* ==================== 全平台原始数据（框架，仅结构、不填数据） ====================
@@ -554,8 +554,8 @@ const ITEMS = [
     brand: 'Hi!papa 海龟爸爸',
     dataDate: '2026-09-08',      // 数据日期（小红书粉丝数/画像已刷新）
     collectTime: '2026-09-08 10:30',  // 采集时间
-    sources: '小红书创作服务平台（粉丝数/画像 09-08 刷新 · 笔记明细 09-02）/ 微信公众号后台（09-02）/ 视频号助手（09-02）/ 微博企业管理中心（09-02）',
-    period: '小红书：近7日 09-01 至 09-07（本次刷新）；近30日汇总待重采；公众号：9月2日 00:00-24:00；视频号：9月2日 00:00-24:00；微博：2026-09-02',
+    sources: '小红书创作服务平台（粉丝数/画像 09-08 刷新 · 笔记明细 09-02）/ 微信公众号后台（09-02）/ 视频号助手（09-02）/ 微博企业管理中心（数据概览 2026-09-07 刷新）',
+    period: '小红书：近7日 09-01 至 09-07（本次刷新）；近30日汇总待重采；公众号：9月2日 00:00-24:00；视频号：9月2日 00:00-24:00；微博：数据概览 2026-09-07（总订阅1978 / 昨日阅读2154 / 互动0 / 页面访问32 / 新增粉丝1）',
     updatedAt: '2026-09-08',
     method: '浏览器登录平台后台实时采集'
   };
@@ -601,13 +601,14 @@ const ITEMS = [
         {rank:4, title:'兼顾控油、祛痘、保湿、修护四重功效，青春期油痘肌刚需护肤面霜首选。#面霜', date:'2026-09-02 09:52', play:135, like:0, comment:0, forward:0}
       ] }, note:'昨日数据 09-02：净增关注2 / 新增播放2.3万 / 新增点赞2 / 新增评论0' },
     { key:'wb', badge:'微博', name:'微博官微 · Hipapa海龟爸爸', metrics:[
-        {label:'总订阅',    value:1979, mom:null},
-        {label:'昨日新增',  value:0, mom:null},
-        {label:'昨日阅读',  value:3325, mom:'↓17%'},
+        {label:'总订阅',    value:1978, mom:'较09-02 ↓1'},
+        {label:'昨日新增',  value:1, mom:'↑100%'},
+        {label:'昨日阅读',  value:2154, mom:'↑25%'},
         {label:'昨日互动',  value:0, mom:'↓100%'},
+        {label:'页面访问',  value:32, mom:'↑78%'},
         {label:'蓝V有效期', value:'2027.07.15', mom:null}
       ], topContent:null,
-      note:'数据日期 2026-09-02 · 认证主体 广州好肌肤科技有限公司；页面访问数23（↓38%）、本日可群发1' }
+      note:'数据概览 2026-09-07 · 认证主体 广州好肌肤科技有限公司 · 运营人 李璐婷；本日可群发 1 · 粉丝画像 / 近30日浏览企业号后台未开放，相关字段留空 —' }
   ];
 
   /* ---------- 10 / 11 / 12 月：留空待定 ----------
