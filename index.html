@@ -881,7 +881,7 @@ function renderCal(){
       }else html += `<div class="empty-day">—</div>`;
       html += `</div></div>`;
     });
-    if(w===1){
+    if(state.month==='sep' && w===1){
       html += `<div class="week-summary">
         <div class="ws-h">📊 本周小红书复盘 · 8.31–9.6</div>
         <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">户外光学实验</span><span class="ws-data">曝光 4174 · 互动率 11.1%</span><div class="ws-tip">大红山追光场景，收藏+评论全周最高。</div></div>
@@ -889,12 +889,20 @@ function renderCal(){
         <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">方向建议</span><div class="ws-tip">延续追光/户外/研学系列；活动稿加儿童+产品向互动。</div></div>
       </div>`;
     }
-    if(w===2){
+    if(state.month==='sep' && w===2){
       html += `<div class="week-summary">
         <div class="ws-h">📊 本周小红书复盘 · 9.7–9.13</div>
         <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">1.2米小小摄影师</span><span class="ws-data">曝光 5141 · 互动率 29.1%</span><div class="ws-tip">点赞38·评论13·收藏15全周最高，研学/摄影题材家长共鸣强。</div></div>
         <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">蓝胖子·退红可视化</span><span class="ws-data">曝光 4487 · 互动率 0.6%</span><div class="ws-tip">阅读全周最高但互动率垫底，产品实测缺互动钩子，补测评问答/评论引导。</div></div>
         <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">方向建议</span><div class="ws-tip">延续 1.2米视角/研学/追光系列；产品与招募类（退红/招募）加互动钩子与人格化叙事。</div></div>
+      </div>`;
+    }
+    if(state.month==='sep' && w===3){
+      html += `<div class="week-summary">
+        <div class="ws-h">📊 本周小红书复盘 · 9.14–9.20</div>
+        <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">第二期回顾长视频</span><span class="ws-data">曝光 7530 · 互动率 16.6%</span><div class="ws-tip">赞103·藏19·评8·享7，曝光与互动数全周最高；内蒙追光研学长视频家长共鸣强。</div></div>
+        <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">蓝胖子保湿可视化</span><span class="ws-data">曝光 3938 · 观看 512</span><div class="ws-tip">曝光/观看全周垫底，产品实测稿流量获取不足，需强化开场钩子与人群标签。</div></div>
+        <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">方向建议</span><div class="ws-tip">延续内蒙追光/研学长视频系列；1.2米系列曝光稳（6348）但互动率偏低（9.4%），补评论引导；产品实测类加场景化钩子。</div></div>
       </div>`;
     }
     html += `</div></div>`;
