@@ -412,12 +412,18 @@ const WK_CN = ['一','二','三','四','五'];
 /* 今天：实时跟随打开页面的真实日期（浏览器本地时区） */
 const TODAY = fmt(new Date());
 
-/* 月份：起点均为周一，终点均为周日，四个月首尾相接 */
+/* 月份：起点均为周一，终点均为周日
+   start/days  = 「归属范围」：唯一切分、互不重叠（DAY_MAP / 统计 / Q4 合计以此为准，保证不重复计数）
+   viewStart/viewDays = 「视图网格」：该月看板实际显示的日历格。不填则同归属范围。
+   leadFrom    = 视图网格里「从哪天起才开始显示卡片」（用于把月初几天借给上一个月后，仍能在本月呈现）
+   例：10 月归属为 10.5–11.1，但视图网格提前到 9.28，并从 10.1 起显示卡片 →
+       10.1–10.4 在 10 月看板可见（同时 9 月看板也保留它们，属「跨月双呈现」）。 */
 const MONTHS = [
-  {key:'sep', name:'9月',  start:'2026-08-31', days:35, theme:'双11蓄水 · 常规节奏'},
-  {key:'oct', name:'10月', start:'2026-10-05', days:28, theme:'国庆后 · 双11预售'},
-  {key:'nov', name:'11月', start:'2026-11-02', days:28, theme:'双11爆发 · 返场'},
-  {key:'dec', name:'12月', start:'2026-11-30', days:35, theme:'双12 · 圣诞 · 年终'}
+  {key:'sep', name:'9月',  ym:'2026-09', start:'2026-08-31', days:35, theme:'双11蓄水 · 常规节奏'},
+  {key:'oct', name:'10月', ym:'2026-10', start:'2026-10-05', days:28,
+   viewStart:'2026-09-28', viewDays:35, leadFrom:'2026-10-01', theme:'国庆后 · 双11预售'},
+  {key:'nov', name:'11月', ym:'2026-11', start:'2026-11-02', days:28, theme:'双11爆发 · 返场'},
+  {key:'dec', name:'12月', ym:'2026-12', start:'2026-11-30', days:35, theme:'双12 · 圣诞 · 年终'}
 ];
 
 /* ==================== 日历主表（8.31 — 2027.01.03，126 天 / 18 周） ==================== */
@@ -431,13 +437,28 @@ const MASTER = (function(){
       arr.push({date:fmt(d), label:(d.getMonth()+1)+'.'+d.getDate(), wd:d.getDay()===0?7:d.getDay(),
                 wk:Math.floor(i/7)+1, mon:m.key, idx:i});
     }
-    m.grid = arr;
+    m.grid = arr;                       // 归属网格
     out.push(...arr);
+
+    /* 视图网格（渲染用，可与上月重叠） */
+    const vs = m.viewStart || m.start, vd = m.viewDays || m.days;
+    const vst = new Date(vs.replace(/-/g,'/'));
+    const varr = [];
+    for(let i=0;i<vd;i++){
+      const d = new Date(vst.getTime() + i*86400000);
+      varr.push({date:fmt(d), label:(d.getMonth()+1)+'.'+d.getDate(), wd:d.getDay()===0?7:d.getDay(),
+                 wk:Math.floor(i/7)+1, idx:i});
+    }
+    m.vgrid = varr;
+    m.vFrom = m.leadFrom || m.start;
+    m.vTo   = varr[varr.length-1].date;
   });
   return out;
 })();
 
 function fmt(d){const p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate());}
+/* 'YYYY-MM-DD' -> 时间戳（用本地零点，避免时区偏移导致跨天） */
+const ms = s => new Date(String(s).replace(/-/g,'/')).getTime();
 
 /* date -> {wd, wk, mon} 反查表：星期与周次由日历自动推导，杜绝手写错 */
 const DAY_MAP = {};
@@ -665,8 +686,18 @@ ITEMS.forEach((it,i)=>{
 });
 
 /* ==================== 状态 ==================== */
+/* 默认月份：跟随打开页面的真实日期自动定位（例：10.1 打开页面自动落在 10 月看板） */
+function defaultMonth(){
+  const ym = TODAY.slice(0,7);
+  const hit = MONTHS.find(m=>m.ym===ym);                        // 1) 自然月精确匹配
+  if(hit) return hit.key;
+  const cov = MONTHS.find(m=>TODAY>=m.vFrom && TODAY<=m.vTo);   // 2) 视图网格覆盖
+  if(cov) return cov.key;
+  return TODAY < MONTHS[0].start ? MONTHS[0].key : MONTHS[MONTHS.length-1].key; // 3) 兜底
+}
+
 const state = {
-  month:'sep',
+  month:defaultMonth(),
   plats:new Set(PLATFORMS.map(p=>p.key)),
   groups:new Set(GROUPS.map(g=>g.key)),
   confirmedOnly:false,
@@ -674,21 +705,33 @@ const state = {
   mode:'plan'
 };
 
-/* 平台取交集、板块取包含、状态过滤、月份过滤 */
-function scopeOf(list, mon){
-  return list.filter(it=>{
-    if(mon && it.mon !== mon) return false;
-    if(!state.groups.has(it.group)) return false;
-    if(state.confirmedOnly && it.draft) return false;
-    return it.plats.some(k=>state.plats.has(k));
-  });
+/* 平台取交集、板块取包含、状态过滤（与月份无关） */
+function passFilter(it){
+  if(!state.groups.has(it.group)) return false;
+  if(state.confirmedOnly && it.draft) return false;
+  return it.plats.some(k=>state.plats.has(k));
 }
-const curItems = () => scopeOf(ITEMS, state.month);
+/* 归属口径：按「唯一切分」的月份归属过滤（Q4 合计 / 平台总量 / 板块总量用，保证不重复计数） */
+function scopeOf(list, mon){
+  return list.filter(it=>(!mon || it.mon===mon) && passFilter(it));
+}
+/* 视图口径：按「该月看板实际显示的日期区间」过滤（含跨月借进来的月初几天） */
+function viewScope(key){
+  const m = MONTH_MAP[key];
+  return ITEMS.filter(it=>it.date>=m.vFrom && it.date<=m.vTo && passFilter(it));
+}
+const curItems = () => viewScope(state.month);
+/* 条目在「当前视图网格」中的周次（由视图网格起点推算，跨月补周时仍正确） */
+function vwkOf(it){
+  const m = MONTH_MAP[state.month];
+  const vs = m.viewStart || m.start;
+  return Math.floor((ms(it.date) - ms(vs))/86400000/7) + 1;
+}
 const visPlats = it => it.plats.filter(k=>state.plats.has(k));
 /* 是否存在「建议待确认」条目 —— 决定相关 UI 是否出现，避免空机制变成噪音 */
 const hasDraft = () => ITEMS.some(it=>it.draft);
-/* 当前月是否整月空白 */
-const monthEmpty = () => ITEMS.filter(it=>it.mon===state.month).length === 0;
+/* 当前看板（视图口径）是否整月空白 —— 不看筛选，只看有没有排期 */
+const monthEmpty = () => ITEMS.filter(it=>it.date>=MONTH_MAP[state.month].vFrom && it.date<=MONTH_MAP[state.month].vTo).length === 0;
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
 function shade(hex, amt){
@@ -738,11 +781,11 @@ function renderCharts(){
   const m = MONTH_MAP[state.month];
   const list = curItems();
 
-  // 本月每周
-  const weeks = Math.round(m.days/7);
+  // 本月每周（按视图网格的周数，跨月补周时同样正确）
+  const weeks = Math.round((m.viewDays || m.days)/7);
   const wk = [];
   for(let w=1; w<=weeks; w++){
-    const its = list.filter(it=>it.wk===w);
+    const its = list.filter(it=>vwkOf(it)===w);
     wk.push({lb:'第'+WK_CN[w-1]+'周', n:its.reduce((s,it)=>s+visPlats(it).length,0)});
   }
   const maxW = Math.max(1, ...wk.map(x=>x.n));
@@ -755,7 +798,7 @@ function renderCharts(){
 
   // Q4 月度节奏（跟随筛选，可点击切月）
   const mon = MONTHS.map(mm=>{
-    const its = scopeOf(ITEMS, mm.key);
+    const its = viewScope(mm.key);
     return {key:mm.key, lb:mm.name, n:its.reduce((s,it)=>s+visPlats(it).length,0)};
   });
   const maxM = Math.max(1, ...mon.map(x=>x.n));
@@ -808,7 +851,7 @@ function renderColBars(){
 /* ==================== 控件 ==================== */
 function renderMonthTabs(){
   document.getElementById('monTabs').innerHTML = MONTHS.map(m=>{
-    const n = scopeOf(ITEMS, m.key).length;
+    const n = viewScope(m.key).length;
     return `<button class="mtab ${state.month===m.key?'on':''}" data-mtab="${m.key}" title="${esc(m.theme)}">
       ${m.name}<span class="n">${n}</span></button>`;
   }).join('');
@@ -863,7 +906,7 @@ document.querySelectorAll('#subnav .seg').forEach(b=>b.onclick=()=>{state.mode=b
 /* ==================== 月历视图 ==================== */
 function renderCal(){
   const list = curItems();
-  const grid = MONTH_MAP[state.month].grid;
+  const grid = MONTH_MAP[state.month].vgrid;   // 视图网格（可含上月末尾补周，跨月内容照常呈现）
   const occ = {};
   list.forEach(it=>{
     (occ[it.date] = occ[it.date] || []).push({it, cont:false});
@@ -882,7 +925,7 @@ function renderCal(){
   const weeks = Math.round(grid.length/7);
   for(let w=1; w<=weeks; w++){
     const wd = grid.filter(d=>d.wk===w);
-    const n = list.filter(it=>it.wk===w).length;
+    const n = list.filter(it=>vwkOf(it)===w).length;
     html += `<div class="week">
       <div class="week-tag"><span class="n">${w}</span>第${WK_CN[w-1]}周
         <span class="r">${esc(wd[0].label)} — ${esc(wd[wd.length-1].label)} · ${n} 条选题</span></div>
@@ -953,7 +996,7 @@ function renderPlat(){
           const g=GROUP_MAP[it.group];
           return `<div class="pitem ${it.draft?'draft':''}" data-id="${it.id}">
             ${it.draft?'<span class="draft-dot">建议</span>':''}
-            <div class="d"><span class="wk">第${WK_CN[it.wk-1]}周</span><b>${esc(it.label)}</b>
+            <div class="d"><span class="wk">第${WK_CN[vwkOf(it)-1]}周</span><b>${esc(it.label)}</b>
               ${WEEKDAYS[it.wd-1]}${it.span>1?` → ${esc(it.endLabel)}`:''}</div>
             <div class="tt">${esc(it.title)}</div>
             <div class="cs"><span style="background:${g.soft};color:${g.color};font-weight:700">${esc(g.name)}</span>
@@ -1062,8 +1105,8 @@ function renderEmptyTip(){
   const m = MONTH_MAP[state.month];
   el.innerHTML = `<div class="empty-tip">
     <div class="t">${esc(m.name)}尚未排期</div>
-    <div class="s">${esc(m.grid[0].label)} — ${esc(m.grid[m.grid.length-1].label)} · ${
-      Math.round(m.days/7)} 周 · ${esc(m.theme)}</div>
+    <div class="s">${esc(m.vgrid[0].label)} — ${esc(m.vgrid[m.vgrid.length-1].label)} · ${
+      Math.round((m.viewDays || m.days)/7)} 周 · ${esc(m.theme)}</div>
     <div class="hint">日历骨架已就位，等你的内容。例如发我一句：<br>
       <b>10月8号 小红书+微博 蓝胖子双11预售</b></div>
   </div>`;
@@ -1252,7 +1295,7 @@ function renderAll(){
   const posts = list.reduce((s,it)=>s+visPlats(it).length,0);
   const m = MONTH_MAP[state.month];
   document.getElementById('nobar').textContent =
-    `${m.name}（${m.grid[0].label} — ${m.grid[m.grid.length-1].label}）· 当前显示 ${list.length} 条选题 / ${posts} 条平台发布` +
+    `${m.name}（${m.vgrid[0].label} — ${m.vgrid[m.vgrid.length-1].label}）· 当前显示 ${list.length} 条选题 / ${posts} 条平台发布` +
     (list.length ? ' · 点击任意卡片查看详情' : ' · 本月待补充');
 
   ['cal','plat','list'].forEach(v=>{
@@ -1264,9 +1307,11 @@ function renderAll(){
   renderEmptyTip();
   renderLegend();
   const fn = document.getElementById('footNote');
+  const filledM = MONTHS.filter(mm=>ITEMS.some(it=>it.date>=mm.vFrom && it.date<=mm.vTo));
+  const emptyM  = MONTHS.filter(mm=>!filledM.includes(mm));
   fn.textContent = hasDraft()
     ? '实线 = 已确认排期 · 虚线 +「建议」角标 = 待确认的建议排期'
-    : '9 月、10 月为已确认排期 · 11—12 月留空待补充';
+    : `${filledM.map(x=>x.name).join('、')} 为已确认排期${emptyM.length?` · ${emptyM.map(x=>x.name).join('、')} 留空待补充`:''}`;
 }
 
 renderAll();
