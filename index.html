@@ -338,7 +338,7 @@
       <div class="bars" id="platBars"></div>
     </div>
     <div class="panel">
-      <h3>9 栏目分布<span class="hint" id="colHint">当前月 · 颜色按板块</span></h3>
+      <h3><span id="colTitleN">13</span> 栏目分布<span class="hint" id="colHint">当前月 · 颜色按板块</span></h3>
       <div class="hbars" id="colBars"></div>
     </div>
   </div>
@@ -779,10 +779,13 @@ function renderCharts(){
     </div>`).join('');
 }
 
-/* 9 栏目分布（按栏目归属板块上色） */
-const COL_ORDER = ['科学答案','科研前线','高光时刻','品牌共创官','1.2m的好奇心','线下需求','产品营销','代言人','品牌联动'];
+/* 栏目分布（按栏目归属板块上色）—— 新增栏目务必同步加进这个数组，否则分布图不显示该栏目 */
+const COL_ORDER = ['科学答案','科研前线','高光时刻','品牌共创官','实验室共创官','青少年共创官',
+                   '1.2m的好奇心','线下活动','线下需求','产品营销','代言人','品牌联动','月度大事件'];
 
 function renderColBars(){
+  const colTitleN = document.getElementById('colTitleN');
+  if(colTitleN) colTitleN.textContent = COL_ORDER.length;
   const list = curItems();
   const data = COL_ORDER.map(c=>{
     const its = list.filter(it=>it.col===c);
@@ -798,7 +801,7 @@ function renderColBars(){
     </div>`).join('');
   const empty = COL_ORDER.every(c => !list.some(it=>it.col===c));
   document.getElementById('colHint').textContent = empty
-    ? '本月暂无内容 · 9 栏目均可落条'
+    ? `本月暂无内容 · ${COL_ORDER.length} 栏目均可落条`
     : `当前月 · 颜色按板块`;
 }
 
