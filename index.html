@@ -973,6 +973,14 @@ function renderCal(){
         <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">方向建议</span><div class="ws-tip">延续内蒙追光/研学长视频系列；1.2米系列曝光稳（6348）但互动率偏低（9.4%），补评论引导；产品实测类加场景化钩子。</div></div>
       </div>`;
     }
+    if(state.month==='sep' && w===4){
+      html += `<div class="week-summary">
+        <div class="ws-h">📊 本周小红书复盘 · 9.21–9.27</div>
+        <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">超级共创官招募计划</span><span class="ws-data">曝光 6457 · 观看 600 · 互动率 6.2%</span><div class="ws-tip">曝光/观看全周双高，互动数 37 并列第一；招募类内容自带参与动机，家长转发意愿强。</div></div>
+        <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">IFSCC 预热海报 ×2</span><span class="ws-data">曝光 1141–1607 · 观看 84–128</span><div class="ws-tip">两条预热海报曝光/观看全周垫底，科研信息密度高、缺人物与场景钩子，预热引流弱。</div></div>
+        <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">方向建议</span><div class="ws-tip">延续超级共创官招募叙事；邓超 KV 互动率 19.1% 全周最高（明星+节日情绪），该打法可复用；IFSCC 内容改由人物出镜讲「人话」或视频化。</div></div>
+      </div>`;
+    }
     html += `</div></div>`;
   }
   document.getElementById('viewCal').innerHTML = html;
