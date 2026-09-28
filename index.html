@@ -374,7 +374,7 @@
   <div class="foot">
     <span class="note" id="footNote"></span><br>
     平台缩写对照：红 = 小红书 · 微 = 微博 · 视 = 视频号 · 绿 = 微信公众号 · 抖 = 抖音<br>
-    数据来源：自媒体发布日历.xlsx（9月已确认）· 10—12月留空待补充
+    数据来源：自媒体发布日历.xlsx（9月已确认）· 用户提供（10月已确认）· 11—12月待补充
   </div>
   </div><!-- /planView -->
 
@@ -500,7 +500,30 @@ const ITEMS = [
   {date:'2026-09-25', group:'other', col:'产品营销', title:'邓超中秋kv官宣', plats:['xhs','wb','gzh','dy']},
   {date:'2026-09-28', group:'pro', col:'高光时刻', title:'连续2年登陆IFSCC海报', plats:['xhs','wb','gzh','dy']},
   {date:'2026-09-29', group:'other', col:'月度大事件', title:'9月月度大事件推文', plats:['gzh','xhs','wb']},
-  {date:'2026-09-30', group:'pro', col:'高光时刻', title:'IFSCC解读', plats:['xhs','wb','gzh','dy']}
+  {date:'2026-09-30', group:'pro', col:'高光时刻', title:'IFSCC解读', plats:['xhs','wb','gzh','dy']},
+
+  /* ---------- 10月（用户 9.28 提供，已确认） ---------- */
+  /* 实验室共创官 */
+  {date:'2026-10-13', group:'sun',   col:'实验室共创官', title:'10月场招募海报',     plats:['xhs','gzh','wb','dy']},
+  /* 青少年共创官 */
+  {date:'2026-10-14', group:'sun',   col:'青少年共创官', title:'问题征集海报',       plats:['xhs','gzh','wb','dy']},
+  {date:'2026-10-15', group:'sun',   col:'青少年共创官', title:'青少年招募海报',     plats:['xhs','gzh','wb','dy']},
+  {date:'2026-10-27', group:'sun',   col:'青少年共创官', title:'青少年预热海报',     plats:['xhs','gzh','wb','dy']},
+  /* 产品营销 */
+  {date:'2026-10-13', group:'other', col:'产品营销',     title:'蓝胖子蛋白专科科普', plats:['xhs','gzh','wb','dy']},
+  {date:'2026-10-20', group:'other', col:'产品营销',     title:'蓝胖子换季卖点',     plats:['xhs','gzh','wb','dy']},
+  {date:'2026-10-24', group:'other', col:'产品营销',     title:'蓝胖子宝宝痛点科普', plats:['xhs','gzh','wb','dy']},
+  {date:'2026-10-30', group:'other', col:'产品营销',     title:'蓝胖子医研背书',     plats:['xhs','gzh','wb','dy']},
+  /* 线下活动 */
+  {date:'2026-10-16', group:'other', col:'线下活动',     title:'屈臣氏蓝胖子推文',   plats:['gzh']},
+  {date:'2026-10-23', group:'other', col:'线下活动',     title:'线下蓝胖子推文',     plats:['gzh']},
+  /* 专业向 */
+  {date:'2026-10-16', group:'pro',   col:'科研前线',     title:'小蓝瓶成分解读',     plats:['xhs','wb','sph','dy']},
+  {date:'2026-10-23', group:'pro',   col:'科学答案',     title:'小蓝瓶面霜Q&A',      plats:['xhs','wb','sph','dy']},
+  /* 阳光向 */
+  {date:'2026-10-29', group:'sun',   col:'1.2m的好奇心', title:'1.2米好奇心视频',    plats:['xhs','wb','sph','dy']},
+  /* 高光时刻：10.1 落在 9 月视图末周（9月日历覆盖至 10.4） */
+  {date:'2026-10-01', group:'pro',   col:'高光时刻',     title:'IFSCC回顾视频',      plats:['xhs','wb','sph']}
 ];
 
   /* ---------- 单篇「平台发布数据」（stats）录入说明 ----------
@@ -621,13 +644,13 @@ const ITEMS = [
       note:'数据概览 2026-09-20 · 认证主体 广州好肌肤科技有限公司 · 运营人 李璐婷；本日可群发 1 · 粉丝画像 / 近30日浏览企业号后台未开放，相关字段留空 —' }
   ];
 
-  /* ---------- 10 / 11 / 12 月：留空待定 ----------
-     [!] 未经用户明确提供内容，禁止往 10-12 月填充任何排期（含"建议"/"示例"性质的占位内容）。
+  /* ---------- 10 月：已由用户 9.28 提供（见上方 ITEMS）；11 / 12 月：留空待定 ----------
+     [!] 未经用户明确提供内容，禁止往 11-12 月填充任何排期（含"建议"/"示例"性质的占位内容）。
          用户提供内容后按下列格式追加即可：
-           {date:'2026-10-06', group:'other', col:'产品营销', title:'示例选题', plats:['xhs','wb']},
+           {date:'2026-11-06', group:'other', col:'产品营销', title:'示例选题', plats:['xhs','wb']},
      - date  ：10月 10.5-11.1 / 11月 11.2-11.29 / 12月 11.30-2027.1.3
      - group ：pro 专业向 / sun 阳光向 / other 其他
-     - col   ：科学答案 / 科研前线 / 高光时刻 / 品牌共创官 / 1.2m的好奇心 / 线下需求 / 产品营销 / 代言人 / 品牌联动
+     - col   ：科学答案 / 科研前线 / 高光时刻 / 品牌共创官 / 实验室共创官 / 青少年共创官 / 1.2m的好奇心 / 线下活动 / 线下需求 / 产品营销 / 代言人 / 品牌联动 / 月度大事件
      - plats ：xhs 小红书 / wb 微博 / sph 视频号 / gzh 微信公众号 / dy 抖音
      - 可选  ：draft:true 标为建议待确认（虚线显示）；span:2 + endLabel:'10.7' 表示跨天
   */
@@ -1240,7 +1263,7 @@ function renderAll(){
   const fn = document.getElementById('footNote');
   fn.textContent = hasDraft()
     ? '实线 = 已确认排期 · 虚线 +「建议」角标 = 待确认的建议排期'
-    : '9 月为已确认排期 · 10—12 月留空待补充';
+    : '9 月、10 月为已确认排期 · 11—12 月留空待补充';
 }
 
 renderAll();
