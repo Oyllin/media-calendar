@@ -517,13 +517,13 @@ const ITEMS = [
   {date:'2026-09-24', group:'sun', col:'品牌共创官', title:'超级共创官报名海报', plats:['xhs','wb','gzh','dy'], stats:{xhs:{impr:6457, read:600, like:16, comment:13, collect:6, share:2}}},
 
   /* ---------- 9月 · 共创官收尾（用户 9.28 追加） ---------- */
-  {date:'2026-09-29', group:'sun', col:'品牌共创官', title:'共创官活动金句海报', plats:['xhs','wb','gzh','dy']},
-  {date:'2026-09-29', group:'sun', col:'品牌共创官', title:'共创官活动回顾海报', plats:['xhs','wb','gzh','dy']},
-  {date:'2026-09-30', group:'sun', col:'品牌共创官', title:'品牌共创官VLOG',    plats:['xhs','wb','sph','dy']},
+  {date:'2026-09-29', group:'sun', col:'品牌共创官', title:'共创官活动金句海报', plats:['xhs','wb','gzh','dy'], stats:{xhs:{impr:4669, read:223, like:20, comment:1, collect:7, share:1}}},
+  {date:'2026-09-29', group:'sun', col:'品牌共创官', title:'共创官活动回顾海报', plats:['xhs','wb','gzh','dy'], stats:{xhs:{impr:3962, read:195, like:15, comment:10, collect:6, share:4}}},
+  {date:'2026-09-30', group:'sun', col:'品牌共创官', title:'品牌共创官VLOG',    plats:['xhs','wb','sph','dy'], stats:{xhs:{impr:4466, read:1366, like:88, comment:2, collect:79, share:4}}},
 
   /* ---------- 9月（用户 9.21 调整：删收官/小蓝瓶/月度大事件；加邓超KV与IFSCC） ---------- */
   {date:'2026-09-25', group:'other', col:'产品营销', title:'邓超中秋kv官宣', plats:['xhs','wb','gzh','dy'], stats:{xhs:{impr:1670, read:194, like:22, comment:8, collect:4, share:3}}},
-  {date:'2026-09-28', group:'pro', col:'高光时刻', title:'连续2年登陆IFSCC海报', plats:['xhs','wb','gzh']},
+  {date:'2026-09-28', group:'pro', col:'高光时刻', title:'连续2年登陆IFSCC海报', plats:['xhs','wb','gzh'], stats:{xhs:{impr:2641, read:237, like:10, comment:0, collect:5, share:0}}},
   {date:'2026-09-29', group:'other', col:'月度大事件', title:'9月月度大事件推文', plats:['gzh','xhs','wb']},
   {date:'2026-09-30', group:'pro', col:'高光时刻', title:'IFSCC解读', plats:['xhs','wb','gzh','dy']},
 
@@ -537,7 +537,6 @@ const ITEMS = [
   {date:'2026-10-26', group:'sun',   col:'青少年共创官', title:'青少年招募海报',     plats:['xhs','gzh','wb','dy']},
   /* 产品营销 */
   {date:'2026-10-09', group:'other', col:'产品营销',     title:'蓝胖子—达人沐颜视频二创', plats:['xhs','wb','sph','dy']},
-  {date:'2026-10-13', group:'other', col:'产品营销',     title:'蓝胖子蛋白专科科普', plats:['xhs','gzh','wb','dy']},
   {date:'2026-10-20', group:'other', col:'产品营销',     title:'蓝胖子换季卖点',     plats:['xhs','gzh','wb','dy']},
   {date:'2026-10-24', group:'other', col:'产品营销',     title:'蓝胖子宝宝痛点科普', plats:['xhs','gzh','wb','dy']},
   {date:'2026-10-30', group:'other', col:'产品营销',     title:'蓝胖子医研背书',     plats:['xhs','gzh','wb','dy']},
@@ -996,6 +995,21 @@ function renderCal(){
         <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">超级共创官招募计划</span><span class="ws-data">曝光 6457 · 观看 600 · 互动率 6.2%</span><div class="ws-tip">曝光/观看全周双高，互动数 37 并列第一；招募类内容自带参与动机，家长转发意愿强。</div></div>
         <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">IFSCC 预热海报 ×2</span><span class="ws-data">曝光 1141–1607 · 观看 84–128</span><div class="ws-tip">两条预热海报曝光/观看全周垫底，科研信息密度高、缺人物与场景钩子，预热引流弱。</div></div>
         <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">方向建议</span><div class="ws-tip">延续超级共创官招募叙事；邓超 KV 互动率 19.1% 全周最高（明星+节日情绪），该打法可复用；IFSCC 内容改由人物出镜讲「人话」或视频化。</div></div>
+      </div>`;
+    }
+    if(state.month==='sep' && w===5){
+      html += `<div class="week-summary">
+        <div class="ws-h">📈 9 月小红书整月总结 · 9.3–9.30 共 24 篇（视频 9 / 图文 15）</div>
+        <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;background:#fff;border:1px solid #F3E3DE;border-radius:10px;padding:8px 10px;min-width:0">
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">136,400</div><div style="font-size:10.5px;color:var(--ink-3)">总曝光</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">15,407</div><div style="font-size:10.5px;color:var(--ink-3)">总观看</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">1,392</div><div style="font-size:10.5px;color:var(--ink-3)">总互动</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">9.0%</div><div style="font-size:10.5px;color:var(--ink-3)">整月互动率</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">+55</div><div style="font-size:10.5px;color:var(--ink-3)">涨粉</div></div>
+        </div>
+        <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">嘘！一起"声"临内蒙古草原吧（9.17）</span><span class="ws-data">曝光 11,219 · 观看 1,093 · 互动率 14.8% · 赞 124</span><div class="ws-tip">点赞全月第一、曝光榜第二；草原追光/研学题材综合表现最强，家长共鸣度最高。</div></div>
+        <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">产品实测类（蓝胖子真人实测 9.11）</span><span class="ws-data">观看 2,537 全月第一 · 互动率 0.9% 全月垫底</span><div class="ws-tip">流量进得来但互动转化最差；实测稿普遍缺测评问答与评论钩子（保湿/退红同病）。</div></div>
+        <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">整月结构洞察</span><div class="ws-tip">图文互动率 11.9% 是视频 7.3% 的 1.6 倍；招募类最能拉曝光（15,104）但互动率仅 3.0%。建议研学/共创主题多用图文，招募与实测类统一补参与钩子。</div></div>
       </div>`;
     }
     html += `</div></div>`;
