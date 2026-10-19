@@ -539,12 +539,12 @@ const ITEMS = [
   {date:'2026-10-22', group:'sun',   col:'品牌共创官',   title:'共创官招募海报',      plats:['xhs','gzh','dy']},
   {date:'2026-10-23', group:'sun',   col:'品牌共创官',   title:'共创官mini vlog视频', plats:['sph','xhs','wb','dy']},
   /* 产品营销 */
-  {date:'2026-10-09', group:'other', col:'产品营销',     title:'蓝胖子—达人沐颜视频二创', plats:['xhs','wb','sph','dy'], stats:{wb:{read:252, like:0, comment:0, share:0}, xhs:{impr:12056, read:2145, like:193, comment:2, collect:49, share:1}}},
+  {date:'2026-10-09', group:'other', col:'产品营销',     title:'蓝胖子—达人沐颜视频二创', plats:['xhs','wb','sph','dy'], stats:{wb:{read:252, like:0, comment:0, share:0}, xhs:{impr:12056, read:2146, like:193, comment:2, collect:49, share:1}}},
   {date:'2026-10-20', group:'other', col:'产品营销',     title:'蓝胖子换季卖点',     plats:['xhs','gzh','wb','dy']},
   {date:'2026-10-24', group:'other', col:'产品营销',     title:'蓝胖子宝宝痛点科普', plats:['xhs','gzh','wb','dy']},
   {date:'2026-10-30', group:'other', col:'产品营销',     title:'蓝胖子医研背书',     plats:['xhs','gzh','wb','dy']},
   /* 专业向 */
-  {date:'2026-10-17', group:'pro',   col:'科研前线',     title:'IFSCC成分图文解读（一）', plats:['xhs','wb','gzh'], stats:{xhs:{impr:819, read:31, like:3, comment:0, collect:0, share:0}}},
+  {date:'2026-10-17', group:'pro',   col:'科研前线',     title:'IFSCC成分图文解读（一）', plats:['xhs','wb','gzh'], stats:{xhs:{impr:819, read:33, like:3, comment:0, collect:0, share:0}}},
   {date:'2026-10-22', group:'pro',   col:'科研前线',     title:'IFSCC成分图文解读（二）', plats:['xhs','wb','gzh','dy']},
   {date:'2026-10-28', group:'pro',   col:'科学答案',     title:'小蓝瓶面霜Q&A',      plats:['xhs','wb','sph','dy']},
   {date:'2026-10-31', group:'pro',   col:'科研前线',     title:'IFSCC成分图文解读（三）', plats:['xhs','wb','gzh','dy']},
@@ -560,9 +560,9 @@ const ITEMS = [
   {date:'2026-10-19', group:'other', col:'线下活动', title:'秋冬敏请回答｜护理避坑篇', plats:['xhs']},
   {date:'2026-10-20', group:'other', col:'线下活动', title:'秋冬敏请回答｜选品干货篇', plats:['xhs']},
   {date:'2026-10-13', group:'other', col:'线下活动', title:'悬念启幕《紧急任务！寻找敏宝星王牌特工》', plats:['xhs'], stats:{xhs:{impr:1815, read:134, like:2, comment:3, collect:0, share:0}}},
-  {date:'2026-10-14', group:'other', col:'线下活动', title:'线索释放《王牌特工身份线索曝光》', plats:['xhs'], stats:{xhs:{impr:1895, read:126, like:11, comment:21, collect:3, share:0}}},
+  {date:'2026-10-14', group:'other', col:'线下活动', title:'线索释放《王牌特工身份线索曝光》', plats:['xhs'], stats:{xhs:{impr:1895, read:128, like:11, comment:21, collect:3, share:0}}},
   {date:'2026-10-14', group:'sun', col:'品牌共创官', title:'青少年AI视频', plats:['xhs'], stats:{xhs:{impr:5711, read:3489, like:32, comment:3, collect:6, share:2}}},
-  {date:'2026-10-15', group:'other', col:'线下活动', title:'正式揭晓《蓝胖子·敏宝护脸特工 正式报到', plats:['xhs'], stats:{xhs:{impr:1716, read:118, like:4, comment:0, collect:0, share:0}}},
+  {date:'2026-10-15', group:'other', col:'线下活动', title:'正式揭晓《蓝胖子·敏宝护脸特工 正式报到', plats:['xhs'], stats:{xhs:{impr:1716, read:119, like:4, comment:0, collect:0, share:0}}},
   {date:'2026-10-21', group:'other', col:'线下活动', title:'#红了就用蓝胖子  红了就来问专家', plats:['xhs']},
   {date:'2026-10-27', group:'other', col:'线下活动', title:'路演倒计时海报·倒1', plats:['xhs']},
   {date:'2026-10-28', group:'other', col:'线下活动', title:'路演倒计时海报·倒2', plats:['xhs']},
@@ -1046,14 +1046,28 @@ function renderCal(){
       html += `<div class="week-summary">
         <div class="ws-h">📊 本周小红书复盘 · 10.5–10.11 · 共 2 篇</div>
         <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:#fff;border:1px solid #F3E3DE;border-radius:10px;padding:8px 10px;min-width:0">
-          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">7,272</div><div style="font-size:10.5px;color:var(--ink-3)">合计曝光</div></div>
-          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">1,694</div><div style="font-size:10.5px;color:var(--ink-3)">合计观看</div></div>
-          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">226</div><div style="font-size:10.5px;color:var(--ink-3)">合计互动</div></div>
-          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">13.3%</div><div style="font-size:10.5px;color:var(--ink-3)">本周互动率</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">14,767</div><div style="font-size:10.5px;color:var(--ink-3)">合计曝光</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">2,517</div><div style="font-size:10.5px;color:var(--ink-3)">合计观看</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">261</div><div style="font-size:10.5px;color:var(--ink-3)">合计互动</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">10.4%</div><div style="font-size:10.5px;color:var(--ink-3)">本周互动率</div></div>
         </div>
-        <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">蓝胖子—达人沐颜视频二创（10.9）</span><span class="ws-data">曝光 5,802 · 观看 1,438 · 互动率 15.1%</span><div class="ws-tip">赞170·藏45全周最高，封面点击率 24.8%；达人/真人向二创全面跑赢品牌自制。</div></div>
-        <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">IFSCC 回顾视频（10.10）</span><span class="ws-data">曝光 1,470 · 观看 256 · 互动率 3.5%</span><div class="ws-tip">曝光/观看/互动全周垫底；科研回顾信息密度高、缺人物与场景钩子，流量与互动双弱。</div></div>
-        <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">方向建议</span><div class="ws-tip">达人二创打法跑通可放量复用（曝光为品牌自制 3.9×、观看 5.6×、点赞 34×）；品牌自制内容补前 3 秒钩子与评论/收藏引导，科研题材改人物出镜讲「人话」。</div></div>
+        <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">蓝胖子—达人沐颜视频二创（10.9）</span><span class="ws-data">曝光 12,056 · 观看 2,146 · 互动率 11.4%</span><div class="ws-tip">赞193·藏49全周最高，封面点击率 8.0%；达人/真人向二创全面跑赢品牌自制。</div></div>
+        <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">IFSCC 回顾视频（10.10）</span><span class="ws-data">曝光 2,711 · 观看 371 · 互动率 4.3%</span><div class="ws-tip">曝光/观看/互动全周垫底；科研回顾信息密度高、缺人物与场景钩子，流量与互动双弱。</div></div>
+        <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">方向建议</span><div class="ws-tip">达人二创打法跑通可放量复用（曝光为品牌自制 4.4×、观看 5.8×、点赞 24×）；品牌自制内容补前 3 秒钩子与评论/收藏引导，科研题材改人物出镜讲「人话」。</div></div>
+      </div>`;
+    }
+    if(state.month==='oct' && w===3){
+      html += `<div class="week-summary">
+        <div class="ws-h">📊 本周小红书复盘 · 10.12–10.18 · 共 5 篇</div>
+        <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;background:#fff;border:1px solid #F3E3DE;border-radius:10px;padding:8px 10px;min-width:0">
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">11,956</div><div style="font-size:10.5px;color:var(--ink-3)">合计曝光</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">3,903</div><div style="font-size:10.5px;color:var(--ink-3)">合计观看</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">90</div><div style="font-size:10.5px;color:var(--ink-3)">合计互动</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">2.3%</div><div style="font-size:10.5px;color:var(--ink-3)">本周互动率</div></div>
+        </div>
+        <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">青少年AI视频（10.14 视频）</span><span class="ws-data">曝光 5,711 · 观看 3,489 · 涨粉 2 · 藏 6</span><div class="ws-tip">单篇占全周观看 89%，也是本周唯一带来涨粉的内容；视频负责拉量、图文负责拉互动的分工已成型。</div></div>
+        <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">IFSCC成分图文解读（一）（10.17）</span><span class="ws-data">曝光 819 · 观看 33 · 封面点击率 3.1%</span><div class="ws-tip">全周曝光与观看双垫底；成分术语标题劝退、封面无人物无对比，专业向内容拿不到流量。</div></div>
+        <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">系列与结构洞察</span><div class="ws-tip">特工系列 3 篇（10.13/14/15）曝光 5,426、评论 24 条，其中 10.14「续集」互动率 27.3% 全周第一；图文互动率 11.4% 是视频 1.2% 的 9.2 倍。悬念连载可继续，专业向改人物出镜+去术语。</div></div>
       </div>`;
     }
     html += `</div></div>`;
