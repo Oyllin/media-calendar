@@ -185,6 +185,15 @@
 
   /* ---------- misc ---------- */
   .nobar{font-size:12px;color:var(--ink-3);margin-bottom:12px}
+  /* 待定池：日期未定、暂不占日历格子的计划 */
+  .tbdwrap{margin:0 0 14px;padding:11px 14px;border:1.5px dashed #DCC99B;border-radius:14px;background:#FDFAF1}
+  .tbd-h{font-size:12px;font-weight:700;color:#9A7B2E;margin-bottom:9px;letter-spacing:.2px}
+  .tbd-list{display:flex;gap:8px;flex-wrap:wrap}
+  .tbd-item{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;background:#fff;
+    border:1px solid #EFE2C2;border-radius:999px;font-size:13px;color:var(--ink);box-shadow:var(--shadow-sm)}
+  .tbd-item b{font-weight:700}
+  .tbd-item .n{color:#B08114;font-weight:700;font-size:12px}
+  .tbd-item .d{color:var(--ink-3);font-size:11.5px}
   .empty-tip{background:#fff;border:1.5px dashed #D8DEE8;border-radius:14px;padding:22px;text-align:center;margin-bottom:16px}
   .empty-tip .t{font-size:15px;font-weight:700;color:var(--ink)}
   .empty-tip .s{font-size:12.5px;color:var(--ink-2);margin-top:5px}
@@ -364,6 +373,8 @@
 
   <div class="nobar" id="nobar"></div>
   <div id="emptyTip"></div>
+
+  <div id="tbdBar"></div>
 
   <div id="viewCal"></div>
   <div id="viewPlat" class="hidden"></div>
@@ -756,6 +767,23 @@ function passFilter(it){
   if(state.confirmedOnly && it.draft) return false;
   return it.plats.some(k=>state.plats.has(k));
 }
+/* ---------- 待定池：日期未定、暂不占日历格子的计划（如「11月跟 2 篇热点」） ----------
+   只做备忘展示，不进 ITEMS、不计入任何统计；等日期定了再正式加成 ITEMS 条目并从这里删掉。
+   mon 用月份 key（sep/oct/nov/dec）。 */
+const TBD_POOL = [
+  {mon:'nov', title:'热点跟进', n:2, note:'日期待定'}
+];
+function renderTbd(){
+  const box = document.getElementById('tbdBar');
+  if(!box) return;
+  const list = TBD_POOL.filter(t=>t.mon===state.month);
+  if(!list.length){ box.innerHTML=''; return; }
+  box.innerHTML = `<div class="tbdwrap">
+    <div class="tbd-h">📌 待定池 · 日期未定，暂不占日历</div>
+    <div class="tbd-list">${list.map(t=>`<span class="tbd-item"><b>${esc(t.title)}</b><span class="n">×${t.n}</span><span class="d">${esc(t.note||'')}</span></span>`).join('')}</div>
+  </div>`;
+}
+
 /* 归属口径：按「唯一切分」的月份归属过滤（Q4 合计 / 平台总量 / 板块总量用，保证不重复计数） */
 function scopeOf(list, mon){
   return list.filter(it=>(!mon || it.mon===mon) && passFilter(it));
@@ -1386,7 +1414,7 @@ function renderAll(){
   if(state.mode==='data'){ renderData(); return; }
   if(state.mode==='raw'){ renderRaw(); return; }
 
-  renderStats(); renderCharts(); renderColBars(); renderMonthTabs(); renderChips(); renderTabs();
+  renderStats(); renderCharts(); renderColBars(); renderMonthTabs(); renderChips(); renderTabs(); renderTbd();
   const list = curItems();
   const posts = list.reduce((s,it)=>s+visPlats(it).length,0);
   const m = MONTH_MAP[state.month];
