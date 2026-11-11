@@ -590,7 +590,11 @@ const ITEMS = [
 
   /* ---------- 11月（用户 10.22 规划；11月看板视图延伸至 12.6，以便 11.30 可见） ---------- */
   {date:'2026-11-04', group:'pro',   col:'产品营销',     title:'蓝胖子ASMR视频',       plats:['sph','xhs','wb','dy']},
+  {date:'2026-11-05', group:'sun',   col:'青少年共创官', title:'成长新人请开麦·青春期颜值如何悄悄及格', plats:['xhs'], stats:{xhs:{impr:1678, read:140, like:4, comment:3, collect:0, share:0}}},
   {date:'2026-11-06', group:'pro',   col:'科研前线',     title:'小蓝瓶成分',            plats:['xhs','wb','sph','dy']},
+  {date:'2026-11-06', group:'other', col:'品牌共创官',   title:'微距大挑战！猜对带礼物回家', plats:['xhs'], stats:{xhs:{impr:2381, read:210, like:30, comment:40, collect:25, share:6}}},
+  {date:'2026-11-07', group:'other', col:'产品营销',     title:'痘痘的戏份该减少了 厉娜',   plats:['xhs'], stats:{xhs:{impr:2050, read:204, like:5, comment:5, collect:1, share:0}}},
+  {date:'2026-11-07', group:'other', col:'产品营销',     title:'祛痘规矩先“立住”，减少反复更安心', plats:['xhs'], stats:{xhs:{impr:3402, read:315, like:6, comment:4, collect:3, share:1}}},
   {date:'2026-11-14', group:'pro',   col:'科学答案',     title:'蓝胖子面霜指南',        plats:['xhs','gzh','wb','dy']},
   {date:'2026-11-21', group:'pro',   col:'科学答案',     title:'蓝胖子成分科普',        plats:['xhs','gzh','wb','dy']},
   {date:'2026-11-22', group:'pro',   col:'产品营销',     title:'小雪节气·冬季护肤科普营销', plats:['xhs','gzh','wb','dy']},
@@ -667,8 +671,8 @@ const ITEMS = [
        m30Views=近30日观看 2.1万；likes=获赞与收藏 140,767（主页累计，实时）
        comments/collects=近30日（09-19~10-18）评论 111 / 收藏 248；totalViews/avgViews 平台无累计口径 → — */
     {key:'xhs', name:'小红书主号', handle:'Hipapa海龟爸爸 · 小红书号 49321355493',
-     m:{fans:58436, growth30:480, totalViews:null, m30Views:21000, avgViews:null, likes:140767, comments:111, collects:248},
-     trend:[{m:'26年9月', fans:58373},{m:'26年10月', fans:58436}]},
+     m:{fans:58577, growth30:423, totalViews:null, m30Views:22000, avgViews:null, likes:141361, comments:219, collects:193},
+     trend:[{m:'26年9月', fans:58373},{m:'26年10月', fans:58436},{m:'26年11月', fans:58577}]},
     // 公众号：fans=总用户数（10-12 刷新，后台10月11日日报）；其余指标口径与小红书不同，平台未直接提供，留空
     {key:'gzh', name:'微信公众号', handle:'Hipapa海龟爸爸',
      m:{fans:223347, growth30:null, totalViews:null, m30Views:null, avgViews:null, likes:null, comments:null, collects:null},
@@ -690,11 +694,11 @@ const ITEMS = [
      严禁编造任何数字；收到真实报表后按此结构填入 value / mom / rows 即可。 */
   const RAW_META = {
     brand: 'Hi!papa 海龟爸爸',
-    dataDate: '2026-11-02',      // 数据日期（小红书 11-02 刷新：粉丝数/画像/近7日/近30日 · 10-26~11-01 笔记明细 8 篇；公众号 10-12；视频号 09-21；微博 09-20）
-    collectTime: '2026-11-02 16:45',  // 采集时间
-    sources: '小红书创作服务平台（11-02 刷新：粉丝数 58,527 · 粉丝画像 性别/年龄 · 近7日 10-26~11-01 · 近30日 10-03~11-01 · 上周笔记明细 8 篇（导出接口））/ 微信公众号后台（10-12 刷新：总用户数223,347 · 用户画像 性别/年龄 · 新增关注渠道 · 直播数据）/ 视频号助手（关注者16,829/视频292 09-21 身份核对；昨日数据 09-08 末次）/ 微博企业管理中心（数据概览 2026-09-20 刷新）',
-    period: '小红书：粉丝数 58,527（11-02 实时）；近7日 10-26~11-01 新增83/流失66 · 曝光5.2万 · 观看4,123 · 封面CTR5.4% · 完播率19.8% · 赞141/评49/藏56/享28 · 净涨粉22 · 主页访客1,464；近30日 10-03~11-01 曝光23万 · 观看2.3万 · 封面CTR5.8% · 完播率15.2% · 赞626/评168/藏215/享121（互动1,130）· 净涨粉215 · 新增关注451/取关246 · 主页访客8,042；上周 10-26~11-01 共 8 篇（详见 Top5）；公众号：10月11日 00:00-24:00（总用户数223,347 / 昨日阅读15 / 分享1 / 新增关注60 / 原创43；画像 女88.8% · 36-45岁57.6%；近期直播 10-12 开播 观看496 · 成交¥4,588）；视频号：9月7日 00:00-24:00（关注者16,829 / 昨日播放2.6万 / 新增点赞3 / 新增评论0）；微博：数据概览 2026-09-20（总订阅2,027 / 昨日阅读236 / 互动0 / 页面访问21 / 新增粉丝0）',
-    updatedAt: '2026-11-02',
+    dataDate: '2026-11-11',      // 数据日期（小红书 11-11 刷新：粉丝数/画像/近7日 11-04~11-10/近30日 10-12~11-10 · 11-02~11-08 笔记明细 4 篇；公众号 10-12；视频号 09-21；微博 09-20）
+    collectTime: '2026-11-11 10:45',  // 采集时间
+    sources: '小红书创作服务平台（11-11 刷新：粉丝数 58,577 · 粉丝画像 性别/年龄 · 近7日 11-04~11-10 · 近30日 10-12~11-10 · 上周笔记明细 4 篇（导出接口））/ 微信公众号后台（10-12 刷新：总用户数223,347 · 用户画像 性别/年龄 · 新增关注渠道 · 直播数据）/ 视频号助手（关注者16,829/视频292 09-21 身份核对；昨日数据 09-08 末次）/ 微博企业管理中心（数据概览 2026-09-20 刷新）',
+    period: '小红书：粉丝数 58,577（11-11 实时）；近7日 11-04~11-10 新增关注94/取关54 → 净涨粉42 · 曝光4.5万 · 观看2,934 · 封面CTR5.9% · 完播率14.5% · 平均观看时长18秒 · 赞83/评60/藏48/享31 · 主页访客1,164 · 主页转粉率3.9% · 发布7篇；近30日 10-12~11-10 曝光23.2万 · 观看2.2万 · 封面CTR5.7% · 完播率17% · 平均观看时长14秒 · 赞490/评219/藏193/享142（互动1,044）· 净涨粉200 · 新增关注423/取关232 · 主页访客6,983 · 转粉率4.2%；上周 11-02~11-08 共 4 篇（详见 Top5）；公众号：10月11日 00:00-24:00（总用户数223,347 / 昨日阅读15 / 分享1 / 新增关注60 / 原创43；画像 女88.8% · 36-45岁57.6%；近期直播 10-12 开播 观看496 · 成交¥4,588）；视频号：9月7日 00:00-24:00（关注者16,829 / 昨日播放2.6万 / 新增点赞3 / 新增评论0）；微博：数据概览 2026-09-20（总订阅2,027 / 昨日阅读236 / 互动0 / 页面访问21 / 新增粉丝0）',
+    updatedAt: '2026-11-11',
     method: '浏览器登录平台后台实时采集'
   };
   const RAW_PLATFORMS = [
@@ -711,25 +715,24 @@ const ITEMS = [
       ], topContent:null,
       note:'数据统计时间 10月11日 00:00-24:00（总用户数223,347 / 昨日阅读15 / 分享1 / 新增关注60 / 原创43）；用户画像（更新 2026-10-11）：女 88.80% · 男 10.61%；年龄 36-45岁 57.59% · 26-35岁 23.18% · 46-60岁 14.11% · 18-25岁 2.51% · 60岁以上 1.46% · 18岁以下 1.05%；新增关注渠道：视频号直播 37.44% / 搜一搜 24.19% / 视频号 23.11% / 扫描二维码 11.04%；近期直播 10月12日 06:00 开播「青少年祛痘护肤专场」：观看496人次 · 成交¥4,588' },
     { key:'xhs', badge:'小红书', name:'小红书主号 · Hipapa海龟爸爸', metrics:[
-        {label:'总粉丝数',    value:58527, mom:null},
-        {label:'近7日新增',   value:83, mom:null},
-        {label:'近30日新增',  value:451, mom:null},
-        {label:'近30日观看',  value:23000, mom:null},
-        {label:'近30日互动',  value:1130, mom:null},
+        {label:'总粉丝数',    value:58577, mom:null},
+        {label:'近7日新增',   value:94, mom:null},
+        {label:'近30日新增',  value:423, mom:null},
+        {label:'近30日观看',  value:22000, mom:null},
+        {label:'近30日互动',  value:1044, mom:null},
         {label:'女性占比',    value:91, mom:null, unit:'%'},
         {label:'男性占比',    value:9, mom:null, unit:'%'},
         {label:'主要年龄段',  value:'18-24岁（29%）', mom:null}
-      ], topContent:{ title:'小红书笔记 Top 5（按观看数，10 月 26-01 共 8 篇）', cols:[
+      ], topContent:{ title:'小红书笔记 Top 4（按观看数，11 月 02-08 共 4 篇）', cols:[
         {k:'rank',t:'排名'},{k:'title',t:'标题'},{k:'date',t:'发布'},
         {k:'read',t:'观看'},{k:'like',t:'点赞'},{k:'collect',t:'收藏'},
         {k:'comment',t:'评论'},{k:'share',t:'分享'}
       ], rows:[
-        {rank:1, title:'祛痘已严肃进入大飞行时代', date:'10-28', read:551, like:32, collect:15, comment:17, share:4},
-        {rank:2, title:'🚙海龟爸爸×登康贝比巡游车出发！（看板：巡游车派样活动图文）', date:'10-29', read:274, like:15, collect:0, comment:1, share:1},
-        {rank:3, title:'海龟爸爸共创官｜1.2m野生导演Vlog（看板：共创官mini vlog视频）', date:'10-26', read:252, like:5, collect:0, comment:2, share:0},
-        {rank:4, title:'✨宝宝秋冬红脸不用愁！', date:'10-27', read:161, like:5, collect:1, comment:5, share:0},
-        {rank:5, title:'🤫祛痘不烧心档案正式揭秘！', date:'10-31', read:141, like:5, collect:2, comment:1, share:1},
-      ] }, note:'总粉丝数 58,527（11-02 实时，较 10-19 的 58,436 净增 91）· 获赞与收藏 141,218（主页累计，11-02）· 粉丝画像（11-02）：女91% / 男9%；年龄 <18 23% · 18-24 29% · 25-34 22% · 35-44 15% · >44 9%；近7日(10-26~11-01)：新增83 / 流失66 / 净涨粉22 · 曝光5.2万（环比-17%）· 观看4,123（-37%）· 封面CTR5.4% · 完播率19.8% · 赞141 / 评49 / 藏56 / 享28 · 主页访客1,464；近30日(10-03~11-01)：曝光23万 · 观看2.3万 · 封面CTR5.8% · 完播率15.2% · 赞626 / 评168 / 藏215 / 享121 · 净涨粉215 · 新增关注451 / 取关246 · 主页访客8,042；数据最后更新时间 2026-11-02 00:00' },
+        {rank:1, title:'祛痘规矩先“立住”，减少反复更安心', date:'11-07', read:315, like:6, collect:3, comment:4, share:1},
+        {rank:2, title:'微距大挑战！猜对带🎁回家', date:'11-06', read:210, like:30, collect:25, comment:40, share:6},
+        {rank:3, title:'痘痘的戏份该减少了 厉娜', date:'11-07', read:204, like:5, collect:1, comment:5, share:0},
+        {rank:4, title:'成长新人请开麦🎤青春期颜值如何悄悄及格', date:'11-05', read:140, like:4, collect:0, comment:3, share:0},
+      ] }, note:'总粉丝数 58,577（11-11 实时，较 11-02 的 58,527 净增 50）· 获赞与收藏 141,361（主页累计，11-11）· 粉丝画像（11-11）：女91% / 男9%；年龄 <18 22% · 18-24 29% · 25-34 22% · 35-44 15% · >44 9%；近7日(11-04~11-10)：新增关注94 / 取关54 / 净涨粉42 · 曝光4.5万（环比-1%）· 观看2,934（-4%）· 封面CTR5.9%（+20%）· 完播率14.5%（-31%）· 平均观看时长18秒 · 赞83 / 评60 / 藏48 / 享31 · 主页访客1,164 · 转粉率3.9% · 发布7篇；近30日(10-12~11-10)：曝光23.2万 · 观看2.2万 · 封面CTR5.7% · 完播率17% · 平均观看时长14秒 · 赞490 / 评219 / 藏193 / 享142 · 净涨粉200 · 新增关注423 / 取关232 · 主页访客6,983 · 转粉率4.2%；数据最后更新时间 2026-11-11 00:00' },
     { key:'sph', badge:'视频号', name:'视频号 · Hipapa海龟爸爸', metrics:[
         {label:'关注者',    value:16829, mom:null},
         {label:'视频总数',  value:292, mom:null},
@@ -1162,6 +1165,21 @@ function renderCal(){
         <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">祛痘已严肃进入大飞行时代（10.28 视频）</span><span class="ws-data">曝光 4,327（占全周 28.8%）· 观看 551 · 互动 68 · 互动率 12.3% · 涨粉 6</span><div class="ws-tip">五项指标全周第一，也是本周唯一带来涨粉的内容；祛痘话题 + 强人设口播跑通，可放量复制。</div></div>
         <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">共创官mini vlog视频（10.26 视频）</span><span class="ws-data">观看 252 · 互动仅 7 · 互动率 2.8% 全周垫底</span><div class="ws-tip">连续第二周共创官视频「有观看没互动」（上周超级共创官第一期 1.7%）；vlog 缺提问与参与钩子，观众看完即走。</div></div>
         <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">量与质的取舍</span><div class="ws-tip">发布量 12→8 篇，曝光 -45%、观看 -67%，但互动率逆势从 6.6% 升到 8.0% —— 量降质升。祛痘线 2 篇占曝光 38%、贡献全部涨粉，建议加频；巡游/护理站 5 条占曝光 49% 但互动率仅 6.6%，属曝光型物料，后续压到 2–3 条即可。</div></div>
+      </div>`;
+    }
+    if(state.month==='nov' && w===1){
+      html += `<div class="week-summary">
+        <div class="ws-h">📊 本周小红书复盘 · 11.2–11.8 · 共 4 篇（全部图文）</div>
+        <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;background:#fff;border:1px solid #F3E3DE;border-radius:10px;padding:8px 10px;min-width:0">
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">9,511</div><div style="font-size:10.5px;color:var(--ink-3)">合计曝光</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">869</div><div style="font-size:10.5px;color:var(--ink-3)">合计观看</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">133</div><div style="font-size:10.5px;color:var(--ink-3)">合计互动</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">15.3%</div><div style="font-size:10.5px;color:var(--ink-3)">本周互动率</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">+2</div><div style="font-size:10.5px;color:var(--ink-3)">涨粉</div></div>
+        </div>
+        <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">微距大挑战！猜对带礼物回家（11.06 图文）</span><span class="ws-data">曝光 2,381 · 观看 210 · 互动 101 · 互动率 48.1% 全周第一</span><div class="ws-tip">评论 40 条占全周 77%、点赞 30、收藏 25，三项全部第一。抽奖/猜谜型互动的效率是同周其他内容的 9–11 倍，但曝光 2,381 是四篇里倒数第二 —— 平台并没有因为它互动高就多给量。</div></div>
+        <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">祛痘线两条（11.07 图文）</span><span class="ws-data">曝光 5,452（占全周 57%）· 观看 519 · 互动 25 · 互动率 4.8%</span><div class="ws-tip">「祛痘规矩先立住」曝光 3,402 是全周最高，但互动率只有 4.4%；达人向的「痘痘的戏份该减少了 厉娜」5.4%。祛痘始终能拿到量，却一直留不下互动，问题在结尾缺提问与评论区引导。</div></div>
+        <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">量降到低点，质升到高点</span><div class="ws-tip">发布量 8→4 篇，曝光 15,039→9,511（-37%）、观看 1,582→869（-45%），但互动率从 8.0% 冲到 15.3%，是近 9 周最高。结构上 3 条是祛痘线、1 条互动型；下一周建议保留「1 条抽奖互动 + 2 条祛痘」的最小组合，把互动型从边缘位置提到本周主推。</div></div>
       </div>`;
     }
     html += `</div></div>`;
