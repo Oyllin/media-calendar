@@ -604,7 +604,7 @@ const ITEMS = [
   {date:'2026-11-11', group:'pro', col:'产品营销',     title:'蓝胖子护肤视频',        plats:['sph','xhs','wb','dy'], stats:{xhs:{impr:5422, read:730, like:47, comment:1, collect:20, share:2}}},
   {date:'2026-11-13', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官回顾图文',    plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:1170, read:99, like:6, comment:4, collect:4, share:3}}},
   {date:'2026-11-14', group:'sun', col:'青少年共创官', title:'青少年烦恼征集帖',      plats:['xhs'], stats:{xhs:{impr:11256, read:723, like:10, comment:6, collect:5, share:5}}},
-  {date:'2026-11-14', group:'sun', col:'实验室共创官', title:'共创官-小小科学家集锦',  plats:['xhs','wb','dy','gzh']},
+  {date:'2026-11-14', group:'sun', col:'实验室共创官', title:'共创官-小小科学家集锦',  plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:1086, read:80, like:4, comment:3, collect:2, share:1}}},
   {date:'2026-11-15', group:'pro', col:'科学答案', title:'蓝胖子Q&A', plats:['xhs'], stats:{xhs:{impr:982, read:70, like:4, comment:2, collect:1, share:0}}},
   {date:'2026-11-16', group:'sun', col:'品牌共创官',   title:'品牌共创官回顾视频',      plats:['sph','xhs','wb','dy']},
   {date:'2026-11-17', group:'sun', col:'品牌共创官',   title:'品牌共创官回顾图文',      plats:['xhs','wb','dy','gzh']},
@@ -695,8 +695,8 @@ const ITEMS = [
     brand: 'Hi!papa 海龟爸爸',
     dataDate: '2026-11-17',      // 数据日期（小红书 11-17 刷新：近7日 11-10~11-16 / 11-09~11-15 笔记明细 7 篇；公众号 10-12；视频号 09-21；微博 09-20）
     collectTime: '2026-11-17 10:55',  // 采集时间
-    sources: '小红书创作服务平台（11-17 刷新：账号诊断与数据总览 近7日 11-10~11-16 · 上周笔记明细 11-09~11-15 共 6 篇（导出接口，后台实发 7 篇含 1 条未入看板）/ 微信公众号后台（10-12 刷新：总用户数223,347 · 用户画像 性别/年龄 · 新增关注渠道 · 直播数据）/ 视频号助手（关注者16,829/视频292 09-21 身份核对；昨日数据 09-08 末次）/ 微博企业管理中心（数据概览 2026-09-20 刷新）',
-    period: '小红书：近7日 11-10~11-16 曝光7.8万（环比+83%）· 观看9,962（+266%）· 封面CTR6.6%（+15%）· 平均观看时长22秒（+59%）· 观看总时长90.6小时（+977%）· 视频完播率36.5%（+160%）· 涨粉188 · 主页访客1,403 · 互动332 · 发布9篇；上周 11-09~11-15 共 6 篇（视频2/图文4）曝光34,332 · 观看7,339 · 互动268 · 互动率3.7% · 涨粉28（详见 Top5）；粉丝总数沿用 11-11 采集值 58,577（本次未刷新）；公众号：10月11日 00:00-24:00（总用户数223,347 / 昨日阅读15 / 分享1 / 新增关注60 / 原创43；画像 女88.8% · 36-45岁57.6%；近期直播 10-12 开播 观看496 · 成交¥4,588）；视频号：9月7日 00:00-24:00（关注者16,829 / 昨日播放2.6万 / 新增点赞3 / 新增评论0）；微博：数据概览 2026-09-20（总订阅2,027 / 昨日阅读236 / 互动0 / 页面访问21 / 新增粉丝0）',
+    sources: '小红书创作服务平台（11-17 刷新：账号诊断与数据总览 近7日 11-10~11-16 · 上周笔记明细 11-09~11-15 共 7 篇（导出接口）/ 微信公众号后台（10-12 刷新：总用户数223,347 · 用户画像 性别/年龄 · 新增关注渠道 · 直播数据）/ 视频号助手（关注者16,829/视频292 09-21 身份核对；昨日数据 09-08 末次）/ 微博企业管理中心（数据概览 2026-09-20 刷新）',
+    period: '小红书：近7日 11-10~11-16 曝光7.8万（环比+83%）· 观看9,962（+266%）· 封面CTR6.6%（+15%）· 平均观看时长22秒（+59%）· 观看总时长90.6小时（+977%）· 视频完播率36.5%（+160%）· 涨粉188 · 主页访客1,403 · 互动332 · 发布9篇；上周 11-09~11-15 共 7 篇（视频2/图文5）曝光35,418 · 观看7,419 · 互动278 · 互动率3.7% · 涨粉28（详见 Top5）；粉丝总数沿用 11-11 采集值 58,577（本次未刷新）；公众号：10月11日 00:00-24:00（总用户数223,347 / 昨日阅读15 / 分享1 / 新增关注60 / 原创43；画像 女88.8% · 36-45岁57.6%；近期直播 10-12 开播 观看496 · 成交¥4,588）；视频号：9月7日 00:00-24:00（关注者16,829 / 昨日播放2.6万 / 新增点赞3 / 新增评论0）；微博：数据概览 2026-09-20（总订阅2,027 / 昨日阅读236 / 互动0 / 页面访问21 / 新增粉丝0）',
     updatedAt: '2026-11-17',
     method: '浏览器登录平台后台实时采集'
   };
@@ -732,7 +732,7 @@ const ITEMS = [
         {rank:3, title:'长期征集｜把皮肤小烦恼丢进这一方小天地', date:'11-14', read:723, like:10, collect:5, comment:6, share:5},
         {rank:4, title:'有🎁征集 | 孩子笔下的星星 会是什么颜色', date:'11-10', read:602, like:39, collect:31, comment:37, share:15},
         {rank:5, title:'海龟爸爸 × 屈臣氏|追光共创计划圆满收官', date:'11-13', read:99, like:6, collect:4, comment:4, share:3},
-      ] }, note:'粉丝总数 58,577（沿用 11-11 采集值，本次未刷新）· 获赞与收藏 141,361（11-11）· 粉丝画像（11-11）：女91% / 男9%；年龄 <18 22% · 18-24 29% · 25-34 22% · 35-44 15% · >44 9%；近7日(11-10~11-16)：曝光7.8万（环比+83%）· 观看9,962（+266%）· 封面CTR6.6%（+15%）· 平均观看时长22秒（+59%）· 观看总时长90.6小时（+977%）· 视频完播率36.5%（+160%）· 涨粉188 · 主页访客1,403 · 互动332 · 发布9篇；上周笔记(11-09~11-15，6篇)：曝光34,332 · 观看7,339 · 互动268（赞120/评53/藏68/享27）· 互动率3.7% · 涨粉28；数据最后更新时间 2026-11-17 10:55' },
+      ] }, note:'粉丝总数 58,577（沿用 11-11 采集值，本次未刷新）· 获赞与收藏 141,361（11-11）· 粉丝画像（11-11）：女91% / 男9%；年龄 <18 22% · 18-24 29% · 25-34 22% · 35-44 15% · >44 9%；近7日(11-10~11-16)：曝光7.8万（环比+83%）· 观看9,962（+266%）· 封面CTR6.6%（+15%）· 平均观看时长22秒（+59%）· 观看总时长90.6小时（+977%）· 视频完播率36.5%（+160%）· 涨粉188 · 主页访客1,403 · 互动332 · 发布9篇；上周笔记(11-09~11-15，7篇)：曝光35,418 · 观看7,419 · 互动278（赞124/评56/藏70/享28）· 互动率3.7% · 涨粉28；数据最后更新时间 2026-11-17 10:55' },
     { key:'sph', badge:'视频号', name:'视频号 · Hipapa海龟爸爸', metrics:[
         {label:'关注者',    value:16829, mom:null},
         {label:'视频总数',  value:292, mom:null},
@@ -1184,17 +1184,17 @@ function renderCal(){
     }
     if(state.month==='nov' && w===2){
       html += `<div class="week-summary">
-        <div class="ws-h">📊 本周小红书复盘 · 11.9–11.15 · 共 6 篇（视频 2 / 图文 4）</div>
+        <div class="ws-h">📊 本周小红书复盘 · 11.9–11.15 · 共 7 篇（视频 2 / 图文 5）</div>
         <div style="grid-column:1/-1;display:grid;grid-template-columns:repeat(5,1fr);gap:8px;background:#fff;border:1px solid #F3E3DE;border-radius:10px;padding:8px 10px;min-width:0">
-          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">34,332</div><div style="font-size:10.5px;color:var(--ink-3)">合计曝光</div></div>
-          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">7,339</div><div style="font-size:10.5px;color:var(--ink-3)">合计观看</div></div>
-          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">268</div><div style="font-size:10.5px;color:var(--ink-3)">合计互动</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">35,418</div><div style="font-size:10.5px;color:var(--ink-3)">合计曝光</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">7,419</div><div style="font-size:10.5px;color:var(--ink-3)">合计观看</div></div>
+          <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">278</div><div style="font-size:10.5px;color:var(--ink-3)">合计互动</div></div>
           <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">3.7%</div><div style="font-size:10.5px;color:var(--ink-3)">本周互动率</div></div>
           <div style="text-align:center"><div style="font-weight:800;color:#C2183D;font-size:15px">+28</div><div style="font-size:10.5px;color:var(--ink-3)">涨粉</div></div>
         </div>
-        <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">有🎁征集｜孩子笔下的星星（11.10 图文）</span><span class="ws-data">曝光 5,603 · 观看 602 · 互动 122 · 互动率 20.3% 全周第一 · 涨粉 19</span><div class="ws-tip">评论 37、收藏 31、分享 15、涨粉 19，四项全部全周第一。带福利的征集帖把「看」直接转成「参与」，单条贡献了全周 46% 的互动和 68% 的涨粉 —— 是这个阶段最有效的互动引擎。</div></div>
+        <div class="ws-card ws-best"><b>✅ 最佳</b><span class="ws-num">有🎁征集｜孩子笔下的星星（11.10 图文）</span><span class="ws-data">曝光 5,603 · 观看 602 · 互动 122 · 互动率 20.3% 全周第一 · 涨粉 19</span><div class="ws-tip">评论 37、收藏 31、分享 15、涨粉 19，四项全部全周第一。带福利的征集帖把「看」直接转成「参与」，单条贡献了全周 44% 的互动和 68% 的涨粉 —— 是这个阶段最有效的互动引擎。</div></div>
         <div class="ws-card ws-warn"><b>⚠️ 需关注</b><span class="ws-num">海龟爸爸×屈臣氏｜走进实验室（11.11 视频）</span><span class="ws-data">曝光 9,899 · 观看 5,115（占全周 69%）· 互动仅 26 · 互动率 0.5% 全周垫底</span><div class="ws-tip">平台给了本周最大的一份流量，却几乎不产生互动，播完即走。同为屈臣氏系列，13 号那条回顾图文的互动率（17.2%）是它的 34 倍 —— 视频这条缺提问、缺引导、也缺明确的下一个动作。</div></div>
-        <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">视频拿量、图文拿互动，两条线要分开考核</span><div class="ws-tip">本周曝光 7,461→34,332（+360%）、观看 665→7,339（+1004%），量级翻了几倍，但互动率从 18.3% 回落到 3.7% —— 增量全来自两条视频，互动型（征集）只有 1 条。结论：视频负责开口子拉新，图文负责承接互动，不能拿同一个互动率去要求两者。下周（11.16–11.22）品牌共创官回顾三件套，建议沿用「视频主曝光 + 图文主互动 + vlog 补人设」的组合，并把征集类固定成每周 1 条。</div></div>
+        <div class="ws-card ws-next"><b>💡 后续</b><span class="ws-num">视频拿量、图文拿互动，两条线要分开考核</span><div class="ws-tip">本周曝光 7,461→35,418（+375%）、观看 665→7,419（+1016%），量级翻了几倍，但互动率从 18.3% 回落到 3.7% —— 增量全来自两条视频，互动型（征集）只有 1 条。结论：视频负责开口子拉新，图文负责承接互动，不能拿同一个互动率去要求两者。下周（11.16–11.22）品牌共创官回顾三件套，建议沿用「视频主曝光 + 图文主互动 + vlog 补人设」的组合，并把征集类固定成每周 1 条。</div></div>
       </div>`;
     }
     html += `</div></div>`;
