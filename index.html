@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>自媒体发布规划&数据 · Q4 内容排期看板</title>
+<title>自媒体发布规划&数据 · 内容排期看板</title>
 <style>
   :root{
     --bg:#F6F7F9;
@@ -339,7 +339,7 @@
       <div class="bars" id="weekBars"></div>
     </div>
     <div class="panel">
-      <h3>Q4 月度节奏<span class="hint">点击切换月份</span></h3>
+      <h3>月度节奏<span class="hint">点击切换月份</span></h3>
       <div class="bars" id="monBars"></div>
     </div>
     <div class="panel">
@@ -426,7 +426,7 @@ const WK_CN = ['一','二','三','四','五'];
 const TODAY = fmt(new Date());
 
 /* 月份：起点均为周一，终点均为周日
-   start/days  = 「归属范围」：唯一切分、互不重叠（DAY_MAP / 统计 / Q4 合计以此为准，保证不重复计数）
+   start/days  = 「归属范围」：唯一切分、互不重叠（DAY_MAP / 统计 / 合计以此为准，保证不重复计数）
    viewStart/viewDays = 「视图网格」：该月看板实际显示的日历格。不填则同归属范围。
    leadFrom    = 视图网格里「从哪天起才开始显示卡片」（用于把月初几天借给上一个月后，仍能在本月呈现）
    viewEnd     = 视图网格里的「最后一天」：网格可多排，但该日之后不再显示格子（用于只借进月初一点点）。
@@ -438,10 +438,15 @@ const MONTHS = [
    viewStart:'2026-09-28', viewDays:35, leadFrom:'2026-10-01', theme:'国庆后 · 双11预售'},
   {key:'nov', name:'11月', ym:'2026-11', start:'2026-11-02', days:28,
    viewStart:'2026-11-02', viewDays:35, viewEnd:'2026-11-30', theme:'双11爆发 · 返场'},
-  {key:'dec', name:'12月', ym:'2026-12', start:'2026-11-30', days:35, theme:'双12 · 圣诞 · 年终'}
+  {key:'dec', name:'12月', ym:'2026-12', start:'2026-11-30', days:28,
+   viewStart:'2026-11-30', viewDays:35, theme:'双12 · 圣诞 · 年终'},
+  /* 2026-11-26 新增 1 月：归属 12.28–2027.01.31（35天/5周），视图同为 12.28–1.31。
+     12 月归属缩到 11.30–12.27（28天/4周），但视图仍铺到 1.3（35格），
+     → 12.28–1.3 这一跨月周在 12月/1月 两个看板都显示（跨月双呈现，与 10.1–10.4 同机制），归属只算 1 月不重复计数。 */
+  {key:'jan', name:'1月',  ym:'2027-01', start:'2026-12-28', days:35, theme:'跨年 · 年终收官'}
 ];
 
-/* ==================== 日历主表（8.31 — 2027.01.03，126 天 / 18 周） ==================== */
+/* ==================== 日历主表（8.31 — 2027.01.31，154 天 / 22 周） ==================== */
 const MASTER = (function(){
   const out = [];
   MONTHS.forEach(m=>{
@@ -612,25 +617,31 @@ const ITEMS = [
   {date:'2026-11-21', group:'pro', col:'科学答案',     title:'蓝胖子功效成分',        plats:['xhs','gzh','wb'], stats:{xhs:{impr:1226, read:83, like:6, comment:2, collect:0, share:0}}},
   {date:'2026-11-24', group:'sun', col:'1.2m的好奇心', title:'1.2米好奇心-预热',     plats:['sph','xhs','wb']},
 
-  /* ---------- 12月 保留项（2026-11-26 用户清理：只留 12.1–12.3 + 每周六专业向内容） ---------- */
-  {date:'2026-12-01', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官回顾图文',    plats:['xhs','wb','gzh']},
-  {date:'2026-12-02', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官活动vlog',    plats:['sph','xhs','wb']},
+  /* ---------- 12月（按日期排序；2026-11-26 用户逐条给的内容） ---------- */
+  {date:'2026-12-01', group:'sun',   col:'屈臣氏共创官', title:'屈臣氏共创官回顾图文',    plats:['xhs','wb','gzh']},
+  {date:'2026-12-02', group:'sun',   col:'屈臣氏共创官', title:'屈臣氏共创官活动vlog',    plats:['sph','xhs','wb']},
   {date:'2026-12-03', group:'other', col:'品牌共创官',   title:'月度互动海报',            plats:['xhs','wb','gzh']},
-
-  /* 每周六固定发布：专业向内容（2026-11-26 统一改名 + 红/微/绿；栏目按单双周轮换：单周=科学答案 / 双周=科研前线） */
+  /* 每周六固定：专业向内容（红/微/绿；栏目单双周轮换 单周=科学答案 / 双周=科研前线） */
   {date:'2026-12-05', group:'pro',   col:'科学答案',     title:'专业向内容',            plats:['xhs','wb','gzh']},
-  {date:'2026-12-12', group:'pro',   col:'科研前线',     title:'专业向内容',            plats:['xhs','wb','gzh']},
-  {date:'2026-12-19', group:'pro',   col:'科学答案',     title:'专业向内容',            plats:['xhs','wb','gzh']},
-  {date:'2026-12-26', group:'pro',   col:'科研前线',     title:'专业向内容',            plats:['xhs','wb','gzh']},
-
-  /* ---------- 12月 用户 11-26 补充（节气 / 圣诞 / 品牌公关 / 渠道 / IFSCC） ---------- */
   {date:'2026-12-07', group:'sun',   col:'品牌·一般向',   title:'大雪图文',              plats:['xhs','wb','gzh']},
   {date:'2026-12-10', group:'pro',   col:'科研前线',     title:'IFSCC主席到访图文',      plats:['xhs','wb','gzh']},
+  {date:'2026-12-11', group:'sun',   col:'青少年共创官', title:'青春期烦恼推文',          plats:['gzh']},
+  {date:'2026-12-12', group:'pro',   col:'科研前线',     title:'专业向内容',            plats:['xhs','wb','gzh']},
   {date:'2026-12-15', group:'sun',   col:'品牌·一般向',   title:'品牌维权案件图文',        plats:['xhs']},
+  {date:'2026-12-17', group:'sun',   col:'1.2m的好奇心', title:'1.2米好奇心视频',        plats:['sph','xhs','wb']},
   {date:'2026-12-18', group:'other', col:'线下活动',     title:'经销商大会推文',          plats:['gzh']},
   {date:'2026-12-18', group:'sun',   col:'品牌·一般向',   title:'品牌维权案件推文',        plats:['gzh']},
+  {date:'2026-12-19', group:'pro',   col:'科学答案',     title:'专业向内容',            plats:['xhs','wb','gzh']},
   {date:'2026-12-22', group:'sun',   col:'品牌·一般向',   title:'冬至图文',              plats:['xhs','wb','gzh']},
   {date:'2026-12-25', group:'sun',   col:'品牌·一般向',   title:'圣诞视频',              plats:['sph','xhs','wb']},
+  {date:'2026-12-26', group:'pro',   col:'科研前线',     title:'专业向内容',            plats:['xhs','wb','gzh']},
+
+  /* ---------- 2027.1月：仅每周六专业向内容（2026-11-26 用户确认「1月也这样」）；其余待定 ---------- */
+  {date:'2027-01-02', group:'pro',   col:'科学答案',     title:'专业向内容',            plats:['xhs','wb','gzh']},
+  {date:'2027-01-09', group:'pro',   col:'科研前线',     title:'专业向内容',            plats:['xhs','wb','gzh']},
+  {date:'2027-01-16', group:'pro',   col:'科学答案',     title:'专业向内容',            plats:['xhs','wb','gzh']},
+  {date:'2027-01-23', group:'pro',   col:'科研前线',     title:'专业向内容',            plats:['xhs','wb','gzh']},
+  {date:'2027-01-30', group:'pro',   col:'科学答案',     title:'专业向内容',            plats:['xhs','wb','gzh']},
 ];
 
   /* ---------- 单篇「平台发布数据」（stats）录入说明 ----------
@@ -783,7 +794,7 @@ const ITEMS = [
 /* 补齐派生字段 */
 ITEMS.forEach((it,i)=>{
   const d = DAY_MAP[it.date];
-  if(!d) throw new Error('排期日期不在 Q4 日历范围内：' + it.date);
+  if(!d) throw new Error('排期日期不在日历范围内：' + it.date);
   it.id = i+1;
   it.wd = d.wd; it.wk = d.wk; it.mon = d.mon; it.label = d.label;
   it.span = it.span || 1;
@@ -832,7 +843,7 @@ function renderTbd(){
   </div>`;
 }
 
-/* 归属口径：按「唯一切分」的月份归属过滤（Q4 合计 / 平台总量 / 板块总量用，保证不重复计数） */
+/* 归属口径：按「唯一切分」的月份归属过滤（合计 / 平台总量 / 板块总量用，保证不重复计数） */
 function scopeOf(list, mon){
   return list.filter(it=>(!mon || it.mon===mon) && passFilter(it));
 }
@@ -917,7 +928,7 @@ function renderCharts(){
       <span class="bar-lb">${x.lb}</span>
     </div>`).join('');
 
-  // Q4 月度节奏（跟随筛选，可点击切月）
+  // 月度节奏（跟随筛选，可点击切月）
   const mon = MONTHS.map(mm=>{
     const its = viewScope(mm.key);
     return {key:mm.key, lb:mm.name, n:its.reduce((s,it)=>s+visPlats(it).length,0)};
@@ -980,7 +991,7 @@ function renderMonthTabs(){
 
   const all = scopeOf(ITEMS, null);
   document.getElementById('q4sum').innerHTML =
-    `Q4 合计 <b>${all.length}</b> 条选题 / <b>${all.reduce((s,i)=>s+visPlats(i).length,0)}</b> 条平台发布`;
+    `合计 <b>${all.length}</b> 条选题 / <b>${all.reduce((s,i)=>s+visPlats(i).length,0)}</b> 条平台发布`;
 }
 
 function renderChips(){
