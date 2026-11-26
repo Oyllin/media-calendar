@@ -401,8 +401,10 @@ const PLATFORMS = [
   {key:'xhs', abbr:'红', name:'小红书',     color:'#FF3B5C', soft:'#FFEDF0'},
   {key:'wb',  abbr:'微', name:'微博',       color:'#F5900C', soft:'#FFF4E5'},
   {key:'sph', abbr:'视', name:'视频号',     color:'#6C5CE7', soft:'#EFEDFF'},
-  {key:'gzh', abbr:'绿', name:'微信公众号', color:'#0AA86A', soft:'#E7F7F1'},
-  {key:'dy',  abbr:'抖', name:'抖音',       color:'#2A2F3A', soft:'#EDEFF3'}
+  {key:'gzh', abbr:'绿', name:'微信公众号', color:'#0AA86A', soft:'#E7F7F1'}
+  /* 2026-11-26 用户要求「抖音基本都删掉」：已从全部排期 plats 移除 dy，并下线 PLATFORMS 的 dy 项
+     （筛选按钮 / 平台统计 / 图例 / 清单视图都不再出现抖音）。如需恢复：把下面这行加回并在末尾补逗号
+     {key:'dy',  abbr:'抖', name:'抖音',       color:'#2A2F3A', soft:'#EDEFF3'} */
 ];
 /* 各平台「单篇发布数据」指标（弹窗里展示）：key → [字段名, 显示标签]
    数据来源：进各平台后台（内容分析/笔记数据页）截图录入，绝不编造；无数据一律 null */
@@ -502,67 +504,67 @@ const ITEMS = [
   {date:'2026-09-05', group:'sun',   col:'1.2m的好奇心', title:'KELME Cup 足球赛同步', plats:['xhs','gzh','wb'],
    stats:{xhs:{impr:1469, read:93, like:5, comment:2, collect:1, share:0},
            wb:{read:694, like:1, comment:0, share:0}}},
-  {date:'2026-09-11', group:'other', col:'产品营销',     title:'蓝胖子-退红可视化',   plats:['xhs','dy'], stats:{xhs:{impr:4487, read:2269, like:12, comment:1, collect:1, share:0}}},
+  {date:'2026-09-11', group:'other', col:'产品营销',     title:'蓝胖子-退红可视化',   plats:['xhs'], stats:{xhs:{impr:4487, read:2269, like:12, comment:1, collect:1, share:0}}},
   {date:'2026-09-15', group:'other', col:'产品营销',     title:'蓝胖子保湿可视化',    plats:['xhs'], stats:{xhs:{impr:3675, read:498, like:40, comment:4, collect:13, share:4}}},
   {date:'2026-09-17', group:'other', col:'品牌联动',     title:'酒店公众号推文',      plats:['gzh'], stats:{gzh:{read:462, look:11, like:8, share:21}}},
 
   /* ---------- 9月 · 品牌共创官（用户补充，阳光向） ---------- */
-  {date:'2026-09-04', group:'sun', col:'品牌共创官', title:'户外光学实验',        plats:['xhs','wb','dy','gzh'],
+  {date:'2026-09-04', group:'sun', col:'品牌共创官', title:'户外光学实验',        plats:['xhs','wb','gzh'],
    stats:{xhs:{impr:4954, read:674, like:75, comment:48, collect:39, share:14},
            wb:{read:646, like:0, comment:0, share:0},
            gzh:{read:99, look:0, like:0, share:8}}},
-  {date:'2026-09-05', group:'sun', col:'品牌共创官', title:'好朋友一起追光',      plats:['xhs','wb','dy','gzh'],
+  {date:'2026-09-05', group:'sun', col:'品牌共创官', title:'好朋友一起追光',      plats:['xhs','wb','gzh'],
    stats:{xhs:{impr:3440, read:389, like:42, comment:28, collect:19, share:11},
            wb:{read:698, like:1, comment:1, share:0},
            gzh:{read:352, look:3, like:4, share:19}}},
-  {date:'2026-09-06', group:'sun', col:'品牌共创官', title:'非遗风采',            plats:['xhs','wb','dy','gzh'],
+  {date:'2026-09-06', group:'sun', col:'品牌共创官', title:'非遗风采',            plats:['xhs','wb','gzh'],
    stats:{xhs:{impr:3469, read:162, like:20, comment:7, collect:7, share:3},
            wb:{read:654, like:0, comment:0, share:0},
            gzh:{read:145, look:2, like:8, share:10}}},
-  {date:'2026-09-07', group:'sun', col:'品牌共创官', title:'草原篝火',            plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:2765, read:199, like:15, comment:5, collect:4, share:2}, wb:{read:638, like:0, comment:0, share:0}, gzh:{read:126, look:0, like:0, share:11}}},
-  {date:'2026-09-08', group:'sun', col:'品牌共创官', title:'第二期公益课堂',      plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:2710, read:182, like:16, comment:2, collect:3, share:3}, wb:{read:636, like:0, comment:0, share:0}}},
-  {date:'2026-09-09', group:'sun', col:'品牌共创官', title:'1.2米小小摄影师',     plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:5141, read:247, like:38, comment:13, collect:15, share:6}, wb:{read:701, like:1, comment:0, share:0}}},
-  {date:'2026-09-10', group:'sun', col:'品牌共创官', title:'第一期回顾长视频（发布）', plats:['sph','xhs','wb','dy'], stats:{xhs:{impr:2594, read:636, like:37, comment:3, collect:7, share:4}, wb:{read:699, like:0, comment:0, share:0}}},
+  {date:'2026-09-07', group:'sun', col:'品牌共创官', title:'草原篝火',            plats:['xhs','wb','gzh'], stats:{xhs:{impr:2765, read:199, like:15, comment:5, collect:4, share:2}, wb:{read:638, like:0, comment:0, share:0}, gzh:{read:126, look:0, like:0, share:11}}},
+  {date:'2026-09-08', group:'sun', col:'品牌共创官', title:'第二期公益课堂',      plats:['xhs','wb','gzh'], stats:{xhs:{impr:2710, read:182, like:16, comment:2, collect:3, share:3}, wb:{read:636, like:0, comment:0, share:0}}},
+  {date:'2026-09-09', group:'sun', col:'品牌共创官', title:'1.2米小小摄影师',     plats:['xhs','wb','gzh'], stats:{xhs:{impr:5141, read:247, like:38, comment:13, collect:15, share:6}, wb:{read:701, like:1, comment:0, share:0}}},
+  {date:'2026-09-10', group:'sun', col:'品牌共创官', title:'第一期回顾长视频（发布）', plats:['sph','xhs','wb'], stats:{xhs:{impr:2594, read:636, like:37, comment:3, collect:7, share:4}, wb:{read:699, like:0, comment:0, share:0}}},
   {date:'2026-09-11', group:'sun', col:'品牌共创官', title:'实验室招募海报',        plats:['xhs','gzh'], stats:{wb:{read:515, like:0, comment:0, share:0}, xhs:{impr:7103, read:707, like:13, comment:12, collect:3, share:7}, gzh:{read:329, look:3, like:7, share:12}}},
-  {date:'2026-09-11', group:'sun', col:'品牌共创官', title:'好朋友请回答（对话视频）', plats:['xhs','wb','sph','dy'], stats:{xhs:{impr:1297, read:440, like:24, comment:5, collect:6, share:8}, wb:{read:239, like:0, comment:0, share:0}}},
-  {date:'2026-09-17', group:'sun', col:'品牌共创官', title:'第二期回顾长视频',    plats:['sph','xhs','wb','dy'], stats:{xhs:{impr:6049, read:750, like:86, comment:8, collect:19, share:6}, wb:{read:499, like:0, comment:0, share:0}, sph:{play:71, like:0, comment:0, share:0}}},
-  {date:'2026-09-16', group:'sun', col:'品牌共创官', title:'1.2米对话视频',       plats:['sph','xhs','dy'], stats:{xhs:{impr:6161, read:1101, like:82, comment:4, collect:17, share:2}}},
-  {date:'2026-09-22', group:'sun', col:'品牌共创官', title:'9月共创官实验室视频',  plats:['xhs','wb','dy','sph'], stats:{xhs:{impr:2377, read:578, like:17, comment:8, collect:4, share:4}, wb:{read:309, like:0, comment:0, share:0}}},
+  {date:'2026-09-11', group:'sun', col:'品牌共创官', title:'好朋友请回答（对话视频）', plats:['xhs','wb','sph'], stats:{xhs:{impr:1297, read:440, like:24, comment:5, collect:6, share:8}, wb:{read:239, like:0, comment:0, share:0}}},
+  {date:'2026-09-17', group:'sun', col:'品牌共创官', title:'第二期回顾长视频',    plats:['sph','xhs','wb'], stats:{xhs:{impr:6049, read:750, like:86, comment:8, collect:19, share:6}, wb:{read:499, like:0, comment:0, share:0}, sph:{play:71, like:0, comment:0, share:0}}},
+  {date:'2026-09-16', group:'sun', col:'品牌共创官', title:'1.2米对话视频',       plats:['sph','xhs'], stats:{xhs:{impr:6161, read:1101, like:82, comment:4, collect:17, share:2}}},
+  {date:'2026-09-22', group:'sun', col:'品牌共创官', title:'9月共创官实验室视频',  plats:['xhs','wb','sph'], stats:{xhs:{impr:2377, read:578, like:17, comment:8, collect:4, share:4}, wb:{read:309, like:0, comment:0, share:0}}},
   {date:'2026-09-23', group:'pro', col:'高光时刻', title:'IFSCC海报预热1', plats:['xhs','wb','gzh'], stats:{xhs:{impr:1607, read:128, like:6, comment:3, collect:2, share:1}, gzh:{read:508, look:4, like:5, share:25}, wb:{read:373, like:0, comment:0, share:0}}},
   {date:'2026-09-24', group:'pro', col:'高光时刻', title:'IFSCC海报预热2', plats:['xhs','wb','gzh'], stats:{xhs:{impr:1141, read:84, like:5, comment:1, collect:3, share:2}, gzh:{read:741, look:5, like:8, share:66}, wb:{read:432, like:0, comment:0, share:0}}},
-  {date:'2026-09-24', group:'sun', col:'品牌共创官', title:'超级共创官报名海报', plats:['xhs','gzh','dy'], stats:{xhs:{impr:6457, read:600, like:16, comment:13, collect:6, share:2}, gzh:{read:200, look:4, like:2, share:6}}},
+  {date:'2026-09-24', group:'sun', col:'品牌共创官', title:'超级共创官报名海报', plats:['xhs','gzh'], stats:{xhs:{impr:6457, read:600, like:16, comment:13, collect:6, share:2}, gzh:{read:200, look:4, like:2, share:6}}},
 
   /* ---------- 9月 · 共创官收尾（用户 9.28 追加） ---------- */
-  {date:'2026-09-29', group:'sun', col:'品牌共创官', title:'共创官活动金句海报', plats:['xhs','gzh','dy'], stats:{xhs:{impr:4669, read:223, like:20, comment:1, collect:7, share:1}, gzh:{read:177, look:0, like:2, share:1}}},
-  {date:'2026-09-29', group:'sun', col:'品牌共创官', title:'共创官活动回顾海报', plats:['xhs','gzh','dy'], stats:{xhs:{impr:3962, read:195, like:15, comment:10, collect:6, share:4}, gzh:{read:248, look:18, like:25, share:15}}},
-  {date:'2026-09-30', group:'sun', col:'品牌共创官', title:'品牌共创官VLOG',    plats:['xhs','wb','sph','dy'], stats:{xhs:{impr:4466, read:1366, like:88, comment:2, collect:79, share:4}, wb:{read:320, like:0, comment:0, share:0}}},
+  {date:'2026-09-29', group:'sun', col:'品牌共创官', title:'共创官活动金句海报', plats:['xhs','gzh'], stats:{xhs:{impr:4669, read:223, like:20, comment:1, collect:7, share:1}, gzh:{read:177, look:0, like:2, share:1}}},
+  {date:'2026-09-29', group:'sun', col:'品牌共创官', title:'共创官活动回顾海报', plats:['xhs','gzh'], stats:{xhs:{impr:3962, read:195, like:15, comment:10, collect:6, share:4}, gzh:{read:248, look:18, like:25, share:15}}},
+  {date:'2026-09-30', group:'sun', col:'品牌共创官', title:'品牌共创官VLOG',    plats:['xhs','wb','sph'], stats:{xhs:{impr:4466, read:1366, like:88, comment:2, collect:79, share:4}, wb:{read:320, like:0, comment:0, share:0}}},
 
   /* ---------- 9月（用户 9.21 调整：删收官/小蓝瓶/月度大事件；加邓超KV与IFSCC） ---------- */
-  {date:'2026-09-25', group:'other', col:'产品营销', title:'邓超中秋kv官宣', plats:['xhs','wb','gzh','dy'], stats:{xhs:{impr:1670, read:194, like:22, comment:8, collect:4, share:3}, gzh:{read:375, look:2, like:1, share:26}, wb:{read:24300, like:47, comment:23, share:13}}},
+  {date:'2026-09-25', group:'other', col:'产品营销', title:'邓超中秋kv官宣', plats:['xhs','wb','gzh'], stats:{xhs:{impr:1670, read:194, like:22, comment:8, collect:4, share:3}, gzh:{read:375, look:2, like:1, share:26}, wb:{read:24300, like:47, comment:23, share:13}}},
   {date:'2026-09-28', group:'pro', col:'高光时刻', title:'连续2年登陆IFSCC海报', plats:['xhs','wb','gzh'], stats:{xhs:{impr:2641, read:237, like:10, comment:0, collect:5, share:0}, gzh:{read:451, look:3, like:6, share:49}, wb:{read:355, like:2, comment:0, share:0}}},
   {date:'2026-09-29', group:'other', col:'月度大事件', title:'9月月度大事件推文', plats:['gzh','xhs'], stats:{gzh:{read:165, look:2, like:6, share:7}}},
-  {date:'2026-09-30', group:'pro', col:'高光时刻', title:'IFSCC解读', plats:['xhs','gzh','dy'], stats:{gzh:{read:319, look:10, like:11, share:52}}},
+  {date:'2026-09-30', group:'pro', col:'高光时刻', title:'IFSCC解读', plats:['xhs','gzh'], stats:{gzh:{read:319, look:10, like:11, share:52}}},
 
   /* ---------- 10月（用户 9.28 提供，已确认） ---------- */
   /* 实验室共创官 */
-  {date:'2026-10-13', group:'sun',   col:'实验室共创官', title:'10月场招募海报',     plats:['xhs','gzh','wb','dy']},
+  {date:'2026-10-13', group:'sun',   col:'实验室共创官', title:'10月场招募海报',     plats:['xhs','gzh','wb']},
   /* 超级共创会 */
-  {date:'2026-10-21', group:'other', col:'线下活动', title:'限时4天！三甲医生免费义诊+领取蓝胖子小样', plats:['xhs','gzh','wb','dy'], stats:{xhs:{impr:1430, read:179, like:4, comment:0, collect:0, share:0}}},
+  {date:'2026-10-21', group:'other', col:'线下活动', title:'限时4天！三甲医生免费义诊+领取蓝胖子小样', plats:['xhs','gzh','wb'], stats:{xhs:{impr:1430, read:179, like:4, comment:0, collect:0, share:0}}},
   /* 青少年共创官 */
   /* 品牌共创官（用户 10.19 追加） */
-  {date:'2026-10-20', group:'sun', col:'品牌共创官', title:'共创官回顾视频', plats:['sph','xhs','wb','dy'], stats:{xhs:{impr:3709, read:1812, like:19, comment:7, collect:3, share:2}}},
-  {date:'2026-10-22', group:'sun', col:'品牌共创官', title:'共创官招募海报', plats:['xhs','gzh','dy'], stats:{xhs:{impr:4851, read:298, like:11, comment:16, collect:3, share:5}}},
-  {date:'2026-10-26', group:'sun',   col:'品牌共创官',   title:'共创官mini vlog视频', plats:['sph','xhs','wb','dy'], stats:{xhs:{impr:1928, read:252, like:5, comment:2, collect:0, share:0}}},
+  {date:'2026-10-20', group:'sun', col:'品牌共创官', title:'共创官回顾视频', plats:['sph','xhs','wb'], stats:{xhs:{impr:3709, read:1812, like:19, comment:7, collect:3, share:2}}},
+  {date:'2026-10-22', group:'sun', col:'品牌共创官', title:'共创官招募海报', plats:['xhs','gzh'], stats:{xhs:{impr:4851, read:298, like:11, comment:16, collect:3, share:5}}},
+  {date:'2026-10-26', group:'sun',   col:'品牌共创官',   title:'共创官mini vlog视频', plats:['sph','xhs','wb'], stats:{xhs:{impr:1928, read:252, like:5, comment:2, collect:0, share:0}}},
   /* 产品营销 */
-  {date:'2026-10-09', group:'other', col:'产品营销',     title:'蓝胖子—达人沐颜视频二创', plats:['xhs','wb','sph','dy'], stats:{wb:{read:252, like:0, comment:0, share:0}, xhs:{impr:12056, read:2146, like:193, comment:2, collect:49, share:1}}},
-  {date:'2026-10-20', group:'other', col:'线下活动', title:'蓝胖子修红巡游车来啦', plats:['xhs','gzh','wb','dy'], stats:{xhs:{impr:1507, read:107, like:5, comment:1, collect:1, share:0}}},
-  {date:'2026-10-24', group:'other', col:'线下活动', title:'蓝胖子路演首日回顾', plats:['xhs','gzh','wb','dy'], stats:{xhs:{impr:1363, read:230, like:5, comment:1, collect:2, share:1}}},
+  {date:'2026-10-09', group:'other', col:'产品营销',     title:'蓝胖子—达人沐颜视频二创', plats:['xhs','wb','sph'], stats:{wb:{read:252, like:0, comment:0, share:0}, xhs:{impr:12056, read:2146, like:193, comment:2, collect:49, share:1}}},
+  {date:'2026-10-20', group:'other', col:'线下活动', title:'蓝胖子修红巡游车来啦', plats:['xhs','gzh','wb'], stats:{xhs:{impr:1507, read:107, like:5, comment:1, collect:1, share:0}}},
+  {date:'2026-10-24', group:'other', col:'线下活动', title:'蓝胖子路演首日回顾', plats:['xhs','gzh','wb'], stats:{xhs:{impr:1363, read:230, like:5, comment:1, collect:2, share:1}}},
   /* 专业向 */
   {date:'2026-10-17', group:'pro',   col:'科研前线',     title:'IFSCC成分图文解读（韧肤因pro）', plats:['xhs','wb','gzh'], stats:{xhs:{impr:819, read:33, like:3, comment:0, collect:0, share:0}}},
-  {date:'2026-10-24', group:'pro', col:'科研前线', title:'IFSCC成分图文解读（超分子积雪草）', plats:['xhs','wb','gzh','dy'], stats:{xhs:{impr:1324, read:102, like:2, comment:2, collect:0, share:0}}},
-  {date:'2026-10-31', group:'pro',   col:'科学答案',     title:'小蓝瓶面霜Q&A',      plats:['xhs','wb','sph','dy']},
+  {date:'2026-10-24', group:'pro', col:'科研前线', title:'IFSCC成分图文解读（超分子积雪草）', plats:['xhs','wb','gzh'], stats:{xhs:{impr:1324, read:102, like:2, comment:2, collect:0, share:0}}},
+  {date:'2026-10-31', group:'pro',   col:'科学答案',     title:'小蓝瓶面霜Q&A',      plats:['xhs','wb','sph']},
   /* 阳光向 */
-  {date:'2026-10-25', group:'sun', col:'1.2m的好奇心', title:'1.2米好奇心视频', plats:['xhs','wb','sph','dy'], stats:{xhs:{impr:3091, read:838, like:46, comment:4, collect:31, share:0}}},
+  {date:'2026-10-25', group:'sun', col:'1.2m的好奇心', title:'1.2米好奇心视频', plats:['xhs','wb','sph'], stats:{xhs:{impr:3091, read:838, like:46, comment:4, collect:31, share:0}}},
   /* 月度大事件 */
   /* 高光时刻 */
   {date:'2026-10-10', group:'pro',   col:'高光时刻',     title:'IFSCC回顾视频',      plats:['xhs','wb','sph'], stats:{wb:{read:254, like:1, comment:0, share:0}, xhs:{impr:2711, read:371, like:8, comment:4, collect:2, share:2}}},
@@ -592,28 +594,28 @@ const ITEMS = [
   {date:'2026-11-05', group:'other', col:'产品营销',     title:'双11营销内容', plats:['xhs'], stats:{xhs:{impr:1678, read:140, like:4, comment:3, collect:0, share:0}}},
   {date:'2026-11-06', group:'other', col:'互动福利',     title:'微距大挑战！猜对带礼物回家', plats:['xhs'], stats:{xhs:{impr:2381, read:210, like:30, comment:40, collect:25, share:6}}},
   {date:'2026-11-07', group:'pro',   col:'科研前线',     title:'小蓝瓶成分', plats:['xhs'], stats:{xhs:{impr:3402, read:315, like:6, comment:4, collect:3, share:1}}},
-  {date:'2026-11-25', group:'sun',   col:'1.2m的好奇心', title:'1.2米好奇心-正片',     plats:['sph','xhs','wb','dy']},
+  {date:'2026-11-25', group:'sun',   col:'1.2m的好奇心', title:'1.2米好奇心-正片',     plats:['sph','xhs','wb']},
   {date:'2026-11-28', group:'pro',   col:'科学答案',     title:'新的Q&A',               plats:['xhs','wb','gzh']},
   {date:'2026-11-30', group:'other', col:'月度大事件',   title:'品牌月度大事件',        plats:['gzh']},
 
   /* ---------- 11月 共创官系列（用户 10.23 规划：屈臣氏 / 品牌 双线） ---------- */
-  {date:'2026-11-11', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官活动回顾视频', plats:['sph','xhs','wb','dy'], stats:{xhs:{impr:10657, read:5179, like:15, comment:3, collect:6, share:2}}},
-  {date:'2026-11-10', group:'sun', col:'品牌·一般向',   title:'世界儿童日征集',        plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:6270, read:653, like:39, comment:40, collect:30, share:18}}},
-  {date:'2026-11-11', group:'pro', col:'产品营销',     title:'蓝胖子护肤视频',        plats:['sph','xhs','wb','dy'], stats:{xhs:{impr:6553, read:848, like:50, comment:1, collect:20, share:2}}},
-  {date:'2026-11-13', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官回顾图文',    plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:2130, read:140, like:7, comment:4, collect:4, share:3}}},
+  {date:'2026-11-11', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官活动回顾视频', plats:['sph','xhs','wb'], stats:{xhs:{impr:10657, read:5179, like:15, comment:3, collect:6, share:2}}},
+  {date:'2026-11-10', group:'sun', col:'品牌·一般向',   title:'世界儿童日征集',        plats:['xhs','wb','gzh'], stats:{xhs:{impr:6270, read:653, like:39, comment:40, collect:30, share:18}}},
+  {date:'2026-11-11', group:'pro', col:'产品营销',     title:'蓝胖子护肤视频',        plats:['sph','xhs','wb'], stats:{xhs:{impr:6553, read:848, like:50, comment:1, collect:20, share:2}}},
+  {date:'2026-11-13', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官回顾图文',    plats:['xhs','wb','gzh'], stats:{xhs:{impr:2130, read:140, like:7, comment:4, collect:4, share:3}}},
   {date:'2026-11-14', group:'sun', col:'青少年共创官', title:'青少年烦恼征集帖',      plats:['xhs'], stats:{xhs:{impr:15203, read:1039, like:15, comment:13, collect:9, share:12}}},
-  {date:'2026-11-14', group:'sun', col:'实验室共创官', title:'共创官-小小科学家集锦',  plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:1987, read:120, like:5, comment:3, collect:2, share:1}}},
+  {date:'2026-11-14', group:'sun', col:'实验室共创官', title:'共创官-小小科学家集锦',  plats:['xhs','wb','gzh'], stats:{xhs:{impr:1987, read:120, like:5, comment:3, collect:2, share:1}}},
   {date:'2026-11-15', group:'pro', col:'科学答案', title:'蓝胖子Q&A', plats:['xhs'], stats:{xhs:{impr:2415, read:121, like:6, comment:2, collect:3, share:0}}},
-  {date:'2026-11-16', group:'sun', col:'青少年共创官', title:'共创官-青少年活动招募', plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:8482, read:753, like:14, comment:30, collect:12, share:17}}},
-  {date:'2026-11-17', group:'pro', col:'产品营销',     title:'蓝胖子护肤系列图文',    plats:['xhs','wb','gzh','dy'], stats:{xhs:{impr:6608, read:632, like:79, comment:7, collect:38, share:0}}},
-  {date:'2026-11-20', group:'sun', col:'品牌·一般向',   title:'世界儿童日征集回顾',    plats:['xhs','wb','dy','gzh'], stats:{xhs:{impr:2817, read:236, like:32, comment:4, collect:19, share:1}}},
-  {date:'2026-11-21', group:'pro', col:'科学答案',     title:'蓝胖子功效成分',        plats:['xhs','gzh','wb','dy'], stats:{xhs:{impr:1226, read:83, like:6, comment:2, collect:0, share:0}}},
-  {date:'2026-11-24', group:'sun', col:'1.2m的好奇心', title:'1.2米好奇心-预热',     plats:['sph','xhs','wb','dy']},
+  {date:'2026-11-16', group:'sun', col:'青少年共创官', title:'共创官-青少年活动招募', plats:['xhs','wb','gzh'], stats:{xhs:{impr:8482, read:753, like:14, comment:30, collect:12, share:17}}},
+  {date:'2026-11-17', group:'pro', col:'产品营销',     title:'蓝胖子护肤系列图文',    plats:['xhs','wb','gzh'], stats:{xhs:{impr:6608, read:632, like:79, comment:7, collect:38, share:0}}},
+  {date:'2026-11-20', group:'sun', col:'品牌·一般向',   title:'世界儿童日征集回顾',    plats:['xhs','wb','gzh'], stats:{xhs:{impr:2817, read:236, like:32, comment:4, collect:19, share:1}}},
+  {date:'2026-11-21', group:'pro', col:'科学答案',     title:'蓝胖子功效成分',        plats:['xhs','gzh','wb'], stats:{xhs:{impr:1226, read:83, like:6, comment:2, collect:0, share:0}}},
+  {date:'2026-11-24', group:'sun', col:'1.2m的好奇心', title:'1.2米好奇心-预热',     plats:['sph','xhs','wb']},
 
   /* ---------- 12月 保留项（2026-11-26 用户清理：只留 12.1–12.3 + 每周六专业向内容） ---------- */
-  {date:'2026-12-01', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官回顾图文',    plats:['xhs','wb','dy','gzh']},
-  {date:'2026-12-02', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官活动vlog',    plats:['sph','xhs','wb','dy']},
-  {date:'2026-12-03', group:'other', col:'品牌共创官',   title:'月度互动海报',            plats:['xhs','wb','dy','gzh']},
+  {date:'2026-12-01', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官回顾图文',    plats:['xhs','wb','gzh']},
+  {date:'2026-12-02', group:'sun', col:'屈臣氏共创官', title:'屈臣氏共创官活动vlog',    plats:['sph','xhs','wb']},
+  {date:'2026-12-03', group:'other', col:'品牌共创官',   title:'月度互动海报',            plats:['xhs','wb','gzh']},
 
   /* 每周六固定发布：专业向内容（2026-11-26 统一改名 + 红/微/绿；栏目按单双周轮换：单周=科学答案 / 双周=科研前线） */
   {date:'2026-12-05', group:'pro',   col:'科学答案',     title:'专业向内容',            plats:['xhs','wb','gzh']},
@@ -622,20 +624,20 @@ const ITEMS = [
   {date:'2026-12-26', group:'pro',   col:'科研前线',     title:'专业向内容',            plats:['xhs','wb','gzh']},
 
   /* ---------- 12月 用户 11-26 补充（节气 / 圣诞 / 品牌公关 / 渠道 / IFSCC） ---------- */
-  {date:'2026-12-07', group:'sun',   col:'品牌·一般向',   title:'大雪图文',              plats:['xhs','wb','dy','gzh']},
+  {date:'2026-12-07', group:'sun',   col:'品牌·一般向',   title:'大雪图文',              plats:['xhs','wb','gzh']},
   {date:'2026-12-10', group:'pro',   col:'科研前线',     title:'IFSCC主席到访图文',      plats:['xhs','wb','gzh']},
   {date:'2026-12-15', group:'sun',   col:'品牌·一般向',   title:'品牌维权案件图文',        plats:['xhs']},
   {date:'2026-12-18', group:'other', col:'线下活动',     title:'经销商大会推文',          plats:['gzh']},
   {date:'2026-12-18', group:'sun',   col:'品牌·一般向',   title:'品牌维权案件推文',        plats:['gzh']},
-  {date:'2026-12-22', group:'sun',   col:'品牌·一般向',   title:'冬至图文',              plats:['xhs','wb','dy','gzh']},
-  {date:'2026-12-25', group:'sun',   col:'品牌·一般向',   title:'圣诞视频',              plats:['sph','xhs','wb','dy']},
+  {date:'2026-12-22', group:'sun',   col:'品牌·一般向',   title:'冬至图文',              plats:['xhs','wb','gzh']},
+  {date:'2026-12-25', group:'sun',   col:'品牌·一般向',   title:'圣诞视频',              plats:['sph','xhs','wb']},
 ];
 
   /* ---------- 单篇「平台发布数据」（stats）录入说明 ----------
      每条排期可挂 stats 字段，按平台记录发布后的数据（进各平台后台截图/读数录入，严禁编造）。
      指标 key 见上方 PLAT_STATS；没有的平台不用写，未录入的指标一律 null（弹窗显示「待采集」/「—」）。
      示例：
-       {date:'2026-09-07', group:'sun', col:'品牌共创官', title:'草原篝火', plats:['xhs','wb','dy','gzh'],
+       {date:'2026-09-07', group:'sun', col:'品牌共创官', title:'草原篝火', plats:['xhs','wb','gzh'],
         stats:{ xhs:{impr:12000, read:8000, like:230, collect:45, comment:18, share:12},
                 wb:{read:5600, like:30, comment:5, share:8},
                 sph:{play:9000, like:66, comment:3, share:9},
